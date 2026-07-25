@@ -1,0 +1,1480 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Zayo APIs Maintenance Cases Quote API
+  description: 'Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    '
+  x-logo:
+    url: https://zayo-ui-bucket.s3-us-west-2.amazonaws.com/Common/Logos/zayo-logo-orange.png
+    altText: Zayo orange logo
+  contact:
+    name: Zayo API Team
+    email: zayoapi@zayo.com
+servers:
+- url: https://api.zayo.com
+  description: Production server
+security:
+- BearerToken: []
+- OAuthClientCredentials: []
+tags:
+- name: Quote
+  description: Grow your footprint by reviewing Zayo products in our Product Catalog API, generating quotes with our Quoting API, and automating the ordering process through the Order API.
+paths:
+  /services/quote-management/v3/quotes/quote:
+    post:
+      summary: Create or edit quote
+      description: Creates a quote using building or location information from the Network Discovery APIs and product code details from the Product Catalog APIs. You can also update an existing quote by passing in the quoteId. Each quote response will include the quote confinguration, `estimatedInstallInterval`, and pricing for multiple terms within the `financialTerms` array.
+      operationId: requestQuote
+      tags:
+      - Quote
+      requestBody:
+        description: 'Quote request body. This includes 3 major components - `attrs` array, `configuration` object, and `preferences` object. The `configuration` object will vary based on the product code and version, while the `attrs` and `preferences` object will have the same schema for all product codes and versions. '
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/uniCloudLinkQuoteRequest'
+              - $ref: '#/components/schemas/uniQuoteRequest'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/uniCloudLinkQuoteResponse'
+                - $ref: '#/components/schemas/uniQuoteResponse'
+              examples:
+                DIA - Immediate Pricing Available:
+                  value:
+                    apiVersion: v3
+                    data:
+                      configuration:
+                        children:
+                        - productCode: IP-DIA
+                          version: 3.7.0
+                          nodeId: EED0662D-0710-43D2-8539-498496F3B77E
+                          portHandoffSpeed: 10GigE
+                          locationA: a0b60000000W6LjAAK
+                          connectedIpv4Address: IPv4/31
+                          additionalIpv4Addresses:
+                          - IPv4/31: 0
+                            IPv4/29: 0
+                            IPv4/28: 0
+                            IPv4/27: 0
+                            IPv4/26: 0
+                            IPv4/24: 0
+                            IPv4/30: 0
+                          additionalIpv6Addresses:
+                          - IPv6/64 IPv6/48
+                          routing: false
+                          lag: false
+                          networkInterfaceDevice: false
+                          cfaProvidedBy: Zayo
+                          handoff: 2-Fiber (Optical SMF)
+                        nodeId: 6DD6BC0E-CE1F-4EAC-8D4A-07DE8F5BF597
+                        productCode: IP-DIA
+                        version: 3.7.0
+                        ddosProtection:
+                          ddosProtectionIncluded: false
+                          cleanTraffic: None
+                          subscription: None
+                        currencyIsoCode: USD
+                        bandwidth: 10G
+                        burstableService: false
+                        bandwidthType: Standard
+                        product: DIA
+                        productCategory: DIA
+                        aggregatedBandwidth: false
+                        locations:
+                        - locationId: a0b60000000W6LjAAK
+                          address: 393 Inverness Pkwy Englewood, CO 80112
+                          floorRoomSuite: Fl-1/Rm-DC-04
+                          buildingNetworkStatus: On Zayo Network
+                          buildingClassification: On-Net
+                          competitiveInternetEnablement: 'Yes'
+                          locationNetworkStatus: On Zayo Network
+                          preferredDemarc: true
+                          customerAccessRights: Full Access Tier 0
+                      preferences:
+                      - requestFollowUp: false
+                        notes: Some notes
+                        quoteNameIdentifier: Cutomer identifier, like a PO Number
+                      quoteId: 1cd080ac-1d02-4a9d-b7ee-3fe0d4a77d2b
+                      quoteNumber: Quote-10900936
+                      estimatedInstallInterval: 45 days
+                      financialTerms:
+                      - term: 12
+                        totalMrc: 1434.69
+                        totalNrc: 1100
+                      - term: 24
+                        totalMrc: 1274.1
+                        totalNrc: 1100
+                      - term: 36
+                        totalMrc: 1220.57
+                        totalNrc: 1100
+                      - term: 48
+                        totalMrc: 1167.04
+                        totalNrc: 1100
+                      - term: 60
+                        totalMrc: 1113.51
+                        totalNrc: 1100
+                      lineItems: []
+                      cpqStatus: Approved
+                UNI - Immediate Pricing Available:
+                  value:
+                    apiVersion: v3
+                    data:
+                      configuration:
+                        children:
+                        - productCode: ETH-ELINE-UNI
+                          version: 3.3.0
+                          nodeId: 61DE1859-7A99-4218-B43E-F96CD57303A0
+                          evcEnabled: false
+                          portHandoffSpeed: GigE
+                          locationA: a0b6000000A6IzoAAF
+                          lag: false
+                          cfaProvidedBy: Zayo
+                          handoff: 2-Fiber (Optical SMF)
+                          networkInterfaceDevice: false
+                        nodeId: AAC758F0-F719-470D-B716-E8EC6804810F
+                        productCode: ETH-ELINE-UNI
+                        version: 3.3.0
+                        currencyIsoCode: USD
+                        bandwidth: 1G
+                        burstableService: false
+                        qualityOfService: false
+                        mefCertified: false
+                        aggregatedBandwidth: false
+                        bandwidthType: Standard
+                        product: ELine
+                        productCategory: Pt to Multi-Pt (UNI)
+                        locations:
+                        - locationId: a0b6000000A6IzoAAF
+                          address: 1656 McCarthy Blvd Milpitas, CA 95035
+                          floorSuiteRoom: Fl-1/Rm-MMR
+                          buildingNetworkStatus: On Zayo Network
+                          buildingClassification: On-Net
+                          locationNetworkStatus: On Zayo Network
+                          preferredDemarc: false
+                          customerAccessRights: Full Access Tier 0
+                          nniLocation: false
+                        - locationId: a0b60000003KuM0AAK
+                          address: 2334 Lundy Pl San Jose, CA 95131
+                          floorSuiteRoom: Fl-1/Ste-100/Rm-MMR
+                          buildingNetworkStatus: On Zayo Network
+                          buildingClassification: On-Net
+                          locationNetworkStatus: On Zayo Network
+                          preferredDemarc: false
+                          customerAccessRights: Full Access Tier 0
+                          nniLocation: true
+                      preferences:
+                      - requestFollowUp: false
+                        notes: Some notes
+                        quoteNameIdentifier: Cutomer identifier, like a PO Number
+                      quoteId: c0011d2a-5deb-4ae3-b658-536535a83a4b
+                      quoteNumber: Quote-10900840
+                      estimatedInstallInterval: 40 days
+                      financialTerms:
+                      - term: 12
+                        totalMrc: 998.23
+                        totalNrc: 500
+                      - term: 24
+                        totalMrc: 873.18
+                        totalNrc: 500
+                      - term: 36
+                        totalMrc: 831.84
+                        totalNrc: 500
+                      - term: 48
+                        totalMrc: 790.43
+                        totalNrc: 500
+                      - term: 60
+                        totalMrc: 747.66
+                        totalNrc: 500
+                      lineItems: []
+                      cpqStatus: Approved
+                ICB:
+                  value:
+                    apiVersion: v3
+                    data:
+                      configuration:
+                        children:
+                        - productCode: WAVES-STD-P2P
+                          version: 3.0.0
+                          nodeId: 826D38D2-8242-4A6E-AD8A-D35BE2476750
+                          locationA: a0b60000000DnN3AAK
+                          cfaProvidedBy: Zayo
+                          lateral: One (Single)
+                        - productCode: WAVES-STD-P2P
+                          version: 3.0.0
+                          nodeId: 97D7EC88-D734-4069-BF62-D54E913ED0EA
+                          locationZ: a0b60000000W6LjAAK
+                          cfaProvidedBy: Zayo
+                          lateral: One (Single)
+                        nodeId: 348DBAF4-AC35-47D1-A9B8-1617BB25C57E
+                        productCode: WAVES-STD-P2P
+                        version: 3.0.0
+                        currencyIsoCode: USD
+                        bandwidth: 1G
+                        product: Standard Wavelength
+                        productCategory: Point-to-Point
+                        locations:
+                        - locationId: a0b60000000DnN3AAK
+                          address: 60 Hudson St New York, NY 10013
+                          floorSuiteRoom: Fl-12/Ste-1211
+                          buildingNetworkStatus: On Zayo Network
+                          buildingClassification: On-Net
+                          locationNetworkStatus: On Zayo Network
+                          preferredDemarc: true
+                          customerAccessRights: Full Access Tier 0
+                        - locationId: a0b60000000W6LjAAK
+                          address: 393 Inverness Pkwy Englewood, CO 80112
+                          floorSuiteRoom: Fl-1/Rm-DC-04
+                          buildingNetworkStatus: On Zayo Network
+                          buildingClassification: On-Net
+                          locationNetworkStatus: On Zayo Network
+                          referredDemarc: true
+                          customerAccessRights: Full Access Tier 0
+                      preferences:
+                        requestFollowUp: false
+                      quoteId: e93f59d6-2201-4346-9b19-9e95cb5f5265
+                      quoteNumber: Quote-10150144
+                      estimatedInstallInterval: 60 days
+                      financialTerms:
+                      - term: '12'
+                        totalMrc: ICB
+                        totalNrc: ICB
+                      - term: '24'
+                        totalMrc: ICB
+                        totalNrc: ICB
+                      - term: '36'
+                        totalMrc: ICB
+                        totalNrc: ICB
+                      - term: '48'
+                        totalMrc: ICB
+                        totalNrc: ICB
+                      - term: '60'
+                        totalMrc: ICB
+                        totalNrc: ICB
+                Quote Edit:
+                  value:
+                    apiVersion: v3
+                    data:
+                      quoteId: 9242dd1d-3b36-4755-a0b1-3a7c78935fc3
+                      configuration:
+                        children:
+                        - productCode: IP-DIA
+                          version: 3.7.0
+                          nodeId: EED0662D-0710-43D2-8539-498496F3B77E
+                          portHandoffSpeed: 10GigE
+                          locationA: a0b60000000W6LjAAK
+                          connectedIpv4Address: IPv4/31
+                          connectedIpv6Address: None
+                          additionalIpv4Addresses:
+                            IPv4/31: 0
+                            IPv4/29: 0
+                            IPv4/28: 0
+                            IPv4/27: 0
+                            IPv4/26: 0
+                            IPv4/25: 0
+                            IPv4/24: 0
+                            IPv4/30: 0
+                          additionalIPv6Addresses:
+                            IPv6/64: 0
+                            IPv6/48: 0
+                          routing: false
+                          lag: false
+                          networkInterfaceDevice: false
+                          cfaProvidedBy: Zayo
+                          handoff: 2-Fiber (Optical SMF)
+                        nodeId: 6DD6BC0E-CE1F-4EAC-8D4A-07DE8F5BF597
+                        productCode: IP-DIA
+                        version: 3.7.0
+                        ddosProtection:
+                          ddosProtectionIncluded: false
+                          cleanTraffic: None
+                          subscription: None
+                        currencyIsoCode: USD
+                        bandwidth: 5G
+                        burstableService: false
+                        bandwidthType: Standard
+                        product: DIA
+                        productCategory: DIA
+                        aggregatedBandwidth: false
+                        locations:
+                        - locationId: a0b60000000W6LjAAK
+                          address: 393 Inverness Pkwy Englewood, CO 80112
+                          floorSuiteRoom: Fl-1/Rm-DC-04
+                          buildingNetworkStatus: On Zayo Network
+                          buildingClassification: On-Net
+                          locationNetworkStatus: On Zayo Network
+                          preferredDemarc: false
+                          customerAccessRights: Full Access Tier 0
+                      preferences:
+                        requestFollowUp: false
+                        notes: This is a test
+                        quoteNameIdentifier: Zayo-923533
+                      quoteNumber: Quote-10117821
+                      estimatedInstallInterval: 45 days
+                      financialTerms:
+                      - term: '12'
+                        totalMrc: 1661.54
+                        totalNrc: 1100
+                      - term: '24'
+                        totalMrc: 1472.6
+                        totalNrc: 1100
+                      - term: '36'
+                        totalMrc: 1409.62
+                        totalNrc: 1100
+                      - term: '48'
+                        totalMrc: 1346.63
+                        totalNrc: 1100
+                      - term: '60'
+                        totalMrc: 1283.65
+                        totalNrc: 1100
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+              examples:
+                Missing Required Attribute:
+                  value:
+                    apiVersion: v3
+                    error:
+                      errorId: 8d3cf823-fe28-067e-50a5-ca2c8e2b8786
+                      code: 400
+                      message: 'Error: Failed JSON Validation - [ - should have required property ''bandwidth''. missingProperty: bandwidth]'
+                      errors: []
+                Cloud Provider is invalid for defined location:
+                  value:
+                    apiVersion: v3
+                    code: 400
+                    message: 'Error: Failed JSON Validation - [/children/0.cloudProvider - cloudProvider: Amazon AWS, is invalid for location: a0b60000003N2S8AAK. The following are valid cloudProvider options for this location: [Carpathia Hosting]. allowedValues: Carpathia Hosting]'
+  /services/quote-management/v3/quotes/quote/{quoteId}:
+    get:
+      summary: Get quote details
+      description: View quote, product configuration, and pricing information by quoteId. Get the same details you'd get from a create quote or edit quote request. You can pass in the `quoteId` or `quoteName` param, only one is required to retrieve your quote information.
+      operationId: getQuoteDetails
+      tags:
+      - Quote
+      parameters:
+      - name: quoteId
+        in: path
+        required: true
+        description: Either `quoteId` or `quoteName` is required. Unique quote identifier returned by the create or edit quote route.
+        schema:
+          type: string
+        examples:
+          quoteId (uuid):
+            value: 4d5c2bdc-473b-47d6-8958-a8028ac35850
+          quoteName (^Quote-\d+$):
+            value: Quote-10256816
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v2
+                  data:
+                    type: object
+                    properties:
+                      quoteId:
+                        type: string
+                        example: 9242dd1d-3b36-4755-a0b1-3a7c78935fc3
+                        format: uuid
+                      configuration:
+                        type: object
+                        properties:
+                          children:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                productCode:
+                                  type: string
+                                  example: IP-DIA
+                                version:
+                                  type: string
+                                  example: 3.7.0
+                                nodeId:
+                                  type: string
+                                  format: uuid
+                                  example: EED0662D-0710-43D2-8539-498496F3B77E
+                                portHandoffSpeed:
+                                  type: string
+                                  example: 10GigE
+                                locationA:
+                                  type: string
+                                  example: a0b60000000W6LjAAK
+                                connectedIpv4Address:
+                                  type: string
+                                  example: IPv4/31
+                                connectedIpv6Address:
+                                  type: string
+                                  example: None
+                                additionalIpv4Addresses:
+                                  type: object
+                                  properties:
+                                    IPv4/31:
+                                      type: integer
+                                      example: 0
+                                    IPv4/29:
+                                      type: integer
+                                      example: 0
+                                    IPv4/28:
+                                      type: integer
+                                      example: 0
+                                    IPv4/27:
+                                      type: integer
+                                      example: 0
+                                    IPv4/26:
+                                      type: integer
+                                      example: 0
+                                    IPv4/25:
+                                      type: integer
+                                      example: 0
+                                    IPv4/24:
+                                      type: integer
+                                      example: 0
+                                    IPv4/30:
+                                      type: integer
+                                      example: 0
+                                additionalIpv6Addresses:
+                                  type: object
+                                  properties:
+                                    IPv6/64:
+                                      type: integer
+                                      example: 0
+                                    IPv6/48:
+                                      type: integer
+                                      example: 0
+                                routing:
+                                  type: string
+                                  example: 'No'
+                                lag:
+                                  type: string
+                                  example: 'No'
+                                networkInterfaceDevice:
+                                  type: string
+                                  example: 'No'
+                                cfaProvidedBy:
+                                  type: string
+                                  example: Zayo
+                                handoff:
+                                  type: string
+                                  example: 2-Fiber (Optical SMF)
+                          nodeId:
+                            type: string
+                            example: 6DD6BC0E-CE1F-4EAC-8D4A-07DE8F5BF597
+                            format: uuid
+                          productCode:
+                            type: string
+                            example: IP-DIA
+                          version:
+                            type: string
+                            example: 3.7.0
+                          ddosProtection:
+                            type: object
+                            properties:
+                              ddosProtectionIncluded:
+                                type: boolean
+                                example: false
+                              cleanTraffic:
+                                type: string
+                                example: None
+                              subscription:
+                                type: string
+                                example: None
+                          currencyIsoCode:
+                            type: string
+                            example: USD
+                          bandwidth:
+                            type: string
+                            example: 5G
+                          burstableService:
+                            type: string
+                            example: 'No'
+                          bandwidthType:
+                            type: string
+                            example: Standard
+                          product:
+                            type: string
+                            example: DIA
+                          productCategory:
+                            type: string
+                            example: DIA
+                          aggregatedBandwidth:
+                            type: string
+                            example: 'No'
+                          locations:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                locationId:
+                                  type: string
+                                  example: a0b60000000W6LjAAK
+                                address:
+                                  type: string
+                                  example: 393 Inverness Pkwy Englewood, CO 80112
+                                floorSuiteRoom:
+                                  type: string
+                                  example: Fl-1/Rm-DC-04
+                                buildingNetworkStatus:
+                                  type: string
+                                  example: On Zayo Network
+                                buildingClassification:
+                                  type: string
+                                  example: On-Net
+                                competitiveInternetEnablement:
+                                  type: string
+                                  example: 'Yes'
+                                locationNetworkStatus:
+                                  type: string
+                                  example: On Zayo Network
+                                preferredDemarc:
+                                  type: string
+                                  example: 'Yes'
+                                customerAccessRights:
+                                  type: string
+                                  example: Full Access Tier 0
+                      preferences:
+                        type: object
+                        properties:
+                          requestFollowUp:
+                            type: string
+                            example: 'No'
+                          notes:
+                            type: string
+                            example: Some notes
+                          quoteNameIdentifier:
+                            type: string
+                            example: Customer Identifier, like a PO Number
+                      quoteNumber:
+                        type: string
+                        example: Quote-10117821
+                      estimatedInstallInterval:
+                        type: string
+                        example: 45 days
+                      financialTerms:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            term:
+                              type: string
+                              example: '12'
+                            totalMrc:
+                              type: number
+                              example: 1661.54
+                            totalNrc:
+                              type: number
+                              example: 1100
+                      lineItems:
+                        type: array
+                        items:
+                          type: string
+                      cpqStatus:
+                        type: string
+                        example: Approved
+              examples:
+                ETH-ELINE-P2P 3.3.0:
+                  value:
+                    apiVersion: v3
+                    data:
+                      configuration:
+                        children:
+                        - productCode: ETH-ELINE-P2P
+                          version: 3.3.0
+                          nodeId: E21DFC33-B3D0-4C53-90A9-73A713E2217E
+                          portHandoffSpeed: 10GigE
+                          locationA: a0b6000000FZkaZAAT
+                          lag: false
+                          cfaProvidedBy: Zayo
+                          handoff: 2-Fiber (Optical SMF)
+                          networkInterfaceDevice: false
+                        - productCode: ETH-ELINE-P2P
+                          version: 3.3.0
+                          nodeId: 8798F7D1-2C02-4C3D-916D-7B095A8524DF
+                          portHandoffSpeed: 10GigE
+                          locationZ: a0b60000003M8uxAAC
+                          lag: false
+                          cfaProvidedBy: Zayo
+                          handoff: 2-Fiber (Optical SMF)
+                          networkInterfaceDevice: false
+                        nodeId: 55E0230B-BB01-4D5B-B48B-07E7C9994616
+                        productCode: ETH-ELINE-P2P
+                        version: 3.3.0
+                        currencyIsoCode: USD
+                        bandwidth: 5G
+                        burstableService: false
+                        qualityOfService: false
+                        mefCertified: false
+                        aggregatedBandwidth: false
+                        bandwidthType: Standard
+                        product: ELine
+                        productCategory: Point-to-Point
+                        locations:
+                        - locationId: a0b6000000FZkaZAAT
+                          address: 151 Front St W Toronto, ON M5J 2N1
+                          floorSuiteRoom: Fl-1/Rm-MMR 2
+                          buildingNetworkStatus: On Zayo Network
+                          buildingClassification: On-Net
+                          locationNetworkStatus: On Zayo Network
+                          preferredDemarc: true
+                          customerAccessRights: Full Access Tier 0
+                        - locationId: a0b60000003M8uxAAC
+                          address: 3420 Ocean Park Blvd Santa Monica, CA 90405
+                          floorSuiteRoom: Fl-1/Rm-OSP Demarc
+                          buildingNetworkStatus: On Zayo Network
+                          buildingClassification: On-Net
+                          locationNetworkStatus: On Zayo Network
+                          preferredDemarc: true
+                          customerAccessRights: Full Access Tier 0
+                      preferences:
+                        requestFollowUp: false
+                      quoteId: 629896f7-61d4-4d19-ac6e-ddbcfe3e298b
+                      quoteNumber: Quote-10153701
+                      estimatedInstallInterval: 40 days
+                      financialTerms:
+                      - term: '12'
+                        totalMrc: 1541.17
+                        totalNrc: 859.17
+                      - term: '24'
+                        totalMrc: 1348.52
+                        totalNrc: 859.17
+                      - term: '36'
+                        totalMrc: 1284.31
+                        totalNrc: 859.17
+                      - term: '48'
+                        totalMrc: 1220.09
+                        totalNrc: 859.17
+                      - term: '60'
+                        totalMrc: 1155.88
+                        totalNrc: 859.17
+                      lineItems: []
+                      cpqStatus: Approved
+                IP-DIA 3.8.0:
+                  value:
+                    apiVersion: v3
+                    data:
+                      configuration:
+                        children:
+                        - productCode: IP-DIA
+                          version: 3.8.0
+                          nodeId: 255AE314-3966-4149-8122-CA4E4FC9B55D
+                          portHandoffSpeed: GigE
+                          handoff: 2-Fiber (Optical SMF)
+                          locationA: a0b60000008bU33AAE
+                          connectedIpv4Address: IPv4/31
+                          connectedIpv6Address: None
+                          additionalIpv4Addresses:
+                          - IPv4/31: 0
+                            IPv4/29: 0
+                            IPv4/28: 0
+                            IPv4/27: 0
+                            IPv4/26: 0
+                            IPv4/25: 0
+                            IPv4/24: 0
+                            IPv4/30: 0
+                          additionalIpv6Addresses:
+                          - IPv6/64: 0
+                            IPv6/48: 0
+                          routing: false
+                          lag: false
+                          networkInterfaceDevice: true
+                          cfaProvidedBy: Zayo
+                        nodeId: 551F50C8-501A-4C13-AD32-9D13308DBAC5
+                        productCode: IP-DIA
+                        version: 3.8.0
+                        ddosProtection:
+                        - ddosProtectionIncluded: false
+                          cleanTraffic: None
+                          subscription: None
+                        currencyIsoCode: USD
+                        bandwidth: 1G
+                        mefCertified: true
+                        burstableService: false
+                        bandwidthType: Standard
+                        product: DIA
+                        productCategory: DIA
+                        aggregatedBandwidth: false
+                        locations:
+                        - locationId: a0b60000008bU33AAE
+                          address: 10290 W 70th St Eden Prairie, MN 55344
+                          floorSuiteRoom: Fl-1/Rm-A-PoP
+                          buildingNetworkStatus: On Zayo Network
+                          buildingClassification: On-Net
+                          competitiveInternetEnablement: false
+                          locationNetworkStatus: On Zayo Network
+                          preferredDemarc: true
+                          customerAccessRights: Full Access Tier 0
+                      preferences:
+                        requestFollowUp: false
+                      quoteId: b56ba50c-bb41-42ef-8164-630f4af291f8
+                      quoteNumber: Quote-16342467
+                      estimatedInstallInterval: 35 days
+                      financialTerms:
+                      - term: '12'
+                        totalMrc: 964.8
+                        totalNrc: 3000
+                      - term: '24'
+                        totalMrc: 844.2
+                        totalNrc: 1500
+                      - term: '36'
+                        totalMrc: 804
+                        totalNrc: 0
+                      - term: '48'
+                        totalMrc: 763.8
+                        totalNrc: 0
+                      - term: '60'
+                        totalMrc: 723.6
+                        totalNrc: 0
+                      lineItems: []
+                      cpqStatus: Approved
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+              examples:
+                Private Quote:
+                  value:
+                    apiVersion: v2
+                    error:
+                      errorId: f35506e9-e088-c6a9-6f3f-f94432841f79
+                      code: 400
+                      message: Quote inaccessible!
+                      errors: []
+                Incorrect Quote Format:
+                  value:
+                    apiVersion: v2
+                    error:
+                      errorId: 8d3cf823-fe28-067e-50a5-ca2c8e2b8786
+                      code: 400
+                      message: This Quote Number (Quote-101537) could not be retrieved or is not available for your account.
+                      errors: []
+  /services/quote-management/v2/quotes/nnis:
+    post:
+      summary: View all NNI records
+      description: Retrieve all NNI records including quotes, orders, and services. Used to identify an NNI to associate with your UNI quote via the `nniId` in the quote request payload. The `nniId` attribute is optional, so if it is omitted from the quote request, Zayo will always default to the nearest NNI.
+      operationId: getNNIs
+      tags:
+      - Quote
+      requestBody:
+        description: Optional request body to add a filter on `type` of record and to add pagination.
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  type: object
+                  additionalProperties: false
+                  description: Object to define filter options.
+                  properties:
+                    locationId:
+                      type: string
+                      pattern: ^a0b
+                      example: a0b60000003KP8EAAW
+                      minLength: 18
+                      maxLength: 18
+                    type:
+                      type: array
+                      maxItems: 3
+                      uniqueItems: true
+                      default:
+                      - Quote
+                      - Service Order
+                      - Service
+                      items:
+                        type: string
+                        enum:
+                        - Quote
+                        - Service Order
+                        - Service
+                      description: Type of NNI record, please note this field is case-sensitive.
+                      example:
+                      - Service
+                paging:
+                  type: object
+                  additionalProperties: false
+                  description: Object to define pagination for the number of records per page, and how many records to skip. Follows odata pagination standards.
+                  properties:
+                    top:
+                      type: integer
+                      description: Number of records to be returned per page.
+                      example: 50
+                      default: 10
+                    skip:
+                      type: integer
+                      description: Number of records to skip.
+                      example: 0
+                      default: 0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Test Account NNIs:
+                  value:
+                    apiVersion: v2
+                    data:
+                      records:
+                      - nniId: a0M0z00000PiJ3DEAV
+                        custNNI: a1X0z000004aLbmEAE
+                        type: Service
+                        bandwidth: 10G
+                        circuitId: ETYX/TEST008/ZYO
+                        name: 559510
+                        productCategory: Pt to Multi-Pt (NNI)
+                        location: 393 Inverness Pkwy/Fl-1/Rm-DC-04 Englewood, CO 80112
+                        locationId: a0b60000000W6LjAAK
+                        address: 393 Inverness Pkwy
+                        floor: 1
+                        suite: null
+                        room: DC-04
+                        state: CO
+                        zip: 80112
+                        city: Englewood
+                        country: USA
+                        sortBy: 1
+                      - nniId: a0M0z00000PiJ33EAF
+                        custNNI: a1X0z000004aLbcEAE
+                        type: Service
+                        bandwidth: 1G
+                        circuitId: ETYX/TEST005/ZYO
+                        name: 559510
+                        productCategory: Pt to Multi-Pt (NNI)
+                        location: 4100 Bryan St/Fl-1/Rm-LSA 199 Dallas, TX 75204
+                        locationId: a0b60000003N9p6AAC
+                        address: 4100 Bryan St
+                        floor: 1
+                        suite: null
+                        room: LSA 199
+                        state: TX
+                        zip: 75204
+                        city: Dallas
+                        country: USA
+                        sortBy: 1
+                      metaData:
+                        top: 2
+                        skip: 0
+                        currentPage: 1
+                        totalPages: 98
+                        totalRecordCount: 195
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+components:
+  schemas:
+    uniQuoteResponse:
+      title: ETH-ELINE-UNI Response
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          example: v3
+        data:
+          type: object
+          properties:
+            configuration:
+              type: object
+              properties:
+                children:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      productCode:
+                        type: string
+                        example: ETH-ELINE-UNI
+                      version:
+                        type: string
+                        example: 3.3.0
+                      nodeId:
+                        type: string
+                        format: uuid
+                        example: AAC758F0-F719-470D-B716-E8EC6804810F
+                      evcEnabled:
+                        type: string
+                        example: 'No'
+                      portHandoffSpeed:
+                        type: string
+                        example: 10/100/1000BaseT
+                      handoff:
+                        type: string
+                        example: Copper (RJ-45 Electrical)
+                      networkInterfaceDevice:
+                        type: string
+                        example: 'Yes'
+                      cfaProvidedBy:
+                        type: string
+                        example: Zayo
+                      locationA:
+                        type: string
+                        example: a0b6000000A6IzoAAF
+                      lag:
+                        type: string
+                        example: false
+                nodeId:
+                  type: string
+                  example: C8E0AA1C-D301-462C-A9B7-3CA3B33F5E1C
+                  format: uuid
+                productCode:
+                  type: string
+                  example: ETH-ELINE-UNI
+                version:
+                  type: string
+                  example: 3.3.0
+                currencyIsoCode:
+                  type: string
+                  example: USD
+                bandwidth:
+                  type: string
+                  example: 50Mb
+                burstableService:
+                  type: string
+                  example: 'No'
+                qualityOfService:
+                  type: string
+                  example: 'Off'
+                mefCertified:
+                  type: string
+                  example: 'No'
+                aggregatedBandwidth:
+                  type: string
+                  example: 'No'
+                bandwidthType:
+                  type: string
+                  example: Standard
+                product:
+                  type: string
+                  example: ELine
+                productCategory:
+                  type: string
+                  example: Pt to Multi-Pt (UNI)
+                locations:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      locationId:
+                        type: string
+                        example: a0b6000000A6IzoAAF
+                      address:
+                        type: string
+                        example: 1656 McCarthy Blvd Milpitas, CA 95035
+                      floorSuiteRoom:
+                        type: string
+                        example: Fl-1/Rm-MMR
+                      buildingNetworkStatus:
+                        type: string
+                        example: On Zayo Network
+                      buildingClassification:
+                        type: string
+                        example: On-Net
+                      locationNetworkStatus:
+                        type: string
+                        example: On Zayo Network
+                      preferredDemarc:
+                        type: string
+                        example: true
+                      customerAccessRights:
+                        type: string
+                        example: Full Access Tier 0
+                      nniLocation:
+                        type: boolean
+                        example: false
+            preferences:
+              type: object
+              properties:
+                requestFollowUp:
+                  type: string
+                  example: 'No'
+                notes:
+                  type: string
+                  example: These are some notes
+                quoteNameIdentifier:
+                  type: string
+                  example: Quote-123
+            quoteId:
+              type: string
+              example: 0b85fdf6-f462-47b9-8bf3-7996f4f2db9a
+              format: uuid
+            quoteNumber:
+              type: string
+              example: Quote-9500090
+            estimatedInstallInterval:
+              type: string
+              example: 40 days
+            financialTerms:
+              type: array
+              items:
+                type: object
+                properties:
+                  term:
+                    type: string
+                    example: '12'
+                  totalMrc:
+                    anyOf:
+                    - type: integer
+                      example: 806
+                    - type: number
+                      example: 957.2
+                    - type: string
+                      example: ICB
+                  totalNrc:
+                    anyOf:
+                    - type: integer
+                      example: 500
+                    - type: number
+                      example: 500.5
+                    - type: string
+                      example: ICB
+    uniCloudLinkQuoteRequest:
+      title: ETH-ELINE-UNI Cloud Request
+      type: object
+      properties:
+        configuration:
+          type: object
+          required:
+          - nodeId
+          - productCode
+          - version
+          - bandwidth
+          - cloudProvider
+          properties:
+            nodeId:
+              type: string
+              example: AAC758F0-F719-470D-B716-E8EC6804810F
+              format: uuid
+            productCode:
+              type: string
+              example: ETH-ELINE-UNI
+            version:
+              type: string
+              example: 3.3.0
+            currencyIsoCode:
+              type: string
+              example: USD
+            bandwidth:
+              type: string
+              example: 1G
+            burstableService:
+              type: string
+              example: false
+            qualityOfService:
+              type: string
+              example: false
+            mefCertified:
+              type: string
+              example: false
+            children:
+              type: array
+              items:
+                type: object
+                required:
+                - nodeId
+                - productCode
+                - version
+                - buildingA
+                - locationA
+                properties:
+                  productCode:
+                    type: string
+                    example: ETH-ELINE-UNI
+                  version:
+                    type: string
+                    example: 3.3.0
+                  nodeId:
+                    type: string
+                    format: uuid
+                    example: 61DE1859-7A99-4218-B43E-F96CD57303A0
+                  portHandoffSpeed:
+                    type: string
+                    example: GigE
+                  handoff:
+                    type: string
+                    example: 2-Fiber (Optical MMF)
+                  networkInterfaceDevice:
+                    type: string
+                    example: true
+                  cfaProvidedBy:
+                    type: string
+                    example: Zayo
+                  buildingA:
+                    type: string
+                    example: a0W60000000CVbEEAW
+                    description: buildingId returned from the /buildings/validation route. Either a buildingA or locationA is required.
+                  locationA:
+                    type: string
+                    example: a0b6000000A6IzoAAF
+                    description: locationId returned from the /building/{buildingId}/locations route. Either a buildingA or locationA is required.
+                  cloudProvider:
+                    type: string
+                    example: Amazon AWS
+                    description: 'Cloud Provider you wish to connect with. Options include - Accenture, ADISTA, AIS Business Cloud, Ajubeo, Alibaba Cloud, Amazon AWS, Artisan Infrastructure, Carpathia Hosting, Cisco Webex Edge Connect, Cloudflare, DataBank Cloud Services, Day 1 Solutions, Enovance, Expedient, Flexential: FlexAnywhere, Fullsave, Google Cloud, GROUPE RDI, Hosting.com, IBM Cloud, Ikoula, IntelePeer, Internap, Linkbynet, Lunavi Inc, Microsoft Azure / Office365, Microsoft Cloud for Government, NetDepot, Nimbix, Oracle Cloud, Outscale, OVH, Oxalide, Packet, Phoenix NAP, QTS Cloud Services, RapidScale, Salesforce, Scale Matrix, StratoGen, The Faction Group, Twilio, Virtustream, Vitelity Cloud, VMware Cloud on AWS, Wasabi Cloud, and Xtium.'
+                  connectionType:
+                    type: string
+                    example: Hosted
+                    description: Type of connection to the cloud on ramp, options include - dedicated or hosted.
+                  nniId:
+                    type: string
+                    example: a0M0z00000OuUB8EAN
+                    description: Unique identifier of the related NNI service where you want to add a cloud connection. You can find all NNIs in the view all NNI records route. If this field is null, Zayo will default to the closest NNI service. If no services are found, then you will get an error to associate a related NNI record. The best way to solve this error is to create an NNI quote and use the quoteId as the nniId.
+        preferences:
+          type: object
+          properties:
+            requestFollowUp:
+              type: string
+              example: false
+            notes:
+              type: string
+              example: These are some notes
+            quoteNameIdentifier:
+              type: string
+              example: Quote-123
+    uniQuoteRequest:
+      title: ETH-ELINE-UNI Request
+      type: object
+      properties:
+        configuration:
+          type: object
+          required:
+          - nodeId
+          - productCode
+          - version
+          - bandwidth
+          properties:
+            nodeId:
+              type: string
+              example: AAC758F0-F719-470D-B716-E8EC6804810F
+              format: uuid
+            productCode:
+              type: string
+              example: ETH-ELINE-UNI
+            version:
+              type: string
+              example: 3.3.0
+            currencyIsoCode:
+              type: string
+              example: USD
+            bandwidth:
+              type: string
+              example: 50Mb
+            burstableService:
+              type: string
+              example: 'No'
+            qualityOfService:
+              type: string
+              example: 'Off'
+            mefCertified:
+              type: string
+              example: 'No'
+            children:
+              type: array
+              items:
+                type: object
+                required:
+                - productCode
+                - nodeId
+                - version
+                - buildingA
+                - locationA
+                properties:
+                  productCode:
+                    type: string
+                    example: ETH-ELINE-UNI
+                  version:
+                    type: string
+                    example: 3.3.0
+                  nodeId:
+                    type: string
+                    example: 61DE1859-7A99-4218-B43E-F96CD57303A0
+                  portHandoffSpeed:
+                    type: string
+                    example: 10/100/1000BaseT
+                  handoff:
+                    type: string
+                    example: Copper (RJ-45 Electrical)
+                  networkInterfaceDevice:
+                    type: string
+                    example: 'Yes'
+                  cfaProvidedBy:
+                    type: string
+                    example: Zayo
+                  buildingA:
+                    type: string
+                    example: a0W60000000CVbEEAW
+                    description: buildingId returned from the /buildings/validation route. Either a buildingA or locationA is required.
+                  locationA:
+                    type: string
+                    example: a0b6000000A6IzoAAF
+                    description: locationId returned from the /building/{buildingId}/locations route. Either a buildingA or locationA is required.
+                  nniId:
+                    type: string
+                    example: a0M0z00000OuUB8EAN
+                    description: Unique identifier of the related NNI reference to connect your service back to. You can find all NNIs in the view all NNI records route. If this field is null, Zayo will default to the closest NNI service. If no services are found, then you will get an error to associate a related NNI record. The best way to solve this error is to create an NNI quote and use the quoteId as the `nniId`.
+                  lag:
+                    type: string
+                    example: false
+                    description: LAG (Link Aggregation) gives you the ability to enhance your network capacity and reduce cost while maintaining a fast transmission speed by using all the same hardware devices.
+        preferences:
+          type: object
+          properties:
+            requestFollowUp:
+              type: string
+              example: 'No'
+            notes:
+              type: string
+              example: These are some notes
+            quoteNameIdentifier:
+              type: string
+              example: Quote-123
+    400Response:
+      title: 400 Response
+      description: Bad Request
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the request.
+        error:
+          type: object
+          description: Error information from the request.
+          properties:
+            errorId:
+              type: string
+              format: uuid
+              example: 851e419f-93df-46b3-a718-819e923c88f4
+              description: UUID for Zayo troubleshooting.
+            code:
+              type: integer
+              example: 400
+              description: 400 - the request contains bad syntax or cannot be fulfilled.
+            message:
+              type: string
+              description: More detailed explanation of the error.
+            errors:
+              type: array
+              description: Additional error information, if necessary.
+              items:
+                type: string
+                description: Not used yet by Zayo teams, this is typically null.
+    uniCloudLinkQuoteResponse:
+      title: ETH-ELINE-UNI Cloud Response
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          example: v3
+        data:
+          type: object
+          properties:
+            configuration:
+              type: object
+              properties:
+                children:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      productCode:
+                        type: string
+                        example: ETH-ELINE-UNI
+                      version:
+                        type: string
+                        example: 3.3.0
+                      nodeId:
+                        type: string
+                        format: uuid
+                        example: 61DE1859-7A99-4218-B43E-F96CD57303A0
+                      evcEnabled:
+                        type: string
+                        example: false
+                        description: If yes, this quote may be eligible for same-day activation.
+                      portHandoffSpeed:
+                        type: string
+                        example: GigE
+                      handoff:
+                        type: string
+                        example: 2-Fiber (Optical MMF)
+                      networkInterfaceDevice:
+                        type: string
+                        example: true
+                      cfaProvidedBy:
+                        type: string
+                        example: Zayo
+                      locationA:
+                        type: string
+                        example: a0b6000000A6IzoAAF
+                      cloudProvider:
+                        type: string
+                        example: Amazon AWS
+                      connectionType:
+                        type: string
+                        example: Dedicated
+                      locationType:
+                        type: string
+                        example: CloudLink
+                        description: Zayo indicator that the quote is for a CloudLink service.
+                      nniId:
+                        type: string
+                        example: a0M0z00000OuUB8EAN
+                      lag:
+                        type: string
+                        example: false
+                nodeId:
+                  type: string
+                  example: AAC758F0-F719-470D-B716-E8EC6804810F
+                  format: uuid
+                productCode:
+                  type: string
+                  example: ETH-ELINE-UNI
+                version:
+                  type: string
+                  example: 3.3.0
+                currencyIsoCode:
+                  type: string
+                  example: USD
+                bandwidth:
+                  type: string
+                  example: 1G
+                burstableService:
+                  type: string
+                  example: 'No'
+                qualityOfService:
+                  type: string
+                  example: 'Off'
+                mefCertified:
+                  type: string
+                  example: 'No'
+                aggregatedBandwidth:
+                  type: string
+                  example: 'No'
+                bandwidthType:
+                  type: string
+                  example: Standard
+                product:
+                  type: string
+                  example: ELine
+                productCategory:
+                  type: string
+                  example: Pt to Multi-Pt (UNI)
+                locations:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      locationId:
+                        type: string
+                        example: a0b6000000A6IzoAAF
+                      address:
+                        type: string
+                        example: 1656 McCarthy Blvd Milpitas, CA 95035
+                      floorSuiteRoom:
+                        type: string
+                        example: Fl-1/Rm-MMR
+                      buildingNetworkStatus:
+                        type: string
+                        example: On Zayo Network
+                      buildingClassification:
+                        type: string
+                        example: On-Net
+                      locationNetworkStatus:
+                        type: string
+                        example: On Zayo Network
+                      preferredDemarc:
+                        type: string
+                        example: true
+                      customerAccessRights:
+                        type: string
+                        example: Full Access Tier 0
+                      nniLocation:
+                        type: boolean
+                        example: false
+                      locationType:
+                        type: string
+                        example: CloudLink
+                      cloudProvider:
+                        type: string
+                        example: Amazon AWS
+                      destinationName:
+                        type: string
+                        example: US West (N. California)
+            preferences:
+              type: object
+              properties:
+                requestFollowUp:
+                  type: string
+                  example: 'No'
+                notes:
+                  type: string
+                  example: These are some notes
+                quoteNameIdentifier:
+                  type: string
+                  example: Quote-123
+            quoteId:
+              type: string
+              example: 474fe2db-2cf2-44b9-b9a7-b5e740a9d487
+              format: uuid
+            quoteNumber:
+              type: string
+              example: Quote-9491826
+            estimatedInstallInterval:
+              type: string
+              example: 40 days
+            financialTerms:
+              type: array
+              items:
+                type: object
+                properties:
+                  term:
+                    type: string
+                    example: '1'
+                  totalMrc:
+                    anyOf:
+                    - type: integer
+                      example: 806
+                    - type: number
+                      example: 957.2
+                    - type: string
+                      example: ICB
+                  totalNrc:
+                    anyOf:
+                    - type: integer
+                      example: 500
+                    - type: number
+                      example: 500.5
+                    - type: string
+                      example: ICB
+  securitySchemes:
+    BearerToken:
+      type: http
+      bearerFormat: JWT
+      description: Bearer token authentication.
+      scheme: bearer
+    OAuthClientCredentials:
+      description: OAuth 2.0 using the Client Credentials grant type.
+      flows:
+        clientCredentials:
+          scopes:
+            openid: openid scope
+          tokenUrl: https://auth.api.zayo.com/oauth/token
+      type: oauth2

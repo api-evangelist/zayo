@@ -1,0 +1,1295 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Zayo APIs Maintenance Cases API
+  description: 'Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    '
+  x-logo:
+    url: https://zayo-ui-bucket.s3-us-west-2.amazonaws.com/Common/Logos/zayo-logo-orange.png
+    altText: Zayo orange logo
+  contact:
+    name: Zayo API Team
+    email: zayoapi@zayo.com
+servers:
+- url: https://api.zayo.com
+  description: Production server
+security:
+- BearerToken: []
+- OAuthClientCredentials: []
+tags:
+- name: Maintenance Cases
+  description: Monitor upcoming outages with Maintenance Cases API. The Zayo Maintenance Cases API is composed of a series of API calls that are intended to be leveraged sequentially with each request/response cycle providing the required inputs for the next step in the Maintenance Case flow.
+paths:
+  /services/service-management/v1/maintenance-cases:
+    post:
+      summary: Get all maintenance cases
+      description: "\n:::warning\nIf no date filters are provided in the payload, results will be filtered server side for the Last 30 Days.\n:::\n\n\nRetrieve all Maintenance Cases based on filter, search, order by, and pagination options. Maintenance Cases include maintenance event information like urgency, level of impact, status, primary date, second primary date, third primary date, time, time zone, reason for maintenance, location, latitude, and longitude. \n\n\nThe recommended flow is to get your Maintenance Case, then use the `caseNumber` or `caseId` as a filter option to receive the impacted circuits for that maintenance event.\n\n\nTo get related services impacted by this event data from the Maintenance Case, pass in the `caseId` or `caseNumber` value as a filter option in the Maintenance Impacts route.\n"
+      operationId: getMaintenanceCases
+      tags:
+      - Maintenance Cases
+      requestBody:
+        description: Optional body to apply filters, search values, and pagination as well as order by defined attributes to return a specific list of Maintenance Cases.
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                filter:
+                  type: object
+                  description: Object to define filter options.
+                  additionalProperties: false
+                  properties:
+                    caseId:
+                      $ref: '#/components/schemas/caseId'
+                    caseNumber:
+                      $ref: '#/components/schemas/caseNumber'
+                    levelOfImpact:
+                      example: Service Affecting
+                      $ref: '#/components/schemas/levelOfImpact'
+                    fromTime:
+                      $ref: '#/components/schemas/fromTime'
+                    location:
+                      $ref: '#/components/schemas/location'
+                      example: 175 W Cordova St, Vancouver, BC, V6B 1E1
+                    latitude:
+                      $ref: '#/components/schemas/latitude'
+                    longitude:
+                      $ref: '#/components/schemas/longitude'
+                    primaryDate:
+                      $ref: '#/components/schemas/primaryDate'
+                    status:
+                      $ref: '#/components/schemas/status'
+                      example: Scheduled
+                    toTime:
+                      $ref: '#/components/schemas/toTime'
+                    timeZone:
+                      $ref: '#/components/schemas/timeZone'
+                    x2ndPrimaryDate:
+                      $ref: '#/components/schemas/x2ndPrimaryDate'
+                    x3rdPrimaryDate:
+                      $ref: '#/components/schemas/x3rdPrimaryDate'
+                    urgency:
+                      $ref: '#/components/schemas/urgency'
+                    or:
+                      type: array
+                      additionalProperties: false
+                      minItems: 2
+                      maxItems: 5
+                      items:
+                        $ref: '#/components/schemas/orFilter'
+                orderBy:
+                  type: array
+                  description: Array to specify results ordering.
+                  additionalProperties: false
+                  uniqueItems: true
+                  items:
+                    type: string
+                    example: primaryDate desc
+                    enum:
+                    - caseId
+                    - caseId asc
+                    - caseId desc
+                    - caseNumber
+                    - caseNumber asc
+                    - caseNumber desc
+                    - levelOfImpact
+                    - levelofImpact asc
+                    - levelOfImpact desc
+                    - fromTime
+                    - fromTime asc
+                    - fromTime desc
+                    - location
+                    - location asc
+                    - location desc
+                    - latitude
+                    - latitude asc
+                    - latitude desc
+                    - longitude
+                    - longitude asc
+                    - longitude desc
+                    - primaryDate
+                    - primaryDate asc
+                    - primaryDate desc
+                    - status
+                    - status asc
+                    - status desc
+                    - timeZone
+                    - timeZone asc
+                    - timeZone desc
+                    - toTime
+                    - toTime asc
+                    - toTime desc
+                    - x2ndPrimaryDate
+                    - x2ndPrimaryDate asc
+                    - x2ndPrimaryDate desc
+                    - x3rdPrimaryDate
+                    - x3rdPrimaryDate asc
+                    - x3rdPrimaryDate desc
+                    - urgency
+                    - urgency asc
+                    - urgency desc
+                search:
+                  type: string
+                  example: DKFB
+                  minLength: 1
+                paging:
+                  type: object
+                  additionalProperties: false
+                  required:
+                  - top
+                  - skip
+                  description: Object to define pagination for the number of records per page, and how many records to skip. Follows odata pagination standards.
+                  properties:
+                    top:
+                      type: integer
+                      description: Number of records to be returned per page.
+                      example: 50
+                      default: 10
+                      maximum: 50
+                      minimum: 0
+                    skip:
+                      type: integer
+                      description: Number of records to skip.
+                      default: 0
+                      minimum: 0
+            examples:
+              Filters and Order by:
+                value:
+                  filter:
+                    primaryDate:
+                      le: 2022-06-29
+                  orderBy:
+                  - primaryDate desc
+                  paging:
+                    top: 10
+                    skip: 0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v1
+                  data:
+                    type: object
+                    properties:
+                      records:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            caseId:
+                              type: string
+                              example: 5004z00001YdmnOAAR
+                            caseNumber:
+                              type: string
+                              example: TTN-0005305662
+                            urgency:
+                              type: string
+                              example: Demand
+                              description: Urgency of the case. Options include - planned (planned in advance and in adherence to the defined standard intervals for services impacted), demand (standard intervals cannot be met, such changes are planned with less than 10 business day’s lead-time), emergency (an immediate need to make changes to the current state of the environment, the immediate need is directly related to an outage, potential outage or degradation of the network).
+                            levelOfImpact:
+                              type: string
+                              example: Service Affecting
+                              description: Level of impact the event has on a service, options include - Non-Sevice Affecting, Service Affecting, Potential Service Affecting, HRE-Fiber Splicing, LRE-Fiber Splicing.
+                            status:
+                              type: string
+                              example: Closed
+                              description: Status of the Maintenance Case, options include - Scheduled, Rescheduled, Maintenance Started, Maintenance Stopped, Maintenance Completed, Cancelled, and Closed.
+                            primaryDate:
+                              type: string
+                              format: date
+                              example: '2021-10-08'
+                              description: First date of the Maintenance Event. All Maintenance Cases will have at least a primaryDate.
+                            x2ndPrimaryDate:
+                              type:
+                              - 'null'
+                              - string
+                              format: date
+                              example: '2021-07-10'
+                              description: Optional second date of the Maintenance Event if it is scheduled for more than 24 hours.
+                            x3rdPrimaryDate:
+                              type:
+                              - 'null'
+                              - string
+                              description: Optional second date of the Maintenance Event if it is scheduled for more than 48 hours.
+                            fromTime:
+                              type: string
+                              example: 00:01
+                              description: Start time of the entire Maintenance Event.
+                            toTime:
+                              type: string
+                              example: 05:00
+                              description: End time of the entire Maintenance Event.
+                            timeZone:
+                              type: string
+                              example: Pacific
+                              description: Time zone of the entire Maintenance Event.
+                              enum:
+                              - Pacific
+                              - Mountain
+                              - Centrl
+                              - Eastern
+                              - Atlantic
+                              - Newfoundland
+                              - GMT
+                              - Central Europe
+                              - Europe/London
+                              - CEST
+                              - AST
+                              - UTC
+                              - CET
+                              - NST
+                              - BST
+                            reasonForMaintenance:
+                              type: string
+                              example: Zayo will be upgrading the provider edge device to fix known issues and improve stability.
+                              description: Reason for the Maintenance Event.
+                            location:
+                              type: string
+                              example: 2001 6th Ave, Seattle, WA, 98121
+                              description: Location of the Maintenance Event.
+                            latitude:
+                              type:
+                              - 'null'
+                              - number
+                              example: 47.6143693
+                              description: Latitude of the Maintenance Event.
+                            longitude:
+                              type:
+                              - 'null'
+                              - number
+                              example: -122.3387104
+                              description: Longitude of the Maintenance Event.
+                      metadata:
+                        type: object
+                        properties:
+                          top:
+                            type: integer
+                            example: 10
+                          skip:
+                            type: integer
+                            example: 0
+                          currentPage:
+                            type: integer
+                            example: 1
+                          totalPages:
+                            type: integer
+                            example: 3
+                          totalRecordCount:
+                            type: integer
+                            example: 21
+              examples:
+                2022 Events on Test Circuits:
+                  value:
+                    apiVersion: v1
+                    data:
+                      records:
+                      - caseId: 5004z00001dIOHFAA4
+                        caseNumber: TTN-0005809480
+                        urgency: Planned
+                        levelOfImpact: Service Affecting
+                        status: Closed
+                        primaryDate: 2022-06-05
+                        x2dPrimaryDate: null
+                        x3rdPrimaryDate: null
+                        fromTime: 06:00
+                        toTime: 720
+                        timeZone: GMT
+                        reasonForMaintenance: Zayo is performing a mandatory vendor recommended software upgrade
+                        location: 303 9 Ave Se, Calgary, AB, T2G 0R7
+                        latitude: 51.044168
+                        longitude: -114.057667
+                      - caseId: 5004z00001cTR37AAG
+                        caseNumber: TTN-0005782528
+                        urgency: Planned
+                        levelOfImpact: Service Affecting
+                        status: Closed
+                        primaryDate: 2022-05-15
+                        x2dPrimaryDate: null
+                        x3rdPrimaryDate: null
+                        fromTime: 07:00
+                        toTime: 780
+                        timeZone: GMT
+                        reasonForMaintenance: Zayo is performing a mandatory vendor recommended software upgrade
+                        location: 175 W Cordova St, Vancouver, BC, V6B 1E1
+                        latitude: 49.28354
+                        longitude: -123.10871
+                      - caseId: 5004z00001a47cdAAA
+                        caseNumber: TTN-0005504936
+                        urgency: Planned
+                        levelOfImpact: Service Affecting
+                        status: Closed
+                        primaryDate: 2022-02-06
+                        x2dPrimaryDate: null
+                        x3rdPrimaryDate: null
+                        fromTime: 00:01
+                        toTime: 05:00
+                        timeZone: Eastern
+                        reasonForMaintenance: Zayo will be performing Repair on Fibers on Tube 3 must be re-installed/spliced as there are short/kinked to prevent imminent failure.
+                        location: 45.39801 N , 75.74815 W
+                        latitude: null
+                        longitude: null
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+  /services/service-management/v1/maintenance-impacts:
+    post:
+      summary: Get all maintenance impacts
+      description: "Retrieve all Maintenance Impacts based on filter, search, order by, and pagination options. Maintenance Impacts contain service-based attributes like Service Name, CircuitId, A Location Clli, Z Location Clli, and Legacy Circuit Id. \n \n \n The recommended flow is to get your Maintenance Case, then use the `caseNumber` or `caseId` as a filter option to receive the impacted circuits for that maintenance event."
+      operationId: getMaintenanceImpacts
+      tags:
+      - Maintenance Cases
+      requestBody:
+        description: Optional body to apply filters, search values, and pagination as well as order by defined attributes to return a specific list of Maintenance Impacts.
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  type: object
+                  description: Object to define filter options.
+                  additionalProperties: false
+                  uniqueItems: true
+                  properties:
+                    caseNumber:
+                      type: string
+                      example: TTN-0003802821
+                      description: Unique identifier of the Maintenance Case. Returned from the /vi/maintenance-impacts route.
+                    serviceId:
+                      type: string
+                      example: a0M0z00000Pi42wEAB
+                      description: Unique identifier of the Zayo service. Returned from the /v1/existing-services route.
+                    serviceName:
+                      type: string
+                      example: '543288'
+                      description: Unique identifier of the Zayo service. Returned from the /v1/existing-services route.
+                    circuitId:
+                      type: string
+                      example: /IVPN/247644/006/ZYO /
+                      description: Circuit Id of the impacted service.
+                    expectedImpact:
+                      type: string
+                      example: Hard Down
+                      description: Expected impact of the Maintenance Event.
+                      enum:
+                      - Hard Down
+                      - Switch Hit(s)
+                      - No Expected Impact
+                    aLocationClli:
+                      type: string
+                      example: AMSTNLLRHG2
+                    zLocationClli:
+                      type: string
+                      example: LONEENOZHG3
+                    legacyCircuitId:
+                      type: string
+                      example: 07/LOXX/000455/UCN/001
+                    or:
+                      type: array
+                      additionalProperties: false
+                      minItems: 2
+                      maxItems: 5
+                      items:
+                        type: object
+                        additionalProperties: false
+                        maxProperties: 3
+                        properties:
+                          caseNumber:
+                            type: string
+                          circuitId:
+                            type: string
+                          expectedImpact:
+                            type: string
+                          aLocationClli:
+                            type: string
+                          zLocationClli:
+                            type: string
+                          legacyCircuitId:
+                            type: string
+                          serviceId:
+                            type: string
+                          serviceName:
+                            type: string
+                search:
+                  type: string
+                  minLength: 1
+                  example: DKFB
+                orderBy:
+                  type: array
+                  description: Array to specify results ordering.
+                  additionalProperties: false
+                  uniqueItems: true
+                  items:
+                    type: string
+                    minItems: 1
+                    maxItems: 5
+                    example: expectedImpact
+                    enum:
+                    - circuitId
+                    - circuitId asc
+                    - circuitId desc
+                    - expectedImpact
+                    - expectedImpact asc
+                    - expectedImpact desc
+                    - aLocationClli
+                    - aLocationClli asc
+                    - aLocationClli desc
+                    - zLocationClli
+                    - zLocationClli asc
+                    - zLocationClli desc
+                    - legacyCircuitId
+                    - legacyCircuitId asc
+                    - legacyCircuitId desc
+                    - serviceId
+                    - serviceId asc
+                    - serviceId desc
+                    - serviceName
+                    - serviceName asc
+                    - serviceName desc
+                paging:
+                  type: object
+                  description: Object to define pagination for the number of records per page, and how many records to skip. Follows odata pagination standards.
+                  additionalProperties: false
+                  properties:
+                    top:
+                      type: integer
+                      description: Number of records to be returned per page.
+                      example: 50
+                      default: 10
+                      maximum: 50
+                      minimum: 0
+                    skip:
+                      type: integer
+                      example: 0
+                      description: Number of records to skip.
+                      default: 0
+                      minimum: 0
+            examples:
+              pagination:
+                value:
+                  paging:
+                    top: 10
+                    skip: 0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v1
+                  data:
+                    type: object
+                    properties:
+                      records:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            caseNumber:
+                              type: string
+                              example: TTN-0003590895
+                            serviceId:
+                              type: string
+                              example: a0M0z00000P5QHrEAN
+                            serviceName:
+                              type: string
+                              example: '450385'
+                            circuitId:
+                              type: string
+                              example: /IPYX/106744/   /ZYO /
+                            expectedImpact:
+                              type: string
+                              example: Hard Down
+                            aLocationClli:
+                              type: string
+                              example: STTLWACC000
+                            zLocationClli:
+                              type: string
+                              example: STTLWAWB012
+                            legacyCircuitId:
+                              type:
+                              - 'null'
+                              - string
+                      metadata:
+                        type: object
+                        properties:
+                          top:
+                            type: integer
+                            example: 10
+                          skip:
+                            type: integer
+                            example: 0
+                          currentPage:
+                            type: integer
+                            example: 1
+                          totalPages:
+                            type: integer
+                            example: 5
+                          totalRecordCount:
+                            type: integer
+                            example: 50
+              examples:
+                TTN-0005809480 Maintenance Impacts:
+                  value:
+                    apiVersion: v1
+                    data:
+                      records:
+                      - caseNumber: TTN-0005809480
+                        serviceId: a0M6000000MnLy8EAF
+                        serviceName: 345313
+                        circuitId: CV2PVC00008
+                        expectedImpact: Hard Down
+                        aLocationClli: CLGRABCD
+                        zLocationClli: TOROONXNSP1
+                        legacyCircuitId: 07/LOXX/000455/UCN/001
+                      metadata:
+                        top: 5
+                        skip: 0
+                        currentPage: 1
+                        totalPages: 1
+                        totalRecordCount: 1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+  /services/service-management/v1/maintenance-cases/{caseNumber}/notifications:
+    get:
+      summary: Get maintenance notifications
+      description: Returns all available Maintenance Notifications based on the `caseNumber`. These notifications are also available via email to enabled users. Reach out to your account rep to get subscribed for Maintenance Notifications emails.
+      operationId: getMaintenanceNotifications
+      tags:
+      - Maintenance Cases
+      parameters:
+      - name: caseNumber
+        in: path
+        required: true
+        description: Case Number returned from the Maintenance Cases or Maintenance Impacts route.
+        schema:
+          type: string
+          example: TTN-0003590895
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v1
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: MNN-00482176
+                          description: Unique identifier of the Maintenance Notification.
+                        notificationType:
+                          type: string
+                          example: Maintenance Completed
+                          description: Type of notification. This correlates to Maintenance Case status too. Values include - Scheduled, Rescheduled, Maintenance Started, Maintenance Stopped, Maintenance Completed, Cancelled, and Closed.
+                        lastModifiedDate:
+                          type: string
+                          format: date-time
+                          example: '2019-10-15T08:07:48.000Z'
+                          description: Last modified date/time of the Maintenance Notification by Zayo NOC.
+                        subject:
+                          type: string
+                          example: COMPLETED MAINTENANCE NOTIFICATION***Z-FAANG US***ZAYO TTN-0003590895 Planned***
+                          description: Subject line of the Maintenance Notification email.
+                        toEmailList:
+                          type: string
+                          example: ipeng@zayo.com; ip-tac@zayo.com; iparch@zayo.com; ethernet.arch@zayo.com; net-eng@zayo.com; telemetry@zayo.com
+                          description: Email distribution of the Maintenance Notification email.
+              examples:
+                '200':
+                  value:
+                    apiVersion: v1
+                    data:
+                    - name: MNN-00482176
+                      notificationType: Maintenance Completed
+                      lastModifiedDate: 2019-10-15 08:07:48+00:00
+                      subject: COMPLETED MAINTENANCE NOTIFICATION***Z-FAANG US***ZAYO TTN-0003590895 Planned***
+                      toEmailList: ipeng@zayo.com; ip-tac@zayo.com; iparch@zayo.com; ethernet.arch@zayo.com; net-eng@zayo.com; telemetry@zayo.com
+                    - name: MNN-00482146
+                      notificationType: Maintenance Started
+                      lastModifiedDate: 2019-10-15 07:45:05+00:00
+                      subject: START MAINTENANCE NOTIFICATION***Z-FAANG US***ZAYO TTN-0003590895 Planned***
+                      toEmailList: ipeng@zayo.com; ip-tac@zayo.com; iparch@zayo.com; ethernet.arch@zayo.com; net-eng@zayo.com; telemetry@zayo.com
+                    - name: MNN-00457342
+                      notificationType: Scheduled
+                      lastModifiedDate: 2019-09-26 20:07:24+00:00
+                      subject: '***Z-FAANG US***ZAYO TTN-0003590895 Planned MAINTENANCE NOTIFICATION***'
+                      toEmailList: ipeng@zayo.com; ip-tac@zayo.com; iparch@zayo.com; ethernet.arch@zayo.com; net-eng@zayo.com; telemetry@zayo.com
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+  /services/service-management/v1/maintenance-cases/notifications/{maintenanceNotificationName}:
+    get:
+      summary: Get maintenance notification details
+      description: Returns maintenance notification details by Maintenance Notification Name. Maintenance Notification details include the email body in HTML.
+      operationId: getMaintenanceNotificationDetails
+      tags:
+      - Maintenance Cases
+      parameters:
+      - name: maintenanceNotificationName
+        in: path
+        required: true
+        description: '`name` attribute returned from the get Maintenance Notifications route.'
+        schema:
+          type: string
+          example: MNN-00002814
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v1
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: MNN-00482176
+                      notificationType:
+                        type: string
+                        example: Maintenance Completed
+                      lastModifiedDate:
+                        type: string
+                        example: '2019-10-15T08:07:48.000Z'
+                        format: date-time
+                      subject:
+                        type: string
+                        example: COMPLETED MAINTENANCE NOTIFICATION***Z-FAANG US***ZAYO TTN-0003590895 Planned***
+                      emailBody:
+                        type: string
+                      toEmailList:
+                        type: string
+                        example: ipeng@zayo.com; ip-tac@zayo.com; iparch@zayo.com; ethernet.arch@zayo.com; net-eng@zayo.com; telemetry@zayo.com
+              examples:
+                '200':
+                  value:
+                    apiVersion: v1
+                    data:
+                      name: MNN-00482176
+                      notificationType: Maintenance Completed
+                      lastModifiedDate: 2019-10-15 08:07:48+00:00
+                      subject: COMPLETED MAINTENANCE NOTIFICATION***Z-FAANG US***ZAYO TTN-0003590895 Planned***
+                      emailBody: 'Dear Zayo Customer,\r\n\r\n<br><br>Please be advised that the scheduled maintenance window has been completed in its entirety for this event.\r\n<br><br><font color=\"FF0000\">If your services are still being impacted please take a moment to review the service and bounce any interfaces that may have been impacted.  In the event that this does not fully restore your service please contact the Zayo NCC at 866-236-2824 or at <u>zayoncc@zayo.com</u>.</font>\r\n\r\n<br><br><b>Maintenance Ticket #: </b> TTN-0003590895\r\n\r\n<br><br> <b>Maintenance Window: </b> 00:01 - 05:00 Pacific\r\n\r\n<br><br><b>1<sup>st</sup> Activity Date: </b> 15-Oct-2019\n\r\n\r\n<br><br><b>Location of Maintenance: </b> 2001 6th Ave, Seattle, WA\r\n\r\n<br><br><b>Reason for Maintenance: </b> Zayo will perform groom for network optimization.\r\n\r\n<br><br><b>Circuit(s) Affected: </b><br>\r\n<table border=3D\"1\"><tr>\n<tr>\n<th>Circuit Id</th>\n<th>Expected Impact</th>\n<th>A Location CLLI</th>\n\n<th>Z Location CLLI</th>\n<th>Legacy Circuit Id</th>\n</tr>\n<tr>\n<td>/IPYX/106744/   /ZYO /</td>\n<td>Hard Down - Duration of maintenance window</td>\n<td>STTLWACC000</td>\n<td>STTLWAWB012</td>\n<td></td>\n</tr>\n</table>\n\r\n\r\n<br><br>If you have any questions or need any additional information related to this maintenance event, please contact the MR group at mr@zayo.com or call 866-236-2824.\r\n\r\n<br><br>Regards,<br><p><b>\r\n<font color=\"808080\" size=\"3\" face=\"Times New Roman\">Zay</font><font color=\"FF9900\" size=\"3\" face=\"Times New Roman\">o </font>\r\n<font color=\"808080\" size=\"3\" face=\"Times New Roman\">Global Change Management Team/<i>Équipe de Gestion du Changement Global Zay</font><font color=\"FF9900\" size=\"3\" face=\"Times New Roman\">o</font></i><br>\r\n<font color=\"808080\" size=\"3\" face=\"Times New Roman\">Zay</font><font color=\"FF9900\" size=\"3\" face=\"Times New Roman\"><b>o </b></font>\r\n<font color=\"808080\" size=\"3\" face=\"Times New Roman\">Group/<i>Le Groupe Zay</font><font color=\"FF9900\" size=\"3\" face=\"Times New Roman\">o</font></i></b>\r\n<font size=\"2\" face=\"Times New Roman\">\r\n<br>Toll free/<i>N° sans frais</i>: <a href=\"tel:1-866-236-2824\">1.866.236.2824 </a>\r\n<br>United Kingdom Toll Free/<i>N° sans frais Royaume-Uni</i>: <a href=\"tel:0800-169-1646\">0800.169.1646</a>\r\n<br>Email/<i>Courriel</i>: <a href=\"mailto:mr@zayo.com\">mr@zayo.com</a>\r\n<br>Website/<i>Site Web</i>: <a href=\"https://www.zayo.com\">https://www.zayo.com</a>\r\n\r\n<p class=MsoNormal style=''margin-bottom:0cm;margin-bottom:.0001pt;line-height:\r\nnormal''><a href=\"http://www.zayo.com/company/about-zayo/\" target=\"_blank\"><b><span\r\nlang=EN-US style=''font-family:\"Helvetica\",sans-serif;color:#ED7D31;background:\r\nwhite;mso-ansi-language:EN-US''>About Zayo</span></b></a><span lang=EN-US\r\nstyle=''font-family:\"Helvetica\",sans-serif;color:#ED7D31;background:white;\r\nmso-ansi-language:EN-US''>&nbsp;|&nbsp;</span><a\r\nhref=\"http://www.zayo.com/solutions/global-network/\" target=\"_blank\"><b><span\r\nlang=EN-US style=''font-family:\"Helvetica\",sans-serif;color:#ED7D31;background:\r\nwhite;mso-ansi-language:EN-US''>Network</span></b></a><strong><span lang=EN-US\r\nstyle=''font-family:\"Helvetica\",sans-serif;color:#ED7D31;background:white;\r\nmso-ansi-language:EN-US''>&nbsp;</span></strong><span lang=EN-US\r\nstyle=''font-family:\"Helvetica\",sans-serif;color:#ED7D31;background:white;\r\nmso-ansi-language:EN-US''>|&nbsp;</span><a\r\nhref=\"https://tranzact.zayo.com/#!/escalation-lists\" target=\"_blank\"><b><span\r\nlang=EN-US style=''font-family:\"Helvetica\",sans-serif;color:#ED7D31;background:\r\nwhite;mso-ansi-language:EN-US''>Escalation List</span></b></a><b><span\r\nlang=EN-US style=''font-family:\"Helvetica\",sans-serif;color:#ED7D31;background:\r\nwhite;mso-ansi-language:EN-US''>&nbsp;</span></b><span lang=EN-US\r\nstyle=''font-family:\"Helvetica\",sans-serif;color:#ED7D31;background:white;\r\nmso-ansi-language:EN-US''>|&nbsp;</span><a\r\nhref=\"https://www.linkedin.com/company/530962/\" target=\"_blank\"><b><span\r\nlang=EN-US style=''font-family:\"Helvetica\",sans-serif;color:#ED7D31;background:\r\nwhite;mso-ansi-language:EN-US''>LinkedIn</span></b></a><b><span lang=EN-US\r\nstyle=''font-family:\"Helvetica\",sans-serif;color:#ED7D31;background:white;\r\nmso-ansi-language:EN-US''>&nbsp;</span></b><span lang=EN-US style=''font-family:\r\n\"Helvetica\",sans-serif;color:#ED7D31;background:white;mso-ansi-language:EN-US''>|&nbsp;</span><a\r\nhref=\"https://twitter.com/zayogroup\" target=\"_blank\"><b><span lang=EN-US\r\nstyle=''font-family:\"Helvetica\",sans-serif;color:#ED7D31;background:white;\r\nmso-ansi-language:EN-US''>Twitter</span></b></a><b><span lang=EN-US\r\nstyle=''font-family:\"Helvetica\",sans-serif;color:#ED7D31;background:white;\r\nmso-ansi-language:EN-US''>&nbsp;</span></b><span lang=EN-US style=''font-family:\r\n\"Helvetica\",sans-serif;color:#ED7D31;background:white;mso-ansi-language:EN-US''>|&nbsp;<a\r\nhref=\"https://tranzact.zayo.com/#!/login\" target=\"_blank\"><b><span\r\nstyle=''color:#ED7D31''>Tranzact</span></b><span style=''color:#ED7D31''>&nbsp;</span></a><o:p></o:p></span></p>\r\n\r\n\r\n<br><br><font color=\"008080\" size=\"1.5\" face=\"Times New Roman\">\r\nSTRICTLY PERSONAL AND CONFIDENTIAL. This email may contain confidential and proprietary material for the sole use of the intended recipient. Any review or distribution by others is strictly prohibited. If you are not the intended recipient please contact the sender and delete all copies.\r\n</font>\r\n</p>'
+                      toEmailList: ipeng@zayo.com; ip-tac@zayo.com; iparch@zayo.com; ethernet.arch@zayo.com; net-eng@zayo.com; telemetry@zayo.com
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+  /services/notifications/v1/generate-auth-token:
+    post:
+      summary: Generate auth token
+      description: "Generating the auth token only needs to be done once, since this auth token will be good for receiving all push notifications associated with your current API token. However, this endpoint may be called as many times as necessary to reset the auth token for additional security. The active auth token is always the most recently generated auth token.\n\n**Workflow to set up push notifications services:**\n\n1. Generate auth token | Generate the auth token to be used in the HTTP header to authenticate invocations to your callback endpoint.\n2. Implement a callback URL endpoint on your infrastructure.\n    The callback URL endpoint must meet the following requirements:\n    \n    ● Implemented on HTTPS\n    \n    ● Accessible from any IP address\n    \n    ● Requires an `Authorization` header with the auth token generated in Step 1\n    \n    ● Rejects (via HTTP 401) a request that does not have an `Authorization` header or has the\n    wrong `Authorization` header\n    \n    ● Accepts a HTTP POST request with a JSON body\n\n3. Register callback URL | Register your endpoint to recieve Maintenance Notifications.\n4. Send test notification | Test out your endpoint."
+      operationId: generateAuthToken
+      tags:
+      - Maintenance Cases
+      requestBody:
+        description: Required request body containing your grant type, client id and client secret. If you do not have API credentials, please reach out to zayoapi@zayo.com to obtain these.
+        required: true
+        content:
+          application/x-www-form-urlencode:
+            schema:
+              type: object
+              required:
+              - grant_type
+              - client_id
+              - client_secret
+              properties:
+                grant_type:
+                  type: string
+                  example: client_credentials
+                  description: This value will always be client_credentials
+                client_id:
+                  type: string
+                client_secret:
+                  type: string
+                scope:
+                  type: string
+                  example: openID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      authToken:
+                        type: string
+                        format: uuid
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+  /services/notifications/v1/register-callback-url:
+    post:
+      summary: Register callback URL
+      description: Once you've implemented a callback URL endpoint in your infrastructure register it with Zayo.
+      operationId: registerCallbackUrl
+      tags:
+      - Maintenance Cases
+      requestBody:
+        description: Required request body to register your endpoint and subscribe to Maintenance Notifications.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - notificationType
+              - callbackUrl
+              properties:
+                notificationType:
+                  type: string
+                  example: Maintenaance Notifications
+                callbackUrl:
+                  type: string
+                  format: url
+                  example: https://sample-zayo-callback-endpoint.com/sampleCallback
+                accounts:
+                  type: array
+                  items:
+                    type: string
+                    example: 0016000000umyBWAAY, 0014z00001d8bxoAAA, 0010z00001XXXiEAAX
+                    description: Billing account ids for which you'd like to recieve updates on. If this is null, all billing account ids will be subscribed for notifications. If you would like to define the billling account ids, please reach out to zayoapi@zayo.com to get a list of billing account ids.
+            examples:
+              All Values:
+                value:
+                  notificationType: Maintenance Notifications
+                  callbackUrl: https://sample-zayo-callback-endpoint.com/sampleCallback
+                  accounts:
+                  - 0010z00001XWmYBAA1
+                  - 0010z00001XXXiEAAX
+                  - 0014z00001d8bxoAAA
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v1
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 58bfe26e-38a7-4c67-868a-65f536c3ae51
+                        format: uuid
+                      target:
+                        type: string
+                        example: https://4381968a-143c-4195-87db-986c11fb54ce.mock.pstmn.io/sampleCallback
+                        format: url
+                      notification_type:
+                        type: string
+                        example: Maintenance Notifications
+                      account_id:
+                        type: string
+                        example: 0016000000unFcJAAU
+                      target_account_ids:
+                        type: array
+                        items:
+                          type: string
+                          example: 0016000000umyBWAAY, 0010z00001XVx7hAAD, 0010z00001XVxgNAAT, 0010z00001XWdh2AAD, 0014z00001b1FMPAA2, 0014z00001d89HqAAI
+                      conditions:
+                        type:
+                        - 'null'
+                        - string
+                      enabled:
+                        type: boolean
+                        example: true
+                      created_at:
+                        type: string
+                        example: '2022-06-28T03:44:45.394Z'
+                        format: date-time
+                      updated_at:
+                        type: string
+                        example: '2022-06-28T03:44:45.394Z'
+                        format: date-time
+                      created_by_username:
+                        type: string
+                        example: tranzactquote.api@zayo.com
+                        format: email
+                      created_by_user_id:
+                        type: string
+                        example: 44a5d370-18a9-11eb-883f-e1dcd53ef907
+                        format: uuid
+                      target_type:
+                        type: string
+                        example: CALLBACK_URL
+                      target_header:
+                        type:
+                        - 'null'
+                        - string
+                      oauth_access_token_header:
+                        type:
+                        - 'null'
+                        - string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+  /services/notifications/v1/send-test-notification:
+    post:
+      summary: Send test notification
+      description: Once the callback URL is registered, you can send test notifications to your registered callback URLs for a particular notification type.
+      operationId: sendTestNotification
+      tags:
+      - Maintenance Cases
+      requestBody:
+        description: Requireed request body to register your endpoint and subscribe to Maintenance Notifications.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                notificationType:
+                  type: string
+                  example: Maintenance Notifications
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v1
+                  data:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: MNN-12345678
+                      type:
+                        type: string
+                        example: Calendar
+                      case:
+                        type: string
+                        example: TTN-0123456789
+                      timestamp:
+                        type: string
+                        example: '2021-01-01T12:00:00'
+                        format: date-time
+                      urgency:
+                        type: string
+                        example: Planned
+                      levelOfImpact:
+                        type: string
+                        example: Potential Service Affecting
+                      circuitId:
+                        type: string
+                        example: /xxx/xxxxxx/   /xxx /
+                      primaryDate:
+                        type: string
+                        example: '2021-01-03'
+                        format: date
+                      x2ndPrimaryDate:
+                        type:
+                        - 'null'
+                        - string
+                      x3rdPrimaryDate:
+                        type:
+                        - 'null'
+                        - string
+                      fromTime:
+                        type: string
+                        example: 00:01
+                      toTime:
+                        type: string
+                        example: 05:00
+                      timeZone:
+                        type: string
+                        example: Mountain
+                      reasonForMaintenance:
+                        type: string
+                        example: reason for maintenance
+                      location:
+                        type: string
+                        example: Boulder, CO
+                      accountIds:
+                        type: array
+                        items:
+                          type: string
+                          example: 0016000000unFcJAAU
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+components:
+  schemas:
+    x2ndPrimaryDate:
+      title: Maintenance Cases 2nd Primary Date
+      description: Secondary date of maintenance event.
+      anyOf:
+      - type: string
+      - type: object
+      format: date
+      additionalProperties: false
+      properties:
+        eq:
+          type: string
+          format: date
+          description: Equal to.
+        ge:
+          type: string
+          format: date
+          description: Greater than or equal to.
+        gt:
+          type: string
+          format: date
+          description: Greater than.
+        le:
+          type: string
+          format: date
+          description: Less than or equal to.
+        lt:
+          type: string
+          format: date
+          description: Less than.
+    status:
+      title: Maintenance Cases Status
+      description: Current status of maintenance event.
+      type: string
+      enum:
+      - Scheduled
+      - Maintenance Started
+      - Maintenance Extended
+      - Maintenance Stopped
+      - Maintenance Completed
+      - Closed
+      - Cancelled
+    timeZone:
+      title: Maintenance Cases Time Zone
+      description: Time zone of from and to times.
+      type: string
+    fromTime:
+      title: Maintenance Cases From Time
+      description: Maintenance event start time.
+      format: ^[0-9][0-9]:[0-9][0-9]$
+      anyOf:
+      - type: string
+      - type: object
+      additionalProperties: false
+      properties:
+        eq:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Equal to.
+        ge:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Greater than or equal to.
+        gt:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Greater than.
+        le:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Less than or equal to.
+        lt:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Less than.
+    urgency:
+      title: Maintenance Cases Urgency
+      description: Urgency of the maintenance event.
+      type: string
+      enum:
+      - Courtesy
+      - Customer Initiated
+      - Demand
+      - Emergency
+      - Off Schedule
+      - Planned
+    orFilter:
+      title: Maintenance Cases Or Filter
+      type: object
+      additionalProperties: false
+      maxProperties: 3
+      properties:
+        caseId:
+          $ref: '#/components/schemas/caseId'
+        caseNumber:
+          $ref: '#/components/schemas/caseNumber'
+        levelOfImpact:
+          $ref: '#/components/schemas/levelOfImpact'
+        fromTime:
+          $ref: '#/components/schemas/fromTime'
+        location:
+          $ref: '#/components/schemas/location'
+        latitude:
+          $ref: '#/components/schemas/latitude'
+        longitude:
+          $ref: '#/components/schemas/longitude'
+        primaryDate:
+          $ref: '#/components/schemas/primaryDate'
+        status:
+          $ref: '#/components/schemas/status'
+        toTime:
+          $ref: '#/components/schemas/toTime'
+        timeZone:
+          $ref: '#/components/schemas/timeZone'
+        x2ndPrimaryDate:
+          $ref: '#/components/schemas/x2ndPrimaryDate'
+        x3rdPrimaryDate:
+          $ref: '#/components/schemas/x3rdPrimaryDate'
+        urgency:
+          $ref: '#/components/schemas/urgency'
+    latitude:
+      title: Maintenance Cases Latitude
+      description: Latitude of maintenance event.
+      anyOf:
+      - type: string
+      - type: object
+      additionalProperties: false
+      properties:
+        eq:
+          type: string
+          description: Equal to.
+        ge:
+          type: string
+          description: Greater than or equal to.
+        gt:
+          type: string
+          description: Greater than.
+        le:
+          type: string
+          description: Less than or equal to.
+        lt:
+          type: string
+          description: Less than.
+    longitude:
+      title: Maintenance Cases Longitude
+      description: Longitude of maintenance event.
+      anyOf:
+      - type: string
+      - type: object
+      additionalProperties: false
+      properties:
+        eq:
+          type: string
+          description: Equal to.
+        ge:
+          type: string
+          description: Greater than or equal to.
+        gt:
+          type: string
+          description: Greater than.
+        le:
+          type: string
+          description: Less than or equal to.
+        lt:
+          type: string
+          description: Less than.
+    caseId:
+      title: Maintenance Cases Case Id
+      description: Case unique identifier related the maintenance event.
+      type: string
+    toTime:
+      title: Maintenance Cases To Time
+      description: Maintenance event start time.
+      format: ^[0-9][0-9]:[0-9][0-9]$
+      anyOf:
+      - type: string
+      - type: object
+      additionalProperties: false
+      properties:
+        eq:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Equal to.
+        ge:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Greater than or equal to.
+        gt:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Greater than.
+        le:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Less than or equal to.
+        lt:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Less than.
+    levelOfImpact:
+      title: Maintenance Cases Level of Impact
+      description: Impact level of the maintenance event.
+      type: string
+      enum:
+      - Service Affecting
+      - Potential Service Affecting
+      - Non-Service Affecting
+      - LRE-Fiber Splicing
+      - HRE-Fiber Splicing
+    caseNumber:
+      title: Maintenance Cases Case Number
+      description: Case unique identifier related the maintenance event.
+      type: string
+    400Response:
+      title: 400 Response
+      description: Bad Request
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the request.
+        error:
+          type: object
+          description: Error information from the request.
+          properties:
+            errorId:
+              type: string
+              format: uuid
+              example: 851e419f-93df-46b3-a718-819e923c88f4
+              description: UUID for Zayo troubleshooting.
+            code:
+              type: integer
+              example: 400
+              description: 400 - the request contains bad syntax or cannot be fulfilled.
+            message:
+              type: string
+              description: More detailed explanation of the error.
+            errors:
+              type: array
+              description: Additional error information, if necessary.
+              items:
+                type: string
+                description: Not used yet by Zayo teams, this is typically null.
+    x3rdPrimaryDate:
+      title: Maintenance Cases 3rd Primary Date
+      description: Tertiary date of maintenance event.
+      anyOf:
+      - type: string
+      - type: object
+      format: date
+      additionalProperties: false
+      properties:
+        eq:
+          type: string
+          format: date
+          description: Equal to.
+        ge:
+          type: string
+          format: date
+          description: Greater than or equal to.
+        gt:
+          type: string
+          format: date
+          description: Greater than.
+        le:
+          type: string
+          format: date
+          description: Less than or equal to.
+        lt:
+          type: string
+          format: date
+          description: Less than.
+    primaryDate:
+      title: Maintenance Cases Primary Date
+      description: Primary date of maintenance event.
+      anyOf:
+      - type: string
+      - type: object
+      format: date
+      additionalProperties: false
+      properties:
+        eq:
+          type: string
+          format: date
+          description: Equal to.
+          example: '2022-12-31'
+        ge:
+          type: string
+          format: date
+          description: Greater than or equal to.
+          example: '2022-12-31'
+        gt:
+          type: string
+          format: date
+          description: Greater than.
+          example: '2022-12-31'
+        le:
+          type: string
+          format: date
+          description: Less than or equal to.
+          example: '2022-01-01'
+        lt:
+          type: string
+          format: date
+          description: Less than.
+          example: '2022-01-01'
+    location:
+      title: Maintenance Cases Location
+      description: Maintenance event location.
+      type: string
+  securitySchemes:
+    BearerToken:
+      type: http
+      bearerFormat: JWT
+      description: Bearer token authentication.
+      scheme: bearer
+    OAuthClientCredentials:
+      description: OAuth 2.0 using the Client Credentials grant type.
+      flows:
+        clientCredentials:
+          scopes:
+            openid: openid scope
+          tokenUrl: https://auth.api.zayo.com/oauth/token
+      type: oauth2

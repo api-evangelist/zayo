@@ -1,0 +1,766 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Zayo APIs Maintenance Cases Ticket Catalog API
+  description: 'Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    '
+  x-logo:
+    url: https://zayo-ui-bucket.s3-us-west-2.amazonaws.com/Common/Logos/zayo-logo-orange.png
+    altText: Zayo orange logo
+  contact:
+    name: Zayo API Team
+    email: zayoapi@zayo.com
+servers:
+- url: https://api.zayo.com
+  description: Production server
+security:
+- BearerToken: []
+- OAuthClientCredentials: []
+tags:
+- name: Ticket Catalog
+  description: View available tickets and ticket details to use in the Ticketing API.
+paths:
+  /services/service-management/v1/ticket-catalog:
+    get:
+      summary: Get ticket catalog
+      description: Get the Zayo trouble ticket catalog where tickets are represented as a `ticketType`. For each `ticketType` get the description and latest version.
+      operationId: getTicketCatalog
+      tags:
+      - Ticket Catalog
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v1
+                  data:
+                    type: object
+                    properties:
+                      ticketTypes:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            ticketType:
+                              type: string
+                              example: Billing
+                              enum:
+                              - Billing
+                              - Access Request
+                              - Remote Hands
+                              - Customer Service
+                              - Technical Support
+                            version:
+                              type: string
+                              example: 1.0.0
+                            description:
+                              type: string
+                              example: Inquiries related to receivables due on billing accounts.
+              examples:
+                Ticket Catalog v1:
+                  value:
+                    apiVersion: v1
+                    data:
+                      ticketTypes:
+                      - ticketType: Billing
+                        version: 1.0.0
+                        description: Inquiries related to receivables due on billing accounts.
+                      - ticketType: Access Request
+                        version: 1.0.0
+                        description: Request access into data centers and facilities.
+                      - ticketType: Remote Hands
+                        version: 1.0.0
+                        description: Support on tasks zColo can perform to be your hands and eyes regarding data center functions.
+                      - ticketType: Customer Service
+                        version: 1.0.0
+                        description: Customer support on general questions, service inventory, network documents, service credits and disputes.
+                      - ticketType: Technical Support
+                        version: 1.0.0
+                        description: Trouble ticket creation, escalate service repair issues, and RFO requests.
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+  /services/service-management/v1/ticket-type-details/{ticketType}/{version}:
+    get:
+      summary: Get ticket type details
+      description: After you get the latest semantic version from the ticket-catalog route, plug this into the ticket-type-details route to dynamically receive the latest request schema with required and optional attributes needed per ticket type/version combination.
+      operationId: getTicketTypeDetails
+      tags:
+      - Ticket Catalog
+      parameters:
+      - name: ticketType
+        in: path
+        required: true
+        description: Ticket type returned from the get ticket catalog route.
+        schema:
+          type: string
+          example: Technical Support
+          enum:
+          - Technical Support
+          - Access Request
+          - Billing
+          - Customer Service
+          - Remote Hands
+      - name: version
+        in: path
+        required: true
+        description: Semantic version returned from the get ticket catalog route.
+        schema:
+          type: string
+          example: 1.0.0
+          enum:
+          - 1.0.0
+          - 1.0.1
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/technicalSupportTicketDetails'
+                - $ref: '#/components/schemas/accessRequestTicketDetails'
+                - $ref: '#/components/schemas/billingTicketDetails'
+                - $ref: '#/components/schemas/customerServiceTicketDetails'
+              examples:
+                Technical Support Ticket Details:
+                  value:
+                    apiVersion: v1
+                    data:
+                      attrs:
+                      - name: ticketType
+                        displayName: Ticket Type
+                        description: Applicable ticket type from ticket catalog
+                        criteria:
+                          dataType: string
+                          isRequired: true
+                          anyRequired: []
+                        value: Technical Support
+                      - name: componentId
+                        displayName: Component Id
+                        description: Unique Id obtained from GET Existing Services Route
+                        criteria:
+                          dataType: string
+                          isRequired: false
+                          anyRequired:
+                          - componentId, serviceId
+                      - name: customerReferenceId
+                        displayName: Customer Reference Id
+                        description: Customer Input, reference specific to customer
+                        criteria:
+                          dataType: string
+                          isRequired: false
+                          anyRequired: []
+                      - name: description
+                        displayName: Description
+                        description: Please provide a detailed statement of work
+                        criteria:
+                          dataType: string
+                          isRequired: false
+                          anyRequired: []
+                      - name: downtimeInitialDate
+                        displayName: Downtime Initial Date
+                        description: ISO format date string of initial downtime
+                        criteria:
+                          dataType: string
+                          isRequired: true
+                          anyRequired: []
+                      - name: downtimeInitialTime
+                        displayName: Downtime Initial Time
+                        description: ISO format time string of initial downtime
+                        criteria:
+                          dataType: string
+                          isRequired: true
+                          anyRequired: []
+                      - name: serviceId
+                        displayName: Service Id
+                        description: Unique Id obtained from GET Existing Services Route
+                        criteria:
+                          dataType: string
+                          isRequired: false
+                          anyRequired:
+                          - componentId, serviceId
+                      - name: serviceState
+                        displayName: Service state
+                        description: State of the service [Hard Down, Impaired, Request, Against, Service]
+                        criteria:
+                          dataType: string
+                          isRequired: true
+                          anyRequired: []
+                        options:
+                        - value: Hard Down
+                          defaultValue: false
+                          allowedForControllingFields: []
+                        - value: Impaired
+                          defaultValue: false
+                          allowedForControllingFields: []
+                        - value: Request Against Service
+                          defaultValue: false
+                          allowedForControllingFields: []
+                      - name: subject
+                        displayName: Subject
+                        description: Summary of request
+                        criteria:
+                          dataType: string
+                          isRequired: false
+                          anyRequired: []
+                      contacts:
+                      - attrs:
+                        - name: contactType
+                          displayName: Contact Type
+                          description: Indicator of what this contact should be reached out for (Technical or Primary)
+                          criteria:
+                            dataType: string
+                            isRequired: false
+                            anyRequired: []
+                          options:
+                          - value: Primary
+                            defaultValue: false
+                            allowedForControllingFields: []
+                          - value: Technical
+                            defaultValue: false
+                            allowedForControllingFields: []
+                        - name: email
+                          displayName: Email
+                          description: Contact email
+                          criteria:
+                            dataType: string
+                            isRequired: true
+                            anyRequired: []
+                        - name: fullName
+                          displayName: Full Name
+                          description: Contact full name
+                          criteria:
+                            dataType: string
+                            isRequired: true
+                            anyRequired: []
+                        - name: phone
+                          displayName: Phone
+                          description: Contact phone number
+                          criteria:
+                            dataType: string
+                            isRequired: true
+                            anyRequired: []
+                        minCount: 1
+                        maxCount: 20
+                      troubleshooting:
+                        attrs:
+                        - name: circuitPassTraffic
+                          displayName: Circuit Passing Traffic
+                          description: Has this circuit passed traffice before?
+                          criteria:
+                            dataType: boolean
+                            isRequired: false
+                            anyRequired: []
+                        - name: disconnectedFibers
+                          displayName: Disconnected Fibers
+                          description: Has physical maintenance been performed that disconnected fibers?
+                          criteria:
+                            dataType: boolean
+                            isRequired: false
+                            anyRequired: []
+                        - name: gearOn
+                          displayName: Gear on
+                          description: Do you have physical or remote access to your gear?
+                          criteria:
+                            dataType: boolean
+                            isRequired: false
+                            anyRequired: []
+                        - name: interfaceReset
+                          displayName: Interface Reset
+                          description: Does your interface have Duplex settings enabled?
+                          criteria:
+                            dataType: boolean
+                            isRequired: false
+                            anyRequired: []
+                        - name: verifyLightLevels
+                          displayName: Verify Light Levels
+                          description: Have you verified input/output light levels?
+                          criteria:
+                            dataType: boolean
+                            isRequired: false
+                            anyRequired: []
+                        isRequired: false
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+components:
+  schemas:
+    technicalSupportTicketDetails:
+      title: Technical Support Ticket Details
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          example: v1
+        data:
+          type: object
+          properties:
+            attrs:
+              type: array
+              items:
+                type: object
+                description: Object shows all of the fields that can be passed into the ticket request payload at the root level. Attrs objects explain the attributes with a name, displayName, description, criteria, and value or options. Options include value, default value and allowed for controlling fields. These controlling fields will also have a value, and default value.
+                properties:
+                  name:
+                    type: string
+                    example: ticketType
+                    description: Name of the attribute.
+                  displayName:
+                    type: string
+                    example: Ticket Type
+                    description: Recommended name if you are exposing this attribute in your own application.
+                  description:
+                    type: string
+                    example: Applicable ticket type from ticket catalog
+                    description: Description of the attribute.
+                  criteria:
+                    type: object
+                    properties:
+                      dataType:
+                        type: string
+                        example: string
+                        description: Data type of the attribute.
+                      isRequired:
+                        type: boolean
+                        example: true
+                        description: Specifies if the attribute is required.
+                      anyRequired:
+                        type: array
+                        items:
+                          type: string
+                          example: componentId, serviceId
+                  value:
+                    type: string
+                    example: Technical Support
+                    description: If a value is specified for this attribute, it will be defined and populated here. Value is returned for `ticketType` and `nodeId`, otherwise you will see `options`.
+                  options:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        value:
+                          type: string
+                          example: Hard Down
+                        defaultValue:
+                          type: boolean
+                          example: false
+                        allowedForControllingFields:
+                          type: array
+                          items:
+                            type: string
+            contacts:
+              type: array
+              items:
+                type: object
+                properties:
+                  attrs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: contactType
+                        displayName:
+                          type: string
+                          example: Contact Type
+                        description:
+                          type: string
+                          example: Indicator of what this contact should be reached out for (Technical or Primary)
+                        criteria:
+                          type: object
+                          properties:
+                            dataType:
+                              type: string
+                              example: string
+                            isRequired:
+                              type: boolean
+                              example: true
+                            anyRequired:
+                              type: array
+                              items:
+                                type: string
+                        options:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                                example: Primary
+                              defaultValue:
+                                type: boolean
+                                example: false
+                              allowedForControllingFields:
+                                type: array
+                                items:
+                                  type: string
+                  minCount:
+                    type: integer
+                    example: 1
+                  maxCount:
+                    type: integer
+                    example: 20
+            troubleshooting:
+              type: object
+              properties:
+                attrs:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: circuitPassTraffic
+                      displayName:
+                        type: string
+                        example: Circuit Passing Traffic
+                      description:
+                        type: string
+                        example: Has this circuit passed traffice before?
+                      criteria:
+                        type: object
+                        properties:
+                          dataType:
+                            type: string
+                            example: boolean
+                          isRequired:
+                            type: boolean
+                            example: false
+                          anyRequired:
+                            type: array
+                            items:
+                              type: string
+                isRequired:
+                  type: boolean
+                  example: false
+    customerServiceTicketDetails:
+      title: Customer Service Ticket Details
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          example: v1
+        data:
+          type: object
+          properties:
+            attrs:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: ticketType
+                  displayName:
+                    type: string
+                    example: Ticket Type
+                  description:
+                    type: string
+                    example: Applicable ticket type from ticket catalog
+                  criteria:
+                    type: object
+                    properties:
+                      dataType:
+                        type: string
+                        example: string
+                      isRequired:
+                        type: boolean
+                        example: true
+                  value:
+                    type: string
+                    example: Customer Service
+            contacts:
+              type: array
+              items:
+                type: object
+                properties:
+                  attrs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: ticketType
+                        displayName:
+                          type: string
+                          example: Ticket Type
+                        description:
+                          type: string
+                          example: Applicable ticket type from ticket catalog
+                        criteria:
+                          type: object
+                          properties:
+                            dataType:
+                              type: string
+                              example: string
+                            isRequired:
+                              type: boolean
+                              example: true
+                        options:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                                example: Primary
+                              defaultValue:
+                                type: boolean
+                                example: false
+                  minCount:
+                    type: integer
+                    example: 1
+                  maxCount:
+                    type: integer
+                    example: 20
+    400Response:
+      title: 400 Response
+      description: Bad Request
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the request.
+        error:
+          type: object
+          description: Error information from the request.
+          properties:
+            errorId:
+              type: string
+              format: uuid
+              example: 851e419f-93df-46b3-a718-819e923c88f4
+              description: UUID for Zayo troubleshooting.
+            code:
+              type: integer
+              example: 400
+              description: 400 - the request contains bad syntax or cannot be fulfilled.
+            message:
+              type: string
+              description: More detailed explanation of the error.
+            errors:
+              type: array
+              description: Additional error information, if necessary.
+              items:
+                type: string
+                description: Not used yet by Zayo teams, this is typically null.
+    billingTicketDetails:
+      title: Billing Ticket Details
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          example: v1
+        data:
+          type: object
+          properties:
+            attrs:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: ticketType
+                  displayName:
+                    type: string
+                    example: Ticket Type
+                  description:
+                    type: string
+                    example: Applicable ticket type from ticket catalog
+                  criteria:
+                    type: object
+                    properties:
+                      dataType:
+                        type: string
+                        example: string
+                      isRequired:
+                        type: boolean
+                        example: true
+                  value:
+                    type: string
+                    example: Billing
+            contacts:
+              type: array
+              items:
+                type: object
+                properties:
+                  attrs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: ticketType
+                        displayName:
+                          type: string
+                          example: Ticket Type
+                        description:
+                          type: string
+                          example: Applicable ticket type from ticket catalog
+                        criteria:
+                          type: object
+                          properties:
+                            dataType:
+                              type: string
+                              example: string
+                            isRequired:
+                              type: boolean
+                              example: true
+                        options:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                                example: Primary
+                              defaultValue:
+                                type: boolean
+                                example: false
+                  minCount:
+                    type: integer
+                    example: 1
+                  maxCount:
+                    type: integer
+                    example: 20
+    accessRequestTicketDetails:
+      title: Access Request Ticket Details
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          example: v1
+        data:
+          type: object
+          properties:
+            attrs:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: ticketType
+                  displayName:
+                    type: string
+                    example: Ticket Type
+                  description:
+                    type: string
+                    example: Applicable ticket type from ticket catalog
+                  criteria:
+                    type: object
+                    properties:
+                      dataType:
+                        type: string
+                        example: string
+                      isRequired:
+                        type: boolean
+                        example: true
+                  value:
+                    type: string
+                    example: Access Request
+            contacts:
+              type: array
+              items:
+                type: object
+                properties:
+                  attrs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: ticketType
+                        displayName:
+                          type: string
+                          example: Ticket Type
+                        description:
+                          type: string
+                          example: Applicable ticket type from ticket catalog
+                        criteria:
+                          type: object
+                          properties:
+                            dataType:
+                              type: string
+                              example: string
+                            isRequired:
+                              type: boolean
+                              example: true
+                        options:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                                example: Primary
+                              defaultValue:
+                                type: boolean
+                                example: false
+                  minCount:
+                    type: integer
+                    example: 1
+                  maxCount:
+                    type: integer
+                    example: 20
+            individualAuthorized:
+              type: object
+              properties:
+                attrs:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: address
+                      displayName:
+                        type: string
+                        example: Address
+                      description:
+                        type: string
+                        example: Appropriate address for the individual authorized
+                      criteria:
+                        type: object
+                        properties:
+                          dataType:
+                            type: string
+                            example: string
+                          isRequired:
+                            type: boolean
+                            example: false
+                isRequired:
+                  type: boolean
+                  example: false
+        isrequired:
+          type: boolean
+          example: false
+  securitySchemes:
+    BearerToken:
+      type: http
+      bearerFormat: JWT
+      description: Bearer token authentication.
+      scheme: bearer
+    OAuthClientCredentials:
+      description: OAuth 2.0 using the Client Credentials grant type.
+      flows:
+        clientCredentials:
+          scopes:
+            openid: openid scope
+          tokenUrl: https://auth.api.zayo.com/oauth/token
+      type: oauth2

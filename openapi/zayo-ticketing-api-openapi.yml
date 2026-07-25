@@ -1,0 +1,1008 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Zayo APIs Maintenance Cases Ticketing API
+  description: 'Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    '
+  x-logo:
+    url: https://zayo-ui-bucket.s3-us-west-2.amazonaws.com/Common/Logos/zayo-logo-orange.png
+    altText: Zayo orange logo
+  contact:
+    name: Zayo API Team
+    email: zayoapi@zayo.com
+servers:
+- url: https://api.zayo.com
+  description: Production server
+security:
+- BearerToken: []
+- OAuthClientCredentials: []
+tags:
+- name: Ticketing
+  description: Create various types of tickets, view all tickets, and create ticket comments.
+paths:
+  /services/service-management/v1/create-ticket:
+    post:
+      summary: Create ticket
+      description: Create a ticket against your service. Associate your service via the `serviceId`, `componentId`, or `circuitId` returned from the Service Inventory route.
+      operationId: createTicket
+      tags:
+      - Ticketing
+      requestBody:
+        description: Ticket request body. There are different request bodies for each ticket type. Prerequisites include having reference to your service from the service inventory route and pass in either the `serviceId`, `componentId`, or `circuitId` key value pair in the request.
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/technicalSupportTicketRequest'
+              - $ref: '#/components/schemas/accessRequestTicketRequest'
+              - $ref: '#/components/schemas/billingTicketRequest'
+      responses:
+        '200':
+          description: Success - Technical Support ticket type
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v1
+                  data:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: New
+                        enum:
+                        - New
+                        - Isolation and Repair
+                        - Service Restored
+                        - Closed
+                        - Action Required
+                        - On-Hold
+                        - Cancelled
+                        description: Tickets will always start in the new status. Anytime a comment is made on the ticket, the status updates to Action Required. Typical status flow is - New > Isolation and Repair > Service Restored > Closed. Customer will be contacted after Service Restored to verify service status.
+                      ticketId:
+                        type: string
+                        example: 5004z00001dIuveAAC
+                      ticketNumber:
+                        type: string
+                        example: TTN-0005833575
+                      customerReferenceId:
+                        type: string
+                        example: Zayo-239823
+                      dateTimeOpened:
+                        type: string
+                        example: 2022-04-25T20:29:49.000+0000
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+  /services/service-management/v1/ticket-comment:
+    post:
+      summary: Create ticket comment
+      description: Add a ticket comment to directly communicate with the Zayo NOC team. Once a comment is added on a ticket, the ticket status will update to Action Required, so that it notifies our NOC teams.
+      operationId: addTicketComment
+      tags:
+      - Ticketing
+      requestBody:
+        description: Ticket comment request body. Either `ticketId` or `ticketNumber` is required.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+              - commentBody
+              - contactEmail
+              - contactName
+              - ticketId
+              - ticketNumber
+              properties:
+                ticketId:
+                  type: string
+                  pattern: ^500
+                  anyOf:
+                  - maxLength: 15
+                    minLength: 15
+                  - maxLength: 18
+                    minLength: 18
+                  description: Ticket unique identifier. Either `ticketId` or `ticketNumber` is required.
+                  example: 5000x00000BHrN2AAL
+                ticketNumber:
+                  type: string
+                  description: Ticket unique Identifier, also used in Tranzact portal. Either `ticketId` or `ticketNumber` is required.
+                  example: TTN-0003449133
+                commentBody:
+                  type: string
+                  description: Comment content.
+                  example: The problem was not resolved, please address.
+                contactEmail:
+                  type: string
+                  format: email
+                  description: Email of the user who is posting the comment.
+                  example: wwhite@company.com
+                contactName:
+                  type: string
+                  description: Name of the user who is posting the comment.
+                  example: Walter White
+                customerReferenceId:
+                  type: string
+                  description: Internal reference identifier.
+                  example: Ticket 1029342
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v1
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Ticket comment was successfully created
+                      success:
+                        type: boolean
+                        example: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+  /services/service-management/v1/ticket-details/{ticketName}:
+    get:
+      summary: Get ticket details
+      description: Get ticket and ticket comment details.
+      operationId: getTicketDetails
+      tags:
+      - Ticketing
+      parameters:
+      - name: ticketName
+        in: path
+        required: true
+        description: Ticket Number returned from the create ticket route.
+        schema:
+          type: string
+          example: TTN-0006181640
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v1
+                  data:
+                    type: object
+                    properties:
+                      serviceSummary:
+                        type: object
+                        properties:
+                          billingAccountNumber:
+                            type: string
+                            example: 11-DevTest
+                          componentId:
+                            type: string
+                            example: a1X0z000004aLc6EAE
+                          customerAccount:
+                            type: string
+                            example: Test Account - Tranzact Billing
+                          poNumber:
+                            type: string
+                            example: TT-1298126
+                          serviceId:
+                            type: string
+                            example: a0M0z00000PiJ3SEAV
+                          serviceName:
+                            type: string
+                            example: '559512'
+                      ticketDetails:
+                        type: object
+                        properties:
+                          ticketComments:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                commentBody:
+                                  type: string
+                                  example: 'Dear Zayo Customer, <br/><br/>We are investigating a possible service interruption which may be impacting your circuit. We regret that your services are impacted and appreciate your patience while we troubleshoot and work diligently to resolve the underlying issue. We will continue to provide updates until your services have been restored. If you have any additional questions please contact the Zayo Network Control Center and reference the ticket below.<br/><br/>GENERAL INFORMATION<br/>Case Number: TTN-0006181640<br/>Customer Ticket Number: Zayo-1398732<br/>Customer Circuit Id: <br/>Case Subject: TESTING<br/>Case Description: TESTING API\n\nContact Email: devon.holt@zayo.com\nContact Name: Devon Holt\nContact Phone: 123-456-7890\nContact Type: Primary<br/>Case Status: New<br/>Case Sub-Status: In Queue<br/><br/>LOCATION INFORMATION <br/>Location A: <br/>Location Z: <br/><br/>For quick access to ticket creation and updates, please visit our <a href=\"https://tranzact.zayo.com\">Tranzact</a> portal. <br/>Zayo US: 1.866.236.2824<br/>Zayo Canada: 1.888.404.9296<br/>Zayo UK: +44 (0) 20 3846 4222<br/>Zayo France: +33 (0) 1 49 97 07 37<br/>Website: https://www.zayo.com",'
+                                createdBy:
+                                  type: string
+                                  example: Tranzact Admin
+                                createdDate:
+                                  type: string
+                                  example: 2022-09-08T20:04:20.000+0000
+                          closureSummary:
+                            type: string
+                            example: This was a test ticket and has been closed.
+                          contacts:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                email:
+                                  type: string
+                                  format: email
+                                  example: test@test.com
+                                fullName:
+                                  type: string
+                                  example: Test Test
+                                phone:
+                                  type: string
+                                  example: (877) 502-8600
+                          criticalDates:
+                            type: object
+                            properties:
+                              dateTimeOpened:
+                                type: string
+                                example: 2022-09-08T20:04:20.000+0000
+                              dateTimeClosed:
+                                type: string
+                                example: 2022-09-08T20:36:25.000+0000
+                              downtimeInitialDate:
+                                type: string
+                                example: 2022-09-08T20:04:19.000+0000
+                              lastUpdateDateTime:
+                                type: string
+                                example: 2022-09-08T20:36:24.000+0000
+                              restoreDateTime:
+                                type: string
+                                example: 2022-09-08T20:36:25.000+0000
+                          customerReferenceId:
+                            type: string
+                            example: Zayo-1398732
+                          description:
+                            type: string
+                            example: 'TESTING API\r\n\r\nContact Email: devon.holt@zayo.com\r\nContact Name: Devon Holt\r\nContact Phone: 123-456-7890\r\nContact Type: Primary'
+                          impact:
+                            type: string
+                            example: Impaired
+                          repairAction:
+                            type: object
+                            properties:
+                              fixType:
+                                type: string
+                              otherRestore:
+                                type: string
+                              restoreAction:
+                                type: string
+                              restoreItem:
+                                type: string
+                          subject:
+                            type: string
+                            example: TESTING
+                          symptom:
+                            type: string
+                            example: Degraded
+                          ticketOwner:
+                            type: string
+                            example: Technical Support Desk
+                          ticketNumber:
+                            type: string
+                            example: TTN-0006181640
+                          ticketStatus:
+                            type: string
+                            example: Cancelled
+                          ticketSubStatus:
+                            type: string
+                            example: Cancelled
+                          ticketType:
+                            type: string
+                            example: Technical Support
+  /services/service-management/v1/all-tickets:
+    post:
+      summary: Get all tickets
+      description: Retrieve all tickets based on filter options and pagination.
+      operationId: getAllTickets
+      tags:
+      - Ticketing
+      requestBody:
+        description: Optional request body to apply filters to return a list of all tickets. Pagination with top and skip options.
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                filter:
+                  type: object
+                  description: Object to define filter options.
+                  additionalProperties: false
+                  properties:
+                    serviceId:
+                      description: Service unique identifier.
+                      $ref: '#/components/schemas/baseFilter'
+                    serviceName:
+                      description: Service unique identifier, also used in Tranzact portal.
+                      $ref: '#/components/schemas/baseFilter'
+                    componenteId:
+                      description: Service component unique identifier.
+                      $ref: '#/components/schemas/baseFilter'
+                    circuitId:
+                      description: Circuit unique identifier related to ticket.
+                      $ref: '#/components/schemas/baseFilter'
+                    customerReferenceId:
+                      description: Optional customer defined identifier.
+                      $ref: '#/components/schemas/baseFilter'
+                    dateTimeOpened:
+                      description: Datetime the ticket was opened.
+                      $ref: '#/components/schemas/dateTimeOpened'
+                    legacyCircuitId:
+                      description: Legacy circuit unique identifier related to ticket.
+                      $ref: '#/components/schemas/baseFilter'
+                    status:
+                      description: Status values can vary based on the ticket type.
+                      $ref: '#/components/schemas/baseFilter'
+                    ticketId:
+                      description: Ticket unique identifier.
+                      $ref: '#/components/schemas/baseFilter'
+                    ticketNumber:
+                      description: Ticket unique identifier, also used in Tranzact portal.
+                      $ref: '#/components/schemas/baseFilter'
+                    ticketType:
+                      description: Type of ticket (Access Request, Billing, Customer Service, Remote Hands, Technical Support).
+                      $ref: '#/components/schemas/ticketTypeFilter'
+                    subject:
+                      description: Ticket subject title.
+                      $ref: '#/components/schemas/baseFilter'
+                    and:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/andOrFilter'
+                      minItems: 2
+                      maxItems: 5
+                      uniqueItems: true
+                    or:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/andOrFilter'
+                      additionalProperties: false
+                      minItems: 2
+                      maxItems: 5
+                      uniqueItems: true
+                paging:
+                  type: object
+                  description: Object to define pagination for the number of records per page, and how many records to skip. Follows odata pagination standards.
+                  additionalProperties: false
+                  required:
+                  - top
+                  - skip
+                  properties:
+                    top:
+                      type: integer
+                      description: Number of records to be returned per page.
+                      example: 50
+                      default: 10
+                      maximum: 50
+                      minimum: 0
+                    skip:
+                      type: integer
+                      description: Number of records to skip.
+                      default: 0
+                      minimum: 0
+                search:
+                  type: string
+                  minLength: 3
+            examples:
+              Status filter using or:
+                value:
+                  filter:
+                    or:
+                    - status: New
+                    - status: Isolation and Repair
+                  paging:
+                    top: 50
+                    skip: 0
+              Ticket type filter:
+                value:
+                  filter:
+                  - ticketType: Disconnect Request
+                  paging:
+                    top: 10
+                    skip: 0
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v1
+                  data:
+                    type: object
+                    properties:
+                      records:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            circuitId:
+                              type:
+                              - 'null'
+                              - string
+                              example: ETYX/TEST012/ZYO
+                            componentId:
+                              type:
+                              - 'null'
+                              - string
+                              example: a1X0z000004aLcBEAU
+                            customerReferenceId:
+                              type:
+                              - 'null'
+                              - string
+                              example: test
+                            description:
+                              type: string
+                              example: 'Issue: Slow Service - Constant  Description: test Customer Reported Initial Down time : Jun 27, 2022 2:59 PM'
+                            legacyCircuitId:
+                              type:
+                              - 'null'
+                              - string
+                            serviceId:
+                              type: string
+                              example: a0M0z00000PiJ3XEAV
+                            serviceName:
+                              type: string
+                              example: '559513'
+                            status:
+                              type: string
+                              example: Service Restored
+                            subStatus:
+                              type: string
+                              example: Monitor
+                            subject:
+                              type: string
+                              example: Test Account - GBP / ETYX/TEST012/ZYO / Hard Down
+                            dateTimeOpened:
+                              type: string
+                              format: date-time
+                              example: '2022-06-27T15:01:30.000Z'
+                            dateTimeClosed:
+                              type:
+                              - 'null'
+                              - string
+                              format: date-time
+                              example: '2022-06-27T14:15:52.000Z'
+                            ticketId:
+                              type: string
+                              example: 5004z00001dBSudAAG
+                            ticketNumber:
+                              type: string
+                              example: TTN-0005993810
+                            ticketType:
+                              type: string
+                              example: Technical Support
+                          additionalProperties: false
+                      metadata:
+                        type: object
+                        properties:
+                          top:
+                            type: integer
+                            example: 5
+                          skip:
+                            type: integer
+                            example: 0
+                          currentPage:
+                            type: integer
+                            example: 1
+                          totalPages:
+                            type: integer
+                            example: 4964
+                          totalRecordCount:
+                            type: integer
+                            example: 24818
+                        additionalProperties: false
+                    additionalProperties: false
+                additionalProperties: false
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+  /services/service-management/v1/customer-ticket-action:
+    post:
+      summary: Send Ticket Action
+      description: Send action for existing tickets whether to Approve Resolution or Cancel Ticket.
+      operationId: customerTicketAction
+      tags:
+      - Ticketing
+      requestBody:
+        description: Send Ticket Action request body. Either `ticketId` or `ticketNumber` is required.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+              - contactEmail
+              - contactName
+              - ticketId
+              - ticketNumber
+              - ticketAction
+              properties:
+                ticketId:
+                  anyOf:
+                  - maxLength: 15
+                    minLength: 15
+                  - maxLength: 18
+                    minLength: 18
+                  description: Ticket unique identifier. Either `ticketId` or `ticketNumber` is required.
+                  example: 5000x00000BHrN2AAL
+                ticketNumber:
+                  type: string
+                  minLength: 14
+                  description: Ticket unique identifier. Either `ticketId` or `ticketNumber` is required.
+                  example: TTN-0003449133
+                contactEmail:
+                  type: string
+                  format: email
+                  description: Email of the user who is sending the action for the ticket.
+                  example: wwhite@company.com
+                contactName:
+                  type: string
+                  description: Name of the user who is sending the action for the ticket.
+                  example: Walter White
+                ticketAction:
+                  type: string
+                  description: Action for the ticket. Either `Approve Resolution` or `Cancel Ticket` is required.
+                  example: Approve Resolution
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v1
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Ticket was successfully updated.
+                    additionalProperties: false
+                additionalProperties: false
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+              examples:
+                Your ticket has not been picked up yet:
+                  value:
+                    apiVersion: v1
+                    error:
+                      errorId: 797ac530-9326-917e-fa38-13d82e065ffe
+                      code: 400
+                      message: Your ticket has not been picked up yet. To cancel ticket, please cancel by set ticketAction field on request payload as Cancel Ticket
+                      errors: []
+components:
+  schemas:
+    ticketTypeFilter:
+      title: Get All Tickets Ticket Type Filter
+      type:
+      - string
+      - object
+      anyOf:
+      - $ref: '#/components/schemas/ticketTypes'
+      - type: object
+        additionalProperties: false
+        properties:
+          eq:
+            $ref: '#/components/schemas/ticketTypes'
+          ge:
+            $ref: '#/components/schemas/ticketTypes'
+          gt:
+            $ref: '#/components/schemas/ticketTypes'
+          le:
+            $ref: '#/components/schemas/ticketTypes'
+          lt:
+            $ref: '#/components/schemas/ticketTypes'
+          ne:
+            $ref: '#/components/schemas/ticketTypes'
+    andOrFilter:
+      title: Get All Tickets And and Or Filter
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      maxProperties: 3
+      properties:
+        circuitId:
+          description: Circuit unique identifier related to ticket.
+          $ref: '#/components/schemas/baseFilter'
+        componentId:
+          description: Service component unique identifier.
+          $ref: '#/components/schemas/baseFilter'
+        customerReferenceId:
+          description: Optional customer defined identifier.
+          $ref: '#/components/schemas/baseFilter'
+        dateTimeOpened:
+          description: Datetime the ticket was opened.
+          $ref: '#/components/schemas/dateTimeOpened'
+        legacyCircuitId:
+          description: Legacy circuit unique identifier related to ticket.
+          $ref: '#/components/schemas/baseFilter'
+        serviceId:
+          description: Service unique identifier.
+          $ref: '#/components/schemas/baseFilter'
+        serviceName:
+          description: Service unique identifier, also used in Tranzact portal.
+          $ref: '#/components/schemas/baseFilter'
+        status:
+          description: Status values can vary based on the ticket type.
+          $ref: '#/components/schemas/baseFilter'
+        subject:
+          description: Ticket subject title.
+          $ref: '#/components/schemas/baseFilter'
+        ticketId:
+          description: Ticket unique identifier.
+          $ref: '#/components/schemas/baseFilter'
+        ticketNumber:
+          description: Ticket unique identifier, also used in Tranzact portal.
+          $ref: '#/components/schemas/baseFilter'
+        ticketType:
+          description: Type of the ticket.
+          $ref: '#/components/schemas/ticketTypeFilter'
+    ticketTypes:
+      title: Get All Tickets Ticket Types
+      type: string
+      enum:
+      - Access Request
+      - Billing
+      - Customer Service
+      - Disconnect Request
+      - Professional Services
+      - Remote Hands
+      - Tech Assist
+      - Technical Support
+      - Service Inquiry
+      - Shipping & Receiving
+    dateTimeOpened:
+      title: Get All Tickets Date Time Opened
+      type:
+      - string
+      - object
+      anyOf:
+      - type: string
+        format: date-time
+      - type: string
+        format: date
+      - type: object
+        additionalProperties: false
+        properties:
+          eq:
+            type: string
+            description: Equal to.
+            oneOf:
+            - format: date-time
+            - format: date
+          ge:
+            type: string
+            description: Greater than or equal to.
+            oneOf:
+            - format: date-time
+            - format: date
+          gt:
+            type: string
+            description: Greater than.
+            oneOf:
+            - format: date-time
+            - format: date
+          le:
+            type: string
+            description: Less than or equal to.
+            oneOf:
+            - format: date-time
+            - format: date
+          lt:
+            type: string
+            description: Less than.
+            oneOf:
+            - format: date-time
+            - format: date
+    billingTicketRequest:
+      title: Billing Ticket Request
+      type: object
+      required:
+      - ticketType
+      properties:
+        ticketType:
+          type: string
+          example: Billing
+        description:
+          type: string
+          example: test api ticket create
+        serviceId:
+          type: string
+          example: a0M6000000Mve6iEAB
+        componentId:
+          type: string
+          example: ''
+        customerReferenceId:
+          type: string
+          example: 'Ticket #123'
+        contacts:
+          type: array
+          items:
+            type: object
+            required:
+            - contactType
+            - fullName
+            - email
+            properties:
+              contactType:
+                type: string
+                example: Primary
+              fullName:
+                type: string
+                example: Hannah Wanderer
+              email:
+                type: string
+                format: email
+                example: test@zayo.com
+              phone:
+                type: string
+                example: '3038858963'
+    accessRequestTicketRequest:
+      title: Access Request Ticket Request
+      type: object
+      required:
+      - ticketType
+      properties:
+        ticketType:
+          type: string
+          example: Access Request
+        componentId:
+          type: string
+          example: a1X60000004namIEAQ
+        contacts:
+          type: array
+          items:
+            type: object
+            required:
+            - contactType
+            - fullName
+            - email
+            properties:
+              contactType:
+                type: string
+                example: Primary
+              fullName:
+                type: string
+                example: John Smith
+              email:
+                type: string
+                format: email
+                example: john.smith@zayo.com
+              phone:
+                type: string
+                example: '3038858963'
+        customerReferenceId:
+          type: string
+          example: 'Ticket #123'
+        description:
+          type: string
+          example: test
+        estimatedArrivalDate:
+          type: string
+          example: '2030-08-24'
+          format: date
+        estimatedArrivalTime:
+          type: string
+          example: 20:20:39+00:00
+          format: time
+        idNumber:
+          type: string
+          example: '123'
+        issuingState:
+          type: string
+          example: CO
+        poNumber:
+          type: string
+          example: n/a
+        preciseLocation:
+          type: string
+          example: DEN2 Floor:1, Row:1.12
+        serviceId:
+          type: string
+          example: a0M6000000Mve6iEAB
+    400Response:
+      title: 400 Response
+      description: Bad Request
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the request.
+        error:
+          type: object
+          description: Error information from the request.
+          properties:
+            errorId:
+              type: string
+              format: uuid
+              example: 851e419f-93df-46b3-a718-819e923c88f4
+              description: UUID for Zayo troubleshooting.
+            code:
+              type: integer
+              example: 400
+              description: 400 - the request contains bad syntax or cannot be fulfilled.
+            message:
+              type: string
+              description: More detailed explanation of the error.
+            errors:
+              type: array
+              description: Additional error information, if necessary.
+              items:
+                type: string
+                description: Not used yet by Zayo teams, this is typically null.
+    technicalSupportTicketRequest:
+      title: Technical Support Ticket Request
+      type: object
+      required:
+      - ticketType
+      - circuitId
+      - downtimeInitialDate
+      - downtimeInitialTime
+      - serviceState
+      properties:
+        ticketType:
+          type: string
+          example: Technical Support
+        contacts:
+          type: array
+          minItems: 1
+          maxItems: 20
+          items:
+            type: object
+            required:
+            - contactType
+            - fullName
+            - email
+            properties:
+              contactType:
+                type: string
+                example: Primary
+                description: Indicator of what this contact should be reached out for - Technical or Primary.
+              fullName:
+                type: string
+                example: Devon Holt
+              email:
+                type: string
+                format: email
+                example: devon.holt@zayo.com
+              phone:
+                type: string
+                example: 123-456-7890
+            additionalProperties: false
+        customerReferenceId:
+          type: string
+          example: Zayo-1398732
+          description: Ticket reference specific to customer.
+        description:
+          type: string
+          example: TESTING API
+          description: This will be the description of the Zayo ticket. Please provide a detailed statement of work.
+        downtimeInitialDate:
+          type: string
+          example: '2022-06-29'
+          format: date
+          description: ISO format date string of initial downtime.
+        downtimeInitialTime:
+          type: string
+          example: 20:20:39+00:00
+          format: time
+          description: ISO format time string of initial downtime.
+        circuitId:
+          type: string
+          example: ETYX/TEST011/ZYO
+          description: Either `circuitId`, `serviceId`, or `componentId` is required. You can get all values from the service inventory route.
+        serviceId:
+          type: string
+          example: a0M0z00000PiJ3SEAV
+        componentId:
+          type: string
+          example: a1X0z000004aLc6EAE
+        serviceState:
+          type: string
+          example: Impaired
+          enum:
+          - Hard Down
+          - Impaired
+          - Request Against Service
+          description: The state of your service you are creating a ticket against. **Impaired** = Degraded or Erroring but still usable. **Hard Down** = Service degraded to the point of being unusable or completely hard down. **Request Against Service** = Incident investigation (service bounced but cleared before the ticket was opened) and information requests or questions related to the configuration of an active service.
+        subject:
+          type: string
+          example: TESTING
+          description: Summary of request, this will be the subject of the Zayo ticket.
+        troubleshooting:
+          type: object
+          properties:
+            circuitPassTraffic:
+              type: boolean
+              example: false
+              description: Has this circuit passed traffice before?
+            disconnectedFibers:
+              type: boolean
+              example: false
+              description: Has physical maintenance been performed that disconnected fibers?
+            gearOn:
+              type: boolean
+              example: true
+              description: Do you have physical or remote access to your gear?
+            interfaceReset:
+              type: boolean
+              example: false
+              description: Does your interface have Duplex settings enabled?
+            verifyLightLevels:
+              type: boolean
+              example: false
+              description: Have you verified input/output light levels?
+          additionalProperties: false
+      additionalProperties: false
+    baseFilter:
+      title: Get All Tickets Base Filter
+      type:
+      - string
+      - object
+      anyOf:
+      - type: string
+      - type: object
+        additionalProperties: false
+        properties:
+          eq:
+            type: string
+            description: Equal to.
+          ge:
+            type: string
+            description: Greater than or equal to.
+          gt:
+            type: string
+            description: Greater than.
+          le:
+            type: string
+            description: Less than or equal to.
+          lt:
+            type: string
+            description: Less than.
+          ne:
+            type: string
+            description: Not equal to.
+  securitySchemes:
+    BearerToken:
+      type: http
+      bearerFormat: JWT
+      description: Bearer token authentication.
+      scheme: bearer
+    OAuthClientCredentials:
+      description: OAuth 2.0 using the Client Credentials grant type.
+      flows:
+        clientCredentials:
+          scopes:
+            openid: openid scope
+          tokenUrl: https://auth.api.zayo.com/oauth/token
+      type: oauth2

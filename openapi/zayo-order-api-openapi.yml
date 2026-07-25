@@ -1,0 +1,606 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Zayo APIs Maintenance Cases Order API
+  description: 'Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    '
+  x-logo:
+    url: https://zayo-ui-bucket.s3-us-west-2.amazonaws.com/Common/Logos/zayo-logo-orange.png
+    altText: Zayo orange logo
+  contact:
+    name: Zayo API Team
+    email: zayoapi@zayo.com
+servers:
+- url: https://api.zayo.com
+  description: Production server
+security:
+- BearerToken: []
+- OAuthClientCredentials: []
+tags:
+- name: Order
+  description: Grow your footprint by reviewing Zayo products in our Product Catalog API, generating quotes with our Quoting API, and automating the ordering process through the Order API.
+paths:
+  /services/order-management/v2/orders/contacts/{quoteId}:
+    get:
+      summary: Get order contacts
+      description: 'Returns order contact information per billing account for a specified quote. Use the `id` returned in the `billingAccounts` array, `id` returned in the `signers` array, and `id` returned in the `primary` array in the following respective fields in the order request payload - `billingAccountId`, `primaryContactId`, and `contractSignerId`. You use either the `quoteId` or `quoteName` path param, only one is required to retrieve your order information.
+
+
+        *Please Note: At the moment, only `quoteId` is accepted in the order request payload.*'
+      operationId: getOrderContacts
+      tags:
+      - Order
+      parameters:
+      - name: quoteId
+        in: path
+        required: true
+        description: Either `quoteId` or `quoteName` is required. Unique quote identifier returned by the create or edit quote route.
+        schema:
+          type: string
+        examples:
+          quoteId (uuid):
+            value: 4d5c2bdc-473b-47d6-8958-a8028ac35850
+          quoteName (^Quote-\d+$):
+            value: Quote-10256816
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v2
+                  data:
+                    type: object
+                    properties:
+                      quoteId:
+                        type: string
+                        example: Quote-10153701
+                        description: Response of the unique identifier used in the URL. Could be quoteId or quoteName.
+                      currencyIsoCode:
+                        type: string
+                        example: USD
+                      billingAccounts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 0014z00001d89HqAAI
+                            billingAccountNumber:
+                              type:
+                              - 'null'
+                              - string
+                              example: 11-DevTest
+                            currencyIsoCode:
+                              type: string
+                              example: USD
+                            name:
+                              type: string
+                              example: Test Account - Tranzact
+                            signers:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: 0030z00002RTQwMAAX
+                                  firstName:
+                                    type: string
+                                    example: Devon
+                                  lastName:
+                                    type: string
+                                    example: Holt
+                            primary:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: 0030z00002V068qAAB
+                                  firstName:
+                                    type: string
+                                    example: Leidy
+                                  lastName:
+                                    type: string
+                                    example: Perez
+              examples:
+                Test Account Contacts:
+                  value:
+                    apiVersion: v2
+                    data:
+                      quoteId: 0b85fdf6-f462-47b9-8bf3-7996f4f2db9a
+                      currencyIsoCode: USD
+                      billingAccounts:
+                      - id: 0010z00001RkkUVAAZ
+                        billingAccountNumber: 1-TrazDemo
+                        currencyIsoCode: USD
+                        name: Mordor Forging - Trial Account
+                        signers:
+                        - id: 0030z00002OamyHAAR
+                          firstName: Hannah
+                          lastName: Wanderer
+                        - id: 0030z00002V068qAAB
+                          firstName: Leidy
+                          lastName: Perez
+                        primary:
+                        - id: 0030z00002OamyHAAR
+                          firstName: Hannah
+                          lastName: Wanderer
+                      - id: 0010z00001RmCjJAAV
+                        billingAccountNumber: '31857'
+                        currencyIsoCode: USD
+                        name: Enterprise Networks Demo Test Account
+                        signers:
+                        - id: 0030z00002UxqhqAAB
+                          firstName: Randall
+                          lastName: Holman
+                        primary:
+                        - id: 0030z00002UxqhqAAB
+                          firstName: Randall
+                          lastName: Holman
+                        - id: 0030z00002RTQwMAAX
+                          firstName: Devon
+                          lastName: Holt
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+  /services/order-management/v2/orders/order:
+    post:
+      summary: Submit order
+      description: "Order a quote. Creates a job to be completed in the background that creates the New Order and saves the result as a `jobId` for lookup. Since this is a time-consuming task for Zayo, this route will trigger a job that will create an order directly in Zayo's ordering system. The response is a `jobId`, and you will follow up on the request via the `job/{jobId}` route to get the Order details.\n\nPre-requisite APIs include quotes route (alternativly have your account rep provide this value) and the contacts route to get your billing account and order contact information. SOF signature is still required after the order is placed. Certain orders are eligible for digital signature. \n\n*Please Note: At the moment, only `quoteId` is accepted in the order request payload.* "
+      operationId: submitOrder
+      tags:
+      - Order
+      requestBody:
+        description: Order request body. Prequisites include having a quoteId or quoteName from the quotes/quote route as well as billingAccountId, primaryContactId, and contractSignerId from the /orders/contacts/{quoteId} route.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - quoteId
+              - term
+              - billingAccountId
+              - primaryContactId
+              - contractSignerId
+              additionalProperties: false
+              properties:
+                quoteId:
+                  type: string
+                  format: uuid
+                  description: Unique quote identifier returned by quotes/quote route.
+                term:
+                  description: Term of the order, pricing per term is provided from the create or edit quote route.
+                  oneOf:
+                  - type: integer
+                    enum:
+                    - 1
+                    - 12
+                    - 24
+                    - 36
+                    - 48
+                    - 60
+                    - 120
+                    - 240
+                  - type: string
+                    enum:
+                    - '1'
+                    - '12'
+                    - '24'
+                    - '36'
+                    - '48'
+                    - '60'
+                    - '120'
+                    - '240'
+                  example: 12
+                billingAccountId:
+                  type: string
+                  minLength: 18
+                  maxLength: 18
+                  description: Unique identifier to designate the billing account to be billed for the Order. This value is returned in the /orders/contacts/{quoteId}.
+                  example: 0014z00001d89HqAAI
+                primaryContactId:
+                  type: string
+                  minLength: 18
+                  maxLength: 18
+                  description: Unique identifier to designate the contact responsible for general support for the Order. This value is returned in the /orders/contacts/{quoteId}.
+                  example: 0030z00002YnGLRAA3
+                contractSignerId:
+                  type: string
+                  minLength: 18
+                  maxLength: 18
+                  description: Unique identifier to designate the contact responsible for signing the contract for the Order. This value is returned in the /orders/contacts/{quoteId}.
+                  example: 0030z00002YnGLRAA3
+                notes:
+                  type: string
+                  maxLength: 4000
+                  description: Any additional notes you'd like to specify on the Order.
+                  example: These are some notes
+                poNumber:
+                  type: string
+                  maxLength: 40
+                  description: Optional field to store purchase order number.
+                  example: Zayo-12345
+                msaRead:
+                  description: Represents the user has read the related Master Service Agreement related to the Order. At this time we do not support sending these documents via API and must be coordinated with your account representative. This field must be set to True in order to submit an order for auto-provisioning.
+                  oneOf:
+                  - type: boolean
+                    example: true
+                    default: false
+                  - type: string
+                    pattern: ^(true|false|True|False)$
+                serviceScheduleRead:
+                  description: Represents the user has read the related Service Schedule related to the Order. At this time we do not support sending these documents via API and must be coordinated with your account representative. This field must be set to True in order to submit an order for auto-provisioning.
+                  oneOf:
+                  - type: boolean
+                    example: true
+                    default: false
+                  - type: string
+                    pattern: ^(true|false|True|False)$
+                digitalSignature:
+                  description: Represents a digital version of the user’s signature agreeing to the terms and conditions presented in the related MSA and Service Schedule. This field must be set to True (and is required when `msaRead` = True, `serviceScheduleRead` = True) in order to submit an order for auto-provisioning.
+                  oneOf:
+                  - type: boolean
+                    example: true
+                    default: false
+                  - type: string
+                    pattern: ^(true|false|True|False)$
+                provisioningDetails:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      cloudProvider:
+                        type: string
+                        example: Amazon AWS
+                        description: Cloud on ramp related to the order, this must match from the Quote.
+                      accountId:
+                        type: string
+                        example: '529554258215'
+                        description: Cloud provider-specific account key to enable your cloud connection.
+                      sTagVlanId:
+                        type: string
+                        example: '101'
+                        description: Desired s-tag vlan id.
+                      cTagVlanId:
+                        type: string
+                        example: '232'
+                        description: Desired c-tag vlan id.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v2
+                  data:
+                    type: object
+                    properties:
+                      jobId:
+                        type: string
+                        example: a0e5a907-0851-47f2-8870-e58e565061f3
+                        format: uuid
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+  /services/order-management/v2/job/{jobId}:
+    get:
+      summary: Get job details
+      description: Returns job status. Once the job is finished processing it will return order details. The order job typically finishes processing within 30 seconds. The order details include a similar schema as the quote response in addition to the `serviceOrderNumber` attribute.
+      operationId: getJobDetails
+      tags:
+      - Order
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        description: Unique order job identifier returned by submit order route.
+        schema:
+          type: string
+          format: uuid
+          example: a0e5a907-0851-47f2-8870-e58e565061f3
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v2
+                  data:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        example: success
+                        description: Status of the job.
+                        enum:
+                        - processing
+                        - success
+                        - failure
+                      result:
+                        type: object
+                        properties:
+                          serviceOrderNumber:
+                            type: string
+                            example: '2042080'
+                          quoteNumber:
+                            type: string
+                            example: Quote-8997573
+                          quoteId:
+                            type: string
+                            example: 948da5ef-858f-4960-949b-8385736f8869
+                            format: uuid
+                          totalMrc:
+                            type: number
+                            example: 1409.5
+                          totalNrc:
+                            type: integer
+                            example: 1100
+                          term:
+                            type: integer
+                            example: 36
+                          configuration:
+                            type: object
+                            properties:
+                              children:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    productCode:
+                                      type: string
+                                      example: IP-DIA
+                                    version:
+                                      type: string
+                                      example: 3.7.0
+                                    nodeId:
+                                      type: string
+                                      format: uuid
+                                      example: EED0662D-0710-43D2-8539-498496F3B77E
+                                    portHandoffSpeed:
+                                      type: string
+                                      example: 10GigE
+                                    locationA:
+                                      type: string
+                                      example: a0b60000000W6LjAAK
+                                    connectedIpv4Address:
+                                      type: string
+                                      example: IPv4/31
+                                    connectedIpv6Address:
+                                      type: string
+                                      example: None
+                                    additionalIpv4Addresses:
+                                      type: object
+                                      properties:
+                                        IPv4/31:
+                                          type: integer
+                                          example: 0
+                                        IPv4/29:
+                                          type: integer
+                                          example: 0
+                                        IPv4/28:
+                                          type: integer
+                                          example: 0
+                                        IPv4/27:
+                                          type: integer
+                                          example: 0
+                                        IPv4/26:
+                                          type: integer
+                                          example: 0
+                                        IPv4/25:
+                                          type: integer
+                                          example: 0
+                                        IPv4/24:
+                                          type: integer
+                                          example: 0
+                                        IPv4/30:
+                                          type: integer
+                                          example: 0
+                                    additionalIpv6Addresses:
+                                      type: object
+                                      properties:
+                                        IPv6/64:
+                                          type: integer
+                                          example: 0
+                                        IPv6/48:
+                                          type: integer
+                                          example: 0
+                                    routing:
+                                      type: string
+                                      example: 'No'
+                                    lag:
+                                      type: string
+                                      example: 'No'
+                                    networkInterfaceDevice:
+                                      type: string
+                                      example: 'No'
+                                    cfaProvidedBy:
+                                      type: string
+                                      example: Zayo
+                                    handoff:
+                                      type: string
+                                      example: 2-Fiber (Optical SMF)
+                                    buildingA:
+                                      type: string
+                                      example: a0W60000000AGCAEA4
+                              nodeId:
+                                type: string
+                                example: 6DD6BC0E-CE1F-4EAC-8D4A-07DE8F5BF597
+                                format: uuid
+                              productCode:
+                                type: string
+                                example: IP-DIA
+                              version:
+                                type: string
+                                example: 3.7.0
+                              ddosProtection:
+                                type: object
+                                properties:
+                                  ddosProtectionIncluded:
+                                    type: boolean
+                                    example: false
+                                  cleanTraffic:
+                                    type: string
+                                    example: None
+                                  subscription:
+                                    type: string
+                                    example: None
+                              currencyIsoCode:
+                                type: string
+                                example: USD
+                              bandwidth:
+                                type: string
+                                example: 10G
+                              burstableService:
+                                type: string
+                                example: 'No'
+                              bandwidthType:
+                                type: string
+                                example: Standard
+                              product:
+                                type: string
+                                example: DIA
+                              productCategory:
+                                type: string
+                                example: DIA
+                              aggregatedBandwidth:
+                                type: string
+                                example: 'No'
+                              locations:
+                                type: array
+                                items:
+                                  type: object
+              examples:
+                Processing:
+                  value:
+                    apiVersion: v2
+                    data:
+                      status: processing
+                      result: null
+                Success:
+                  value:
+                    apiVersion: v2
+                    data:
+                      status: success
+                      result:
+                        serviceOrderNumber: '2042080'
+                        quoteNumber: Quote-8997573
+                        quoteId: 948da5ef-858f-4960-949b-8385736f8869
+                        totalMrc: 1409.5
+                        totalNrc: 1100
+                        term: 36
+                        configuration:
+                          children:
+                          - productCode: IP-DIA
+                            version: 3.7.0
+                            nodeId: EED0662D-0710-43D2-8539-498496F3B77E
+                            portHandoffSpeed: 10GigE
+                            locationA: a0b60000000W6LjAAK
+                            connectedIpv4Address: IPv4/31
+                            connectedIpv6Address: None
+                            additionalIpv4Addresses:
+                              IPv4/31: 0
+                              IPv4/29: 0
+                              IPv4/28: 0
+                              IPv4/27: 0
+                              IPv4/26: 0
+                              IPv4/25: 0
+                              IPv4/24: 0
+                              IPv4/30: 0
+                            additionalIpv6Addresses:
+                              IPv6/64: 0
+                              IPv6/48: 0
+                            routing: false
+                            lag: false
+                            networkInterfaceDevice: false
+                            cfaProvidedBy: Zayo
+                            handoff: 2-Fiber (Optical SMF)
+                            buildingA: a0W60000000AGCAEA4
+                          nodeId: 6DD6BC0E-CE1F-4EAC-8D4A-07DE8F5BF597
+                          productCode: IP-DIA
+                          version: 3.7.0
+                          ddosProtection:
+                            ddosProtectionIncluded: false
+                            cleanTraffic: None
+                            subscription: None
+                          currencyIsoCode: USD
+                          bandwidth: 10G
+                          burstableService: false
+                          bandwidthType: Standard
+                          product: DIA
+                          productCategory: DIA
+                          aggregatedBandwidth: false
+                          locations: []
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+components:
+  schemas:
+    400Response:
+      title: 400 Response
+      description: Bad Request
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the request.
+        error:
+          type: object
+          description: Error information from the request.
+          properties:
+            errorId:
+              type: string
+              format: uuid
+              example: 851e419f-93df-46b3-a718-819e923c88f4
+              description: UUID for Zayo troubleshooting.
+            code:
+              type: integer
+              example: 400
+              description: 400 - the request contains bad syntax or cannot be fulfilled.
+            message:
+              type: string
+              description: More detailed explanation of the error.
+            errors:
+              type: array
+              description: Additional error information, if necessary.
+              items:
+                type: string
+                description: Not used yet by Zayo teams, this is typically null.
+  securitySchemes:
+    BearerToken:
+      type: http
+      bearerFormat: JWT
+      description: Bearer token authentication.
+      scheme: bearer
+    OAuthClientCredentials:
+      description: OAuth 2.0 using the Client Credentials grant type.
+      flows:
+        clientCredentials:
+          scopes:
+            openid: openid scope
+          tokenUrl: https://auth.api.zayo.com/oauth/token
+      type: oauth2

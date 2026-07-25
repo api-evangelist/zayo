@@ -1,0 +1,317 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Zayo APIs Maintenance Cases Service Inventory API
+  description: 'Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    '
+  x-logo:
+    url: https://zayo-ui-bucket.s3-us-west-2.amazonaws.com/Common/Logos/zayo-logo-orange.png
+    altText: Zayo orange logo
+  contact:
+    name: Zayo API Team
+    email: zayoapi@zayo.com
+servers:
+- url: https://api.zayo.com
+  description: Production server
+security:
+- BearerToken: []
+- OAuthClientCredentials: []
+tags:
+- name: Service Inventory
+  description: Monitor your critical services with our Service Inventory API.
+paths:
+  /services/service-management/v1/existing-services:
+    post:
+      summary: Get services
+      description: Retrieve all non-disconnected services where locations of the services are reflected as components.
+      operationId: getservices
+      tags:
+      - Service Inventory
+      requestBody:
+        description: Optional body to apply filters to return a list of non-disconnected services. Filter options include - service name, service id, billing account number, status, product group, product category, product, circuit id, legacy circuit id, customer circuit id, bandwidth, term, total mrc, and customer PO. Pagination with top and skip options.
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required:
+              - paging
+              properties:
+                filter:
+                  type: object
+                  description: Object to define filter options.
+                  additionalProperties: false
+                  properties:
+                    serviceName:
+                      type: string
+                      description: Service unique identifier, also available in Tranzact.
+                      example: 022691
+                    serviceId:
+                      type: string
+                      description: Service unique identifier.
+                      example: a0M60000007Mv6XEAS
+                    status:
+                      type: string
+                      description: Service status.
+                      example: Active
+                    productGroup:
+                      type: string
+                      description: Zayo product group.
+                      example: Wavelengths - Metro
+                    productCategory:
+                      type: string
+                      description: Zayo product category.
+                      example: Point-to-Point
+                    product:
+                      type: string
+                      description: Zayo product.
+                      example: Standard Wavelength
+                    circuitId:
+                      type: string
+                      description: Circuit ID.
+                      example: WAVE/ZGBU/TEST
+                    term:
+                      type: integer
+                      description: Term length of the service.
+                      example: 12
+                paging:
+                  type: object
+                  description: Object to define pagination for the number of records per page, and how many records to skip. Follows odata pagination standards.
+                  required:
+                  - top
+                  - skip
+                  additionalProperties: false
+                  properties:
+                    top:
+                      type: integer
+                      description: Number of records to be returned per page.
+                      example: 50
+                      default: 10
+                      maximum: 50
+                      minimum: 0
+                    skip:
+                      type: integer
+                      description: Number of records to skip.
+                      example: 0
+                      default: 0
+                      maximum: 500
+                      minimum: 0
+                search:
+                  type: string
+                  minLength: 3
+                  example: Wave
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v1
+                  data:
+                    type: object
+                    properties:
+                      records:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            serviceName:
+                              type: string
+                              example: '229808'
+                            serviceId:
+                              type: string
+                              example: a0M6000000CQkUSEA1
+                            accountName:
+                              type: string
+                              example: billing INTL-zCan test account
+                            billingAccountNumber:
+                              type: string
+                              example: ''
+                            status:
+                              type: string
+                              example: Active
+                            productGroup:
+                              type: string
+                              example: Ethernet
+                            productCategory:
+                              type: string
+                              example: Multi-pt to Multi-pt
+                            product:
+                              type: string
+                              example: ELAN
+                            circuitId:
+                              type: string
+                              example: GEYX/123467//ZYO
+                            legacyCircuitId:
+                              type:
+                              - 'null'
+                              - string
+                            customerCircuitId:
+                              type:
+                              - 'null'
+                              - string
+                            bandwidth:
+                              type: string
+                              example: 1000Mb
+                            term:
+                              type: integer
+                              example: 36
+                            totalMrc:
+                              type: integer
+                              example: 3250
+                            customerPO:
+                              type: string
+                              example: ''
+                            termStartDate:
+                              type: string
+                              format: date
+                              example: '2012-09-28'
+                            termEndDate:
+                              type: string
+                              format: date
+                              example: '2019-09-27'
+                            serviceNoticePeriodDays:
+                              type: integer
+                              example: 60
+                            renewalIntervalMonths:
+                              type: integer
+                              example: 12
+                            renewalTermType:
+                              type: string
+                              example: Auto-Renewal
+                            components:
+                              type: array
+                              items:
+                                type: object
+                      metadata:
+                        type: object
+                        properties:
+                          top:
+                            type: integer
+                            example: 50
+                          skip:
+                            type: integer
+                            example: 0
+                          currentPage:
+                            type: integer
+                            example: 1
+                          totalPages:
+                            type: integer
+                            example: 1
+                          totalRecordCount:
+                            type: integer
+                            example: 1
+              examples:
+                circuitId filter applied:
+                  value:
+                    apiVersion: v1
+                    data:
+                      records:
+                      - serviceName: '254477'
+                        serviceId: a0M6000000HKgWXEA1
+                        accountName: Test Account - Tranzact Billing
+                        billingAccountNumber: 11-DevTest
+                        status: Pending Change
+                        productGroup: Wavelengths - Metro
+                        productCategory: Point-to-Point
+                        product: Standard Wavelength
+                        circuitId: WAVE/ZGBU/TEST
+                        legacyCircuitId: null
+                        customerCircuitId: null
+                        bandwidth: 10G
+                        term: 24
+                        totalMrc: 4500
+                        customerPO: N/A
+                        termStartDate: 2022-04-01
+                        termEndDate: 2024-03-31
+                        serviceNoticePeriodDays: 90
+                        renewalIntervalMonths: 12
+                        renewalTermType: Auto-Renewal
+                        components:
+                        - bandwidth: 10G
+                          circuitId: WAVE/ZGBU/TEST
+                          customerCircuitId: null
+                          legacyCircuitId: null
+                          locations:
+                          - id: a0b60000007Ws1vAAC
+                            name: 639 E 18th Ave/Fl-B/Rm-B101
+                            city: Denver
+                            state: CO
+                            postalCode: 80203
+                            latitude: 39.7451918
+                            longitude: -104.9792774
+                          - id: a0b60000000XO4AAAW
+                            name: 910 15th St/Fl-7/Rm-751
+                            city: Denver
+                            state: CO
+                            postalCode: 80203
+                            latitude: 39.74556
+                            longitude: -104.995682
+                          parentId: null
+                          id: a1X60000002Me9XEAS
+                          type: null
+                          cfa: null
+                          cfaZ: null
+                          components: []
+                      metadata:
+                        top: 10
+                        skip: 0
+                        currentPage: 1
+                        totalPages: 1
+                        totalRecordCount: 1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+components:
+  schemas:
+    400Response:
+      title: 400 Response
+      description: Bad Request
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the request.
+        error:
+          type: object
+          description: Error information from the request.
+          properties:
+            errorId:
+              type: string
+              format: uuid
+              example: 851e419f-93df-46b3-a718-819e923c88f4
+              description: UUID for Zayo troubleshooting.
+            code:
+              type: integer
+              example: 400
+              description: 400 - the request contains bad syntax or cannot be fulfilled.
+            message:
+              type: string
+              description: More detailed explanation of the error.
+            errors:
+              type: array
+              description: Additional error information, if necessary.
+              items:
+                type: string
+                description: Not used yet by Zayo teams, this is typically null.
+  securitySchemes:
+    BearerToken:
+      type: http
+      bearerFormat: JWT
+      description: Bearer token authentication.
+      scheme: bearer
+    OAuthClientCredentials:
+      description: OAuth 2.0 using the Client Credentials grant type.
+      flows:
+        clientCredentials:
+          scopes:
+            openid: openid scope
+          tokenUrl: https://auth.api.zayo.com/oauth/token
+      type: oauth2

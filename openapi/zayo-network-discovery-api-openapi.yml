@@ -1,0 +1,1683 @@
+openapi: 3.1.0
+info:
+  version: '1.0'
+  title: Zayo APIs Maintenance Cases Network Discovery API
+  description: 'Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    '
+  x-logo:
+    url: https://zayo-ui-bucket.s3-us-west-2.amazonaws.com/Common/Logos/zayo-logo-orange.png
+    altText: Zayo orange logo
+  contact:
+    name: Zayo API Team
+    email: zayoapi@zayo.com
+servers:
+- url: https://api.zayo.com
+  description: Production server
+security:
+- BearerToken: []
+- OAuthClientCredentials: []
+tags:
+- name: Network Discovery
+  description: Grow your footprint by analyzing network availability by utilizing our Building, Locations, and Cloud Providers APIs.
+paths:
+  /services/location-management/v2/buildings/validation:
+    post:
+      summary: Validate building addresses
+      description: "Validate any building in the world with a few parameters to see if Zayo is on net. Request an array of building addresses in a standard building format and you will either get matched or unmatched buildings. Matched buildings will return Zayo Network Status. Unmatched buildings might require alternative naming formats, otherwise, you can assume unmatched buildings are off net.  \n\nOnce you have a Building Id, you can use the Locations route to get location-based information. A `buildingId` or `locationId` is required for quoting."
+      operationId: validateBuildings
+      tags:
+      - Network Discovery
+      requestBody:
+        description: An array of building objects that will be validated against Zayo's systems.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                buildings:
+                  type: array
+                  items:
+                    type: object
+                    additionalProperties: false
+                    maxProperties: 7
+                    minProperties: 2
+                    maxItems: 20
+                    minItems: 1
+                    uniqueItems: true
+                    required:
+                    - address
+                    - countryCode
+                    properties:
+                      address:
+                        type: string
+                        example: 60 Hudson Street
+                        minLength: 3
+                      neighborhood:
+                        type: string
+                      city:
+                        type: string
+                        example: New York
+                      subregion:
+                        type: string
+                      region:
+                        type: string
+                      countryCode:
+                        type: string
+                        example: USA
+                        minLength: 3
+                        maxLength: 3
+                      postal:
+                        type: string
+                        example: '80013'
+            examples:
+              Several Buildings:
+                value:
+                  buildings:
+                  - address: 8 Buckingham Ave
+                    city: Slough
+                    subregion: ''
+                    countryCode: GBR
+                    postal: SL1 4AX
+                  - address: 60 Hudson Street
+                    neighborhood: Manhattan
+                    city: New York
+                    subregion: Manhattan
+                    region: New York
+                    countryCode: USA
+                    postal: '10013'
+                  - address: 123 Test Street
+                    neighborhood: Test Neighborhood
+                    city: Boulder
+                    subregion: Test Subregion
+                    region: CO
+                    countryCode: USA
+                    postal: '80303'
+              One Building:
+                value:
+                  buildings:
+                  - address: 60 Hudson Street
+                    city: New York
+                    region: New York
+                    countryCode: USA
+                    postal: '10013'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      matchedAddresses:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            country:
+                              type: string
+                            address:
+                              type: string
+                            matched_address:
+                              type: string
+                            city:
+                              type: string
+                            subregion:
+                              type:
+                              - 'null'
+                              - string
+                            neighborhood:
+                              type:
+                              - 'null'
+                              - string
+                            postal:
+                              type: string
+                            region:
+                              type:
+                              - 'null'
+                              - string
+                            latitude:
+                              type: number
+                            longitude:
+                              type: number
+                            zayoNetworkStatus:
+                              type: string
+                              enum:
+                              - On Zayo Network
+                              - Not On Zayo Network
+                            buildingClassification:
+                              type:
+                              - 'null'
+                              - string
+                            competitiveInternetEnablement:
+                              type: string
+                            buildingId:
+                              type: string
+                      unmatchedAddresses:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            country:
+                              type: string
+                            address:
+                              type: string
+                            city:
+                              type: string
+                            subregion:
+                              type:
+                              - 'null'
+                              - string
+                            neighborhood:
+                              type:
+                              - 'null'
+                              - string
+                            postal:
+                              type: string
+                            region:
+                              type:
+                              - 'null'
+                              - string
+                            latitude:
+                              type: number
+                            longitude:
+                              type: number
+                            message:
+                              type: string
+                            zayoNetworkStatus:
+                              type:
+                              - 'null'
+                              - string
+                            buildingId:
+                              type:
+                              - 'null'
+                              - string
+              examples:
+                Several Buildings:
+                  value:
+                    apiVersion: v2
+                    data:
+                      matchedAddresses:
+                      - buildingId: a0W600000009mrkEAA
+                        matched_address: 60 Hudson St, New York, 10013
+                        address: 60 Hudson Street
+                        neighborhood: null
+                        city: New York
+                        subregion: null
+                        region: null
+                        country: USA
+                        postal: '10013'
+                        zayoNetworkStatus: On Zayo Network
+                        buildingClassification: On-Net
+                        competitiveInternetEnablements: 'Yes'
+                        latitude: -74.00890867164877
+                        longitude: 40.71790374632121
+                      - buildingId: a0W60000002AmvsEAC
+                        matched_address: 8 Buckingham Avenue, Slough, Berkshire, England, SL1 4
+                        address: 8 Buckingham Ave
+                        neighborhood: null
+                        city: Slough
+                        subregion: null
+                        region: null
+                        country: GBR
+                        postal: SL1 4AX
+                        zayoNetworkStatus: On Zayo Network
+                        buildingClassification: null
+                        competitiveInternetEnablements: 'Yes'
+                        latitude: -0.6338168030935715
+                        longitude: 51.52350290497991
+                      unmatchedAddresses:
+                      - buildingId: null
+                        address: 123 Test Street
+                        neighborhood: null
+                        city: Boulder
+                        subregion: null
+                        region: CO
+                        country: USA
+                        postal: '80303'
+                        zayoNetworkStatus: null
+                        message: Unable to validate this address in the current format. Please reformat before resubmitting.
+                Matched Building:
+                  value:
+                    apiVersion: v2
+                    data:
+                      matchedAddresses:
+                      - buildingId: a0W600000009mrkEAA
+                        matched_address: 60 Hudson St, New York, 10013
+                        address: 60 Hudson Street
+                        neighborhood: null
+                        city: New York
+                        subregion: null
+                        region: null
+                        country: USA
+                        postal: '10013'
+                        zayoNetworkStatus: On Zayo Network
+                        buildingClassification: On-Net
+                        competitiveInternetEnablements: 'Yes'
+                        latitude: -74.00890867164877
+                        longitude: 40.71790374632121
+                Unmatched Building:
+                  value:
+                    apiVersion: v2
+                    data:
+                      unmatchedAddresses:
+                      - buildingId: null
+                        address: 123 Test Street
+                        neighborhood: null
+                        city: Boulder
+                        subregion: null
+                        region: CO
+                        country: USA
+                        postal: USA
+                        zayoNetworkStatus: null
+                        message: Unable to validate this address in the current format. Please reformat before resubmitting.
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+              examples:
+                Missing Required Field:
+                  value:
+                    apiVersion: v2
+                    error:
+                      errorId: 797ac530-9326-917e-fa38-13d82e065ffe
+                      code: 400
+                      message: 'Error: Failed JSON Validation - [[0].countryCode - should NOT be shorter than 3 characters. limit: 3]'
+                      errors: []
+  /services/location-management/v2/building/{buildingId}/locations:
+    get:
+      summary: Get locations
+      description: "View all locations for the specified building in the URL. Locations contain floor, room, and suite information as available, serviceability per product code, and network status. Locations are returned based on serviceability where most desirable locations are returned first. \n\nServiceability is represented by enabled and preferred. Enabled means Zayo can service that product at that location. Preferred means this location is Zayo's preferred location to service. For example, cross connects might not be required at preferred locations. There will only ever be 1 location for each preferred product, while several locations can be enabled for each product. "
+      operationId: getLocations
+      tags:
+      - Network Discovery
+      parameters:
+      - name: buildingId
+        in: path
+        required: true
+        description: '`buildingId` returned from the validate building address route.'
+        schema:
+          type: string
+          example: a0W60000002BxA8EAK
+          pattern: ^[a-zA-Z0-9]{18}$
+          maxLength: 18
+          minLength: 18
+      - name: productCode
+        in: query
+        required: false
+        description: '`productCode` query param will only return locations where the specified `productCode` values are enabled (and is required when `enabled` is populated).'
+        schema:
+          type: array
+          maxItems: 9
+          minItems: 0
+          uniqueItems: true
+          items:
+            type: string
+            example:
+            - ETH-ELINE-P2P
+            - WAVES-STD-P2P
+            enum:
+            - ETH-ELAN-M2M
+            - ETH-ELINE-NNI
+            - ETH-ELINE-P2P
+            - ETH-ELINE-UNI
+            - ETH-PDN-P2P
+            - IP-DIA
+            - IP-DIA-AGG
+            - IP-VPN
+            - WAVES-STD-P2P
+      - name: enabled
+        in: query
+        required: false
+        schema:
+          type: string
+          example: any
+          default: any
+          enum:
+          - any
+          - all
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v2
+                  data:
+                    type: object
+                    properties:
+                      buildingId:
+                        type: string
+                        example: a0W60000002BxA8EAK
+                      address:
+                        type: string
+                        example: 9417 Corporate Lake Dr, Tampa, Florida, 33634
+                      zayoNetworkStatus:
+                        type: string
+                        example: On Zayo Network
+                      locations:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            locationName:
+                              type: string
+                              example: 9417 Corporate Lake Dr/Fl-1/Rm-MMR
+                            locationId:
+                              type: string
+                              example: a0b6000000Avil2AAB
+                            networkStatus:
+                              type: string
+                              example: On Zayo Network
+                            buildingClassification:
+                              type:
+                              - 'null'
+                              - string
+                            competitiveInternetEnablement:
+                              type: string
+                            suite:
+                              type:
+                              - 'null'
+                              - string
+                            floor:
+                              type: string
+                              example: '1'
+                            room:
+                              type: string
+                              example: MMR
+                            enabled:
+                              type: object
+                              properties:
+                                ETH-ELAN-M2M:
+                                  type: boolean
+                                  example: true
+                                ETH-ELINE-NNI:
+                                  type: boolean
+                                  example: true
+                                ETH-ELINE-P2P:
+                                  type: boolean
+                                  example: true
+                                ETH-ELINE-UNI:
+                                  type: boolean
+                                  example: true
+                                ETH-PDN-P2P:
+                                  type: boolean
+                                  example: false
+                                IP-DIA:
+                                  type: boolean
+                                  example: true
+                                IP-DIA-AGG:
+                                  type: boolean
+                                  example: true
+                                IP-VPN:
+                                  type: boolean
+                                  example: true
+                                WAVES-STD-P2P:
+                                  type: boolean
+                                  example: false
+                            preferred:
+                              type: object
+                              properties:
+                                ETH-ELAN-M2M:
+                                  type: boolean
+                                  example: true
+                                ETH-ELINE-NNI:
+                                  type: boolean
+                                  example: true
+                                ETH-ELINE-P2P:
+                                  type: boolean
+                                  example: true
+                                ETH-ELINE-UNI:
+                                  type: boolean
+                                  example: true
+                                ETH-PDN-P2P:
+                                  type: boolean
+                                  example: false
+                                IP-DIA:
+                                  type: boolean
+                                  example: true
+                                IP-DIA-AGG:
+                                  type: boolean
+                                  example: true
+                                IP-VPN:
+                                  type: boolean
+                                  example: true
+                                WAVES-STD-P2P:
+                                  type: boolean
+                                  example: false
+                      messages:
+                        type: array
+                        items:
+                          type: string
+              examples:
+                On Net and Off Net Locations:
+                  value:
+                    apiVersion: v2
+                    data:
+                      buildingId: a0W60000002BxA8EAK
+                      address: 9417 Corporate Lake Dr, Tampa, Florida, 33634
+                      zayoNetworkStatus: On Zayo Network
+                      locations:
+                      - locationName: 9417 Corporate Lake Dr/Fl-1/Rm-MMR
+                        locationId: a0b6000000Avil2AAB
+                        networkStatus: On Zayo Network
+                        buildingClassification: On-Net
+                        competitiveInternetEnablement: 'Yes'
+                        suite: null
+                        floor: '1'
+                        room: MMR
+                        enabled:
+                          ETH-ELAN-M2M: true
+                          ETH-ELINE-NNI: true
+                          ETH-ELINE-P2P: true
+                          ETH-ELINE-UNI: true
+                          ETH-PDN-P2P: false
+                          IP-DIA: true
+                          IP-DIA-AGG: true
+                          IP-VPN: true
+                          WAVES-STD-P2P: false
+                        preferred:
+                          ETH-ELAN-M2M: true
+                          ETH-ELINE-NNI: true
+                          ETH-ELINE-P2P: true
+                          ETH-ELINE-UNI: true
+                          ETH-PDN-P2P: false
+                          IP-DIA: true
+                          IP-DIA-AGG: true
+                          IP-VPN: true
+                          WAVES-STD-P2P: false
+                      - locationName: 9417 Corporate Lake Dr/Fl-1/Rm-MPOE
+                        locationId: a0b4z00000QwxoRAAR
+                        networkStatus: Not on Zayo Network
+                        buildingClassification: On-Net
+                        competitiveInternetEnablement: 'Yes'
+                        suite: null
+                        floor: '1'
+                        room: MPOE
+                        enabled:
+                          ETH-ELAN-M2M: false
+                          ETH-ELINE-NNI: false
+                          ETH-ELINE-P2P: false
+                          ETH-ELINE-UNI: false
+                          ETH-PDN-P2P: false
+                          IP-DIA: false
+                          IP-DIA-AGG: false
+                          IP-VPN: false
+                          WAVES-STD-P2P: false
+                        preferred:
+                          ETH-ELAN-M2M: false
+                          ETH-ELINE-NNI: false
+                          ETH-ELINE-P2P: false
+                          ETH-ELINE-UNI: false
+                          ETH-PDN-P2P: false
+                          IP-DIA: false
+                          IP-DIA-AGG: false
+                          IP-VPN: false
+                          WAVES-STD-P2P: false
+                      messages: []
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+              examples:
+                Incorrect buildingId format:
+                  value:
+                    apiVersion: v2
+                    error:
+                      errorId: 4863bed3-9220-9a6b-dac9-9cd0abeae6c7
+                      code: 400
+                      message: 'Error: Failed Parameter Validation - [.buildingSfid - should NOT be shorter than 18 characters. limit: 18], [.buildingSfid - should match pattern \"^[a-zA-Z0-9]{18}$\". pattern: ^[a-zA-Z0-9]{18}$]'
+                      errors: []
+  /services/quote-management/v2/sites/available-cloud-providers:
+    post:
+      summary: Get cloud sites
+      description: "Search for cloud on-ramp locations based on `productCodes`, `buildingIds`, `cloudProviders`, and `connectionTypes` values to get over 200 cloud on-ramp options. Filter option values are case sentitive. Providers include - Amazon AWS, Google Cloud, Microsoft Azure / Office365, IBM Cloud, Salesforce, Twilio, and many more!\n\nCloud on-ramp locations are returned per building and grouped in the desinations array. Within the destinations array, cloud on-ramps are returned based on the demarc (floor, room, suite), product code, and then connection type. Once you get down to the `connectionType` level, you will see available bandwidths for that Connection Type, for that product, for that cloud on ramp/demarc. Zayo will provide Dedicated connections at all of our cloud on-ramp locations, but we don't support Hosted at all the locations.\n\nWe recommend you apply filters to get the specific data you need to place a quote, otherwise if you are mapping Zayo's cloud serviceability, feel free to send in an empty request object. Please note, there is not pagination with this route.\n\n\n  *Please note: at this time only ETH-ELINE-UNI and ETH-ELINE-P2P product codes can be quoted with a cloudSite. You will apply `cloudProvider` key value pair from the `destinations` array, `connectionType` key value pair from the `destinationDetails` array,  and `locationId` key value pair from the `destinations` array to your quote request.*"
+      operationId: getCloudSites
+      tags:
+      - Network Discovery
+      requestBody:
+        description: "Apply filters to return a list of cloud sites to quote to available Zayo products. Filter options include - cloudProviders, connectionTypes, productCodes, and buildingIds. \n`cloudProviders` options are case-sensitive and include: Amazon AWS, Microsoft Azure / Office365, Google Cloud, Oracle Cloud, Microsoft Cloud for Government, IBM Cloud, Salesforce, Cisco Webex Edge Connect, Alibaba, OVH, Cloudflare, Accenture, ADISTA, AIS Business Cloud, Ajubeo, Artisan Infrastructure, Carpathia Hosting, DataBank Cloud Services, Day 1 Solutions, Enovance, Expedient, Flexential: FlexAnywhere, Fullsave, GROUPE RDI, Hosting.com, Ikoula, IntelePeer, Internap, Linkbynet, Lunavi Inc, NetDepot, Nimbix, Outscale, Oxalide, Packet, Phoenix NAP, QTS Cloud Services, RapidScale, Scale Matrix, StratoGen, The Faction Group, Twilio, Virtustream, Vitelity Cloud, VMware Cloud on AWS, Wasabi Cloud, Xtium."
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filters:
+                  type: object
+                  additionalProperties: false
+                  description: Object to define filter options.
+                  not:
+                    required:
+                    - buildingIds
+                    - locationIds
+                  properties:
+                    productCodes:
+                      type: array
+                      description: Apply multiple product code options. `productCode` returned from the product catalog route. At this time, only ETH-ELINE-UNI and ETH-ELINE-P2P product codes can be quoted with a cloud site.
+                      items:
+                        type: string
+                        example: ETH-ELINE-UNI
+                        enum:
+                        - ETH-ELINE-UNI
+                        - ETH-ELINE-P2P
+                    buildingIds:
+                      type: array
+                      description: Apply multiple `buildingId` options. `buildingId` returned from the validate building address route. `buildingIds` or `locationIds` can be provided (but not both).
+                      items:
+                        type: string
+                        pattern: ^a0W
+                        minLength: 18
+                        maxLength: 18
+                        example: a0W600000009moPEAQ
+                    locationIds:
+                      type: array
+                      description: Apply multiple `locationId` options. `locationId` returned from the get locations route. `buildingIds` or `locationIds` can be provided (but not both).
+                      items:
+                        type: string
+                        pattern: ^a0b
+                        minLength: 18
+                        maxLength: 18
+                        example: a0b60000000TURgAAO
+                    cloudProviders:
+                      type: array
+                      description: Apply multiple cloudProvider options.
+                      maxItems: 5
+                      items:
+                        type: string
+                        example: Amazon AWS
+                        enum:
+                        - Amazon AWS
+                        - Microsoft Azure / Office365
+                        - Google Cloud
+                        - Oracle Cloud
+                        - Microsoft Cloud for Government
+                        - IBM Cloud
+                        - Salesforce
+                        - Cisco Webex Edge Connect
+                        - Alibaba
+                        - OVH
+                        - Cloudflare
+                        - Accenture
+                        - ADISTA
+                        - AIS Busines
+                        - Cloud
+                        - Ajubeo
+                        - Artisan Infrastructure
+                        - Carpathia Hosting,
+                        - ataBank Cloud Services
+                        - Day 1 Solutions
+                        - Enovance
+                        - Expedient
+                        - 'Flexential: FlexAnywhere'
+                        - Fullsave
+                        - GROUPE RDI
+                        - Hosting.com
+                        - Ikoula
+                        - IntelePeer
+                        - Internap
+                        - Linkbynet
+                        - Lunavi Inc
+                        - NetDepot
+                        - Nimbix
+                        - Outscale
+                        - Oxalide
+                        - Packet
+                        - Phoenix NAP
+                        - QTS Cloud Services
+                        - RapidScale
+                        - Scale Matrix
+                        - StratoGen
+                        - The Faction Group,
+                        - wilio
+                        - Virtustream
+                        - Vitelity Cloud
+                        - VMware Cloud on AWS
+                        - Wasabi Cloud
+                        - Xtium
+                    connectionTypes:
+                      type: array
+                      maxItems: 2
+                      uniqueItems: true
+                      description: Apply connection type options - Direct, Hosted, or Dedicated.
+                      items:
+                        type: string
+                        example: Dedicated
+                        enum:
+                        - Direct
+                        - Hosted
+                        - Dedicated
+            examples:
+              By Building(s):
+                value:
+                  filters:
+                    productCodes:
+                    - ETH-ELINE-UNI
+                    buildingIds:
+                    - a0W600000009moPEAQ
+                    cloudProviders:
+                    - Google Cloud
+                    connectionTypes:
+                    - Direct
+              By Location(s):
+                value:
+                  filters:
+                    productCodes:
+                    - ETH-ELINE-P2P
+                    locationIds:
+                    - a0b60000006E5q2AAC
+                    cloudProviders:
+                    - Amazon AWS
+                    - Google Cloud
+                    connectionTypes:
+                    - Dedicated
+                    - Hosted
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: v2
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        buildingId:
+                          type: string
+                          example: a0W600000009mrjEAA
+                        buildingAddress:
+                          type: string
+                          example: 32 Avenue Of The Americas, New York, NY 10013 USA
+                        destinations:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              building:
+                                type: string
+                                example: 32 Avenue Of The Americas
+                              cloudProvider:
+                                type: string
+                                example: Amazon AWS
+                              demarc:
+                                type: string
+                                example: Fl-7/Ste-Coresite/Rm-700
+                              destinationDetails:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    productCode:
+                                      type: string
+                                      example: ETH-ELINE-UNI
+                                    aggregatedBandwidth:
+                                      type: string
+                                      example: false
+                                    connectionType:
+                                      type: object
+                                      properties:
+                                        hosted:
+                                          type: object
+                                          properties:
+                                            bandwidths:
+                                              type: array
+                                              items:
+                                                type: string
+                                                example: 10Mb, 20Mb, 30Mb, 40Mb, 50Mb, 60Mb, 70Mb, 80Mb, 90Mb, 100Mb
+                                            evcEnabled:
+                                              type: boolean
+                                              example: true
+                                              description: Designates whether a cloud on-ramp is eligible for same-day provisioning. This is only available for hosted connections for ETH-ELINE-UNI products.
+                                        dedicated:
+                                          type: object
+                                          properties:
+                                            bandwidths:
+                                              type: array
+                                              items:
+                                                type: string
+                                                example: 10Mb, 20Mb, 30Mb, 40Mb, 50Mb, 60Mb, 70Mb, 80Mb, 90Mb, 100Mb
+                              destinationName:
+                                type: string
+                                example: US East (N. Virginia)
+                              latitude:
+                                type: number
+                                example: 40.719979
+                              locationId:
+                                type: string
+                                example: a0b60000000VmskAAC
+                                description: Use this value in the quote request payload when quoting to a cloud on-ramp.
+                              longitude:
+                                type: number
+                                example: -74.004689
+                              region:
+                                type: string
+                                example: us-east-1
+                              zone:
+                                type: string
+                                example: CS32A
+              examples:
+                Hosted Amazon AWS Options for ETH-ELINE-UNI:
+                  value:
+                    apiVersion: v2
+                    data:
+                    - buildingId: a0W60000002BG6REAW
+                      buildingAddress: 15 Pioneer Walk, Singapore, 627753 Singapore
+                      destinations:
+                      - building: Equinix SG2
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-1/Rm-MPOE
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: Asia Pacific (Signapore)
+                        latitude: 1.32187
+                        locationId: a0b60000003MZCQAA4
+                        longitude: 103.695274
+                        region: ap-southeast-1
+                        zone: EQSG2
+                    - buildingId: a0W60000008EahnEAC
+                      buildingAddress: 800 Rue du Square-Victoria, Montreal, QC H4Z 1A1 Canada
+                      destinations:
+                      - building: eStruxture MTL-1
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-SS1/Rm-MMR1
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: Canada (Central)
+                        latitude: 45.500623
+                        locationId: a0b6000000EkkQDAAZ
+                        longitude: -73.561876
+                        region: ca-central-1
+                        zone: NTM62
+                    - buildingId: a0W600000009mo2EAA
+                      buildingAddress: 21715 Filigree Ct, Ashburn, VA 20147 USA
+                      destinations:
+                      - building: Equinix DC2/DC11
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-1/Rm-Equinix
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: US East (N. Virginia)
+                        latitude: 39.0166517
+                        locationId: a0b60000006E5q2AAC
+                        longitude: -77.4589872
+                        region: us-east-1
+                        zone: EQDC2
+                    - buildingId: a0W600000009nMLEAY
+                      buildingAddress: 350 E Cermak Rd, Chicago, IL 60616 USA
+                      destinations:
+                      - building: Lakeside Technology Center
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-5 or 6 or 8/Rm-Equinix
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: US East (Ohio)
+                        latitude: 41.853686
+                        locationId: a0b60000008c0KYAAY
+                        longitude: -87.618249
+                        region: us-east-2
+                        zone: EQC50
+                    - buildingId: a0W60000002AmytEAC
+                      buildingAddress: 250 Front St W, Toronto, ON M5V 3G5 Canada
+                      destinations:
+                      - building: Allied 250 Front St W
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-B2/Rm-South MMR
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: Canada (Central)
+                        latitude: 43.64459
+                        locationId: a0b6000000G6BthAAF
+                        longitude: -79.38801
+                        region: ca-central-1
+                        zone: 151FS
+                    - buildingId: a0W60000002AmvsEAC
+                      buildingAddress: 8 Buckingham Ave, Slough, SL1 4AX United Kingdom
+                      destinations:
+                      - building: Equinix LD5
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-1/Rm-0601MC1.1
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: Europe (Ireland)
+                        latitude: 51.5222611
+                        locationId: a0b60000003LBlYAAW
+                        longitude: -0.6294121
+                        region: eu-west-1
+                        zone: EQLD5
+                      - building: Equinix LD5
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-1/Rm-0601MC1.1
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: false
+                        destinationName: Europe (London)
+                        latitude: 51.5222611
+                        locationId: a0b60000003LBlYAAW
+                        longitude: -0.6294121
+                        region: eu-west-2
+                        zone: EQLD5
+                    - buildingId: a0W600000009nFhEAI
+                      buildingAddress: 2001 6th Ave, Seattle, WA 98121 USA
+                      destinations:
+                      - building: Westin Building
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-12/Ste-1200
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: US West (Oregon)
+                        latitude: 47.6143693
+                        locationId: a0b60000003Ku54AAC
+                        longitude: -122.3387104
+                        region: us-west-2
+                        zone: SQSE2
+                    - buildingId: a0W60000000BNQYEA4
+                      buildingAddress: 624 S Grand Ave, Los Angeles, CA 90017 USA
+                      destinations:
+                      - building: One Wilshire
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-4/Rm-MMR
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: US West (N. California)
+                        latitude: 34.047905
+                        locationId: a0b60000003Ku11AAC
+                        longitude: -118.255571
+                        region: us-west-1
+                        zone: CSOW
+                    - buildingId: a0W60000002AnABEA0
+                      buildingAddress: 114 rue Ambroise Croizat, Saint-Denis, 93200 France
+                      destinations:
+                      - building: Equinix PA2/PA3, Reliance, zColo Saint Denis
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-G/Rm-120GS16 (Icare)
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: Europe (Paris)
+                        latitude: 48.927223
+                        locationId: a0b60000008en3WAAQ
+                        longitude: 2.350562
+                        region: eu-west-3
+                        zone: EQPA3
+                    - buildingId: a0W60000000A0DIEA0
+                      buildingAddress: 910 15th St, Denver, CO 80202 USA
+                      destinations:
+                      - building: Denver Gas & Electric
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-3/Ste-350/Rm-MMR
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: false
+                        destinationName: US West (Oregon)
+                        latitude: 39.74556
+                        locationId: a0b60000000TURgAAO
+                        longitude: -104.995682
+                        region: us-west-2
+                        zone: CSDE1
+                    - buildingId: a0W60000002An1MEAS
+                      buildingAddress: 227 Marsh Wall, London, E14 9SD United Kingdom
+                      destinations:
+                      - building: Digital Realty Sovereign House
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-3/Rm-MMR 2
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: Europe (London)
+                        latitude: 51.499894532300985
+                        locationId: a0b60000003LGd8AAG
+                        longitude: -0.011129790474255729
+                        region: eu-west-2
+                        zone: TCSH
+                      - building: Digital Realty Sovereign House
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-3/Rm-MMR 2
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: Europe (Ireland)
+                        latitude: 51.499894532300985
+                        locationId: a0b60000003LGd8AAG
+                        longitude: -0.011129790474255729
+                        region: eu-west-1
+                        zone: TCSH
+                    - buildingId: a0W600000009ypzEAA
+                      buildingAddress: 11 Great Oaks Blvd, San Jose, CA 95119 USA
+                      destinations:
+                      - building: Equinix SV1
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-1/Rm-Equinix
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: US West (N. California)
+                        latitude: 37.241589
+                        locationId: a0b60000000DoPKAA0
+                        longitude: -121.783319
+                        region: us-west-1
+                        zone: EQSV5
+                    - buildingId: a0W600000009mrjEAA
+                      buildingAddress: 32 Avenue Of The Americas, New York, NY 10013 USA
+                      destinations:
+                      - building: 32 Avenue Of The Americas
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-7/Ste-Coresite/Rm-700
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: US East (N. Virginia)
+                        latitude: 40.719979
+                        locationId: a0b60000000VmskAAC
+                        longitude: -74.004689
+                        region: us-east-1
+                        zone: CS32A
+                    - buildingId: a0W60000002AJTAEA4
+                      buildingAddress: 2972 Stender Way, Santa Clara, CA 95054 USA
+                      destinations:
+                      - building: Coresite SV4
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-2/Rm-212A
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: false
+                        destinationName: US West (N. California)
+                        latitude: 37.3762704
+                        locationId: a0b60000006I5WQAA0
+                        longitude: -121.9706989
+                        region: us-west-1
+                        zone: CSSV4
+                    - buildingId: a0W60000002An9CEAS
+                      buildingAddress: 137 Boulevard Voltaire, Paris, 75011 France
+                      destinations:
+                      - building: Telehouse 2
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-2/Rm-22.07
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: Europe (Frankfurt)
+                        latitude: 48.8562758
+                        locationId: a0b60000008eiILAAY
+                        longitude: 2.3835683
+                        region: eu-central-1
+                        zone: THV52
+                    - buildingId: a0W60000002AnGSEA0
+                      buildingAddress: Kleyerstraße 88-90, Frankfurt am Main, 60326 Germany
+                      destinations:
+                      - building: Equinix FR5, Itenos
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-G/Rm-Colo
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: Europe (Frankfurt)
+                        latitude: 50.09914717148319
+                        locationId: a0b6000000EqsfLAAR
+                        longitude: 8.632502551280991
+                        region: eu-central-1
+                        zone: EQFA5
+                    - buildingId: a0W60000002EI8EEAW
+                      buildingAddress: 6327 NE Evergreen Pkwy - Bldg C, Hillsboro, OR 97124 USA
+                      destinations:
+                      - building: EdgeConnex POR01
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-1/Rm-104 MMR:2
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: false
+                        destinationName: US West (Oregon)
+                        latitude: 45.551671
+                        locationId: a0b6000000G5qDSAAZ
+                        longitude: -122.915335
+                        region: us-west-2
+                        zone: ECPO1
+                    - buildingId: a0W60000000ArT1EAK
+                      buildingAddress: 12100 Sunrise Valley Dr, Reston, VA 20191 USA
+                      destinations:
+                      - building: Coresite Reston VA1
+                        cloudProvider: Amazon AWS
+                        demarc: Fl-1/Rm-CR-8
+                        destinationDetails:
+                        - productCode: ETH-ELINE-UNI
+                          aggregatedBandwidth: false
+                          connectionType:
+                            hosted:
+                              bandwidths:
+                              - 10Mb
+                              - 20Mb
+                              - 30Mb
+                              - 40Mb
+                              - 50Mb
+                              - 60Mb
+                              - 70Mb
+                              - 80Mb
+                              - 90Mb
+                              - 100Mb
+                              - 200Mb
+                              - 300Mb
+                              - 400Mb
+                              - 500Mb
+                              - 600Mb
+                              - 700Mb
+                              - 800Mb
+                              - 900Mb
+                              - 1G
+                              - 2G
+                              - 3G
+                              - 5G
+                              - 250Mb
+                              evcEnabled: true
+                        destinationName: Fl-1/Rm-CR-8
+                        latitude: 38.950516
+                        locationId: a0b60000003NUHJAA4
+                        longitude: -77.364571
+                        region: us-east-1
+                        zone: CSVA1
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/400Response'
+              examples:
+                Incorrect buildingIds format:
+                  value:
+                    apiVersion: v2
+                    error:
+                      errorId: 2268d09e-b9d3-ca93-32a5-b4b3f624b077
+                      code: 400
+                      message: Failed JSON Validation - /filters/buildingIds/0 should NOT be shorter than 18 characters,/filters/buildingIds/0 should match pattern \"a0W\"
+                      errors: []
+                Incorrect casing of connectionTypes value:
+                  value:
+                    apiVersion: v2
+                    error:
+                      errorId: 56135e62-b2e7-4d05-f478-69064c0dfb07
+                      code: 400
+                      message: Failed JSON Validation - /filters/connectionTypes/0 should be equal to one of the allowed values,/filters/connectionTypes/0 should match some schema in anyOf
+                      errors: []
+components:
+  schemas:
+    400Response:
+      title: 400 Response
+      description: Bad Request
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the request.
+        error:
+          type: object
+          description: Error information from the request.
+          properties:
+            errorId:
+              type: string
+              format: uuid
+              example: 851e419f-93df-46b3-a718-819e923c88f4
+              description: UUID for Zayo troubleshooting.
+            code:
+              type: integer
+              example: 400
+              description: 400 - the request contains bad syntax or cannot be fulfilled.
+            message:
+              type: string
+              description: More detailed explanation of the error.
+            errors:
+              type: array
+              description: Additional error information, if necessary.
+              items:
+                type: string
+                description: Not used yet by Zayo teams, this is typically null.
+  securitySchemes:
+    BearerToken:
+      type: http
+      bearerFormat: JWT
+      description: Bearer token authentication.
+      scheme: bearer
+    OAuthClientCredentials:
+      description: OAuth 2.0 using the Client Credentials grant type.
+      flows:
+        clientCredentials:
+          scopes:
+            openid: openid scope
+          tokenUrl: https://auth.api.zayo.com/oauth/token
+      type: oauth2
