@@ -1,0 +1,26 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Zayo APIs
+  version: 1.0.0
+extends: openapi/zayo-openapi-original.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-21'
+    x-apievangelist-provider: zayo
+    x-apievangelist-auth: oauth2-client-credentials
+    x-apievangelist-artifacts:
+    - authentication/zayo-authentication.yml
+    - scopes/zayo-scopes.yml
+    - conventions/zayo-conventions.yml
+    - errors/zayo-problem-types.yml
+    - data-model/zayo-data-model.yml
+    - conformance/zayo-conformance.yml
+    - lifecycle/zayo-lifecycle.yml
+    - asyncapi/zayo-notifications-webhooks.yml
+- target: $.info
+  update:
+    x-apievangelist-notes: >-
+      Error responses use a custom JSON envelope (apiVersion + error{code,errorId,message,errors});
+      list operations use OData-style paging (top/skip). No RFC 9457, no documented idempotency
+      or rate-limit signaling. Webhooks available via the notifications callback flow.

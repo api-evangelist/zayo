@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: searched
+notes: >-
+  Probed the well-known discovery surface on Zayo's developer, API, auth, and corporate
+  hosts. Nothing was served publicly (200) — recorded for auditability. No WellKnown
+  or SecurityTxt canonical pointer is emitted since no document exists.
+hosts:
+- host: https://developer.zayo.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://www.zayo.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+- host: https://api.zayo.com
+  documents:
+  - {path: /.well-known/openid-configuration, status: 403}
+- host: https://auth.api.zayo.com
+  documents:
+  - {path: /.well-known/openid-configuration, status: 403}
+  - {path: /.well-known/oauth-authorization-server, status: 403}

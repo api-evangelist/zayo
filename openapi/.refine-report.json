@@ -1,0 +1,28 @@
+{
+  "provider": "zayo",
+  "sources": [
+    "zayo-maintenance-cases-api-openapi.yml",
+    "zayo-network-discovery-api-openapi.yml",
+    "zayo-order-api-openapi.yml",
+    "zayo-product-catalog-api-openapi.yml",
+    "zayo-quote-api-openapi.yml",
+    "zayo-service-inventory-api-openapi.yml",
+    "zayo-ticket-catalog-api-openapi.yml",
+    "zayo-ticketing-api-openapi.yml"
+  ],
+  "outputs": [
+    "zayo-maintenance-cases-api-openapi.yml",
+    "zayo-network-discovery-api-openapi.yml",
+    "zayo-order-api-openapi.yml",
+    "zayo-product-catalog-api-openapi.yml",
+    "zayo-quote-api-openapi.yml",
+    "zayo-service-inventory-api-openapi.yml",
+    "zayo-ticket-catalog-api-openapi.yml",
+    "zayo-ticketing-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

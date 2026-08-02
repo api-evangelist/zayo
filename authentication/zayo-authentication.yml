@@ -1,0 +1,32 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/zayo-openapi-original.yml
+docs: https://developer.zayo.com/docs/getting-started
+token_ttl_seconds: 3600
+token_type: Bearer
+notes: >-
+  OAuth 2.0 Client Credentials grant; POST client_id/client_secret + grant_type=client_credentials
+  + scope=openid to https://auth.api.zayo.com/oauth/token. Bearer token valid 1 hour; re-request on 401.
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: BearerToken
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Bearer token authentication.
+  sources:
+  - openapi/zayo-openapi-original.yml
+- name: OAuthClientCredentials
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.api.zayo.com/oauth/token
+    scopes: 1
+  description: OAuth 2.0 using the Client Credentials grant type.
+  sources:
+  - openapi/zayo-openapi-original.yml

@@ -1,0 +1,20 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/zayo-openapi-original.yml
+notes: >-
+  Packaged Agent Skills generated from the Zayo OpenAPI marquee flows; every operationId
+  is verified verbatim in openapi/zayo-openapi-original.yml. No provider-published skills
+  or AGENTS.md were found.
+skills:
+- file: zayo-validate-and-quote.md
+  name: Validate a building and request a Zayo quote
+  api: openapi/zayo-openapi-original.yml
+  operations: [validateBuildings, getLocations, getProductCatalog, requestQuote, getQuoteDetails]
+- file: zayo-order-from-quote.md
+  name: Submit a Zayo order from an existing quote
+  api: openapi/zayo-openapi-original.yml
+  operations: [getQuoteDetails, getOrderContacts, submitOrder, getJobDetails]
+- file: zayo-ticketing-and-maintenance.md
+  name: Open a Zayo ticket and subscribe to maintenance notifications
+  api: openapi/zayo-openapi-original.yml
+  operations: [getservices, getTicketCatalog, createTicket, getTicketDetails, getMaintenanceCases, generateAuthToken, registerCallbackUrl, sendTestNotification]

@@ -1,0 +1,36 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.zayo.com/docs/getting-started
+spec_type: Webhooks
+summary: >-
+  Zayo exposes a push-notification / callback surface (not a published AsyncAPI
+  document) for maintenance-case and ticket-update events. Consumers implement a
+  callback URL in their own infrastructure, register it with Zayo, generate a
+  shared auth token, and receive HTTP push notifications for the notification types
+  they subscribe to.
+setup_flow:
+- step: generateAuthToken
+  operation: openapi/zayo-openapi-original.yml#generateAuthToken
+  http: POST /services/notifications/v1/generate-auth-token
+  notes: >-
+    Generate a shared auth token once per API token; used to authenticate Zayo's push
+    notifications to your callback. May be regenerated to rotate; the most recent token wins.
+- step: registerCallbackUrl
+  operation: openapi/zayo-openapi-original.yml#registerCallbackUrl
+  http: POST /services/notifications/v1/register-callback-url
+  notes: Register a callback URL implemented in your infrastructure to receive push notifications.
+- step: sendTestNotification
+  operation: openapi/zayo-openapi-original.yml#sendTestNotification
+  http: POST /services/notifications/v1/send-test-notification
+  notes: Trigger a test notification to a registered callback URL for a given notification type.
+event_domains:
+- maintenance-cases
+- ticket-updates
+delivery:
+  transport: http-callback
+  direction: zayo-to-consumer
+  auth: shared auth token generated via generateAuthToken
+notes: >-
+  No AsyncAPI/asyncapi.yaml document is published by Zayo; this artifact captures the
+  documented webhook/callback surface as a Webhooks descriptor. Not fabricated — the
+  three operations exist verbatim in the Zayo OpenAPI under the Maintenance Cases tag.

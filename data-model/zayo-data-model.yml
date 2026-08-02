@@ -1,0 +1,76 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/zayo-openapi-original.yml
+notes: >-
+  Entity graph derived from OpenAPI path parameters and operation flow across the
+  Zayo API suite (identifiers that thread operations together). Schema components
+  are mostly request/filter shapes, so relationships are inferred from the id
+  references passed between operations rather than schema $ref links.
+entities:
+- name: Building
+  id_field: buildingId
+  keyed_by: [buildingId, locationId]
+  produced_by: [validateBuildings]
+  notes: A buildingId or locationId is required before quoting.
+- name: Location
+  id_field: locationId
+  produced_by: [getLocations]
+- name: CloudSite
+  produced_by: [getCloudSites]
+- name: ProductCode
+  id_field: productCode
+  keyed_by: [productCode, version]
+  produced_by: [getProductCatalog, getProductCodeDetails]
+- name: Quote
+  id_field: quoteId
+  produced_by: [requestQuote]
+  read_by: [getQuoteDetails, getOrderContacts]
+- name: NNI
+  id_field: nniId
+  produced_by: [getNNIs]
+- name: Order
+  id_field: jobId
+  produced_by: [submitOrder]
+  read_by: [getJobDetails]
+- name: Service
+  produced_by: [getservices]
+- name: TicketType
+  id_field: ticketType
+  keyed_by: [ticketType, version]
+  produced_by: [getTicketCatalog, getTicketTypeDetails]
+- name: Ticket
+  id_field: ticketName
+  produced_by: [createTicket]
+  read_by: [getTicketDetails, getAllTickets, addTicketComment, customerTicketAction]
+- name: MaintenanceCase
+  id_field: caseNumber
+  produced_by: [getMaintenanceCases]
+  read_by: [getMaintenanceImpacts, getMaintenanceNotifications]
+- name: MaintenanceNotification
+  id_field: maintenanceNotificationName
+  read_by: [getMaintenanceNotificationDetails]
+relationships:
+- from: Location
+  to: Building
+  type: belongs_to
+  via: buildingId
+- from: Quote
+  to: Building
+  type: belongs_to
+  via: buildingId
+- from: Order
+  to: Quote
+  type: belongs_to
+  via: quoteId
+- from: Ticket
+  to: TicketType
+  type: belongs_to
+  via: ticketType
+- from: MaintenanceNotification
+  to: MaintenanceCase
+  type: belongs_to
+  via: caseNumber
+- from: ProductCode
+  to: Quote
+  type: has_many
+  via: productCode

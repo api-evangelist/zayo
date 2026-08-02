@@ -1,0 +1,66 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.zayo.com/docs/getting-started
+docs: https://developer.zayo.com/docs/getting-started
+authentication:
+  style: oauth2-client-credentials
+  token_endpoint: https://auth.api.zayo.com/oauth/token
+  token_type: Bearer
+  token_ttl_seconds: 3600
+  header: 'Authorization: Bearer <access_token>'
+  scopes: [openid]
+  notes: >-
+    OAuth 2.0 Client Credentials grant. Tokens expire after one hour; integrations
+    should handle 401 Unauthorized by re-requesting a token automatically.
+content_type:
+  request: application/json
+  response: application/json
+idempotency:
+  supported: false
+  notes: >-
+    Zayo does not document an idempotency-key header, and the OpenAPI defines no
+    Idempotency-Key parameter. Write operations (quotes, orders, tickets) are not
+    advertised as idempotent.
+pagination:
+  style: odata
+  location: request-body
+  request_object: paging
+  params:
+    top: Number of records to be returned per page (default 10)
+    skip: Number of records to skip (default 0)
+  response_fields: [currentPage, totalPages]
+  source: openapi/zayo-openapi-original.yml
+  notes: OData-style pagination on list operations (e.g. getNNIs, getAllTickets, getMaintenanceCases).
+versioning:
+  style: uri-path
+  versions_in_use: [v1, v2, v3]
+  notes: >-
+    API version is embedded in the URI path segment (e.g. /location-management/v2,
+    /quote-management/v3, /service-management/v1). Responses echo an apiVersion field.
+  source: openapi/zayo-openapi-original.yml
+envelope:
+  response_shape:
+    apiVersion: string
+    data: object
+  error_shape:
+    apiVersion: string
+    error:
+      code: integer
+      errorId: uuid
+      message: string
+      errors: array
+  cross_link: errors/zayo-problem-types.yml
+rate_limiting:
+  documented: false
+  notes: Zayo does not publish rate-limit thresholds or rate-limit response headers.
+request_tracing:
+  documented: false
+  notes: >-
+    No request/correlation-id request header is documented; error responses return
+    an errorId UUID for Zayo-side troubleshooting.
+webhooks:
+  supported: true
+  cross_link: asyncapi/zayo-notifications-webhooks.yml
+  notes: >-
+    Push notifications for maintenance cases (and ticket updates) via a
+    register-callback-url + generate-auth-token + send-test-notification flow.

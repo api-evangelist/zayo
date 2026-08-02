@@ -1,0 +1,48 @@
+# Zayo APIs
+
+> Zayo is a global communications-infrastructure provider running one of the largest independent fiber networks. Zayo publishes a free public developer program at developer.zayo.com with REST APIs for network discovery, quoting and ordering, and service management (inventory, ticketing, maintenance). APIs are OpenAPI 3.1 described and secured with OAuth 2.0 client-credentials bearer tokens.
+
+## APIs
+- [Zayo Developer Portal](https://developer.zayo.com/): One-stop shop for all Zayo API development.
+- [OpenAPI 3.1 specification](https://developer.zayo.com/openapi/zayo.yaml): Full machine-readable spec (26 operations, 8 tags).
+- Base URL: https://api.zayo.com
+- Token endpoint: https://auth.api.zayo.com/oauth/token (OAuth2 client credentials, scope `openid`, 1h bearer tokens)
+
+## Docs
+- [Getting Started](https://developer.zayo.com/docs/getting-started): Auth, token request, calling the APIs.
+- [Help Center / FAQ](https://developer.zayo.com/docs/faq)
+- [Request Access / Contact](https://developer.zayo.com/docs/contact): zayoapi@zayo.com
+
+## Capabilities
+- Network Discovery: validateBuildings, getLocations, getCloudSites
+- Product Catalog: getProductCatalog, getProductCodeDetails
+- Quote: requestQuote, getQuoteDetails, getNNIs
+- Order: getOrderContacts, submitOrder, getJobDetails
+- Service Inventory: getservices
+- Ticket Catalog: getTicketCatalog, getTicketTypeDetails
+- Ticketing: createTicket, addTicketComment, getTicketDetails, getAllTickets, customerTicketAction
+- Maintenance Cases: getMaintenanceCases, getMaintenanceImpacts, getMaintenanceNotifications, getMaintenanceNotificationDetails
+- Push notifications / webhooks: generateAuthToken, registerCallbackUrl, sendTestNotification
+
+## Conventions
+- Auth: OAuth 2.0 client credentials; Authorization: Bearer <token>; re-request token on 401.
+- Versioning: URI-path (v1/v2/v3); responses echo apiVersion.
+- Pagination: OData-style paging object (top/skip); response currentPage/totalPages.
+- Errors: custom JSON envelope { apiVersion, error: { code, errorId, message, errors } } (not RFC 9457).
+- Idempotency: not documented. Rate limits: not published.
+
+## Artifacts (API Evangelist)
+- [Authentication](authentication/zayo-authentication.yml)
+- [OAuth Scopes](scopes/zayo-scopes.yml)
+- [Conventions](conventions/zayo-conventions.yml)
+- [Error catalog](errors/zayo-problem-types.yml)
+- [Data model](data-model/zayo-data-model.yml)
+- [Conformance](conformance/zayo-conformance.yml)
+- [Lifecycle](lifecycle/zayo-lifecycle.yml)
+- [Webhooks](asyncapi/zayo-notifications-webhooks.yml)
+- [MCP candidate tools](mcp/zayo-mcp.yml)
+- [Agentic access](agentic-access/zayo-agentic-access.yml)
+
+## Policies
+- [Terms / Policies](https://www.zayo.com/policies)
+- [Privacy](https://www.zayo.com/privacy)

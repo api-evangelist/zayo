@@ -1,0 +1,27 @@
+generated: '2026-07-21'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: developer.zayo.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Nov 26 23:59:59 2026 GMT
+  hsts: false
+- host: api.zayo.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Nov  3 23:59:59 2026 GMT
+  hsts: null
+domains:
+- domain: zayo.com
+  dnssec: false
+  caa:
+  - 0 issue "amazon.com"
+  - 0 issue "comodoca.com"
+  - 0 issue "digicert.com; cansignhttpexchanges=yes"
+  - 0 issue "globalsign.com"
+  - 0 issue "godaddy.com"
+  - 0 issue "letsencrypt.org"
+  spf: true
+  dmarc: true
+  dmarc_policy: none

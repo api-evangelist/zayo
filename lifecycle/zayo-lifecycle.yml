@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.zayo.com/docs/faq
+versioning:
+  scheme: uri-path
+  versions_in_use: [v1, v2, v3]
+  docs: https://developer.zayo.com/docs/getting-started
+  notes: Version embedded in URI path; responses echo an apiVersion field.
+deprecation:
+  policy_documented: partial
+  notes: >-
+    The developer FAQ carries a question "For how long do you support outdated API
+    versions?" but no concrete written policy, sunset window, or RFC 8594 Sunset/
+    Deprecation header support was found. No deprecated operations in the OpenAPI.
+  docs: https://developer.zayo.com/docs/faq
+sla:
+  documented: false
+  notes: No developer-facing API SLA/uptime target published.
+status_page:
+  found: false
+  notes: No public API status page discovered under developer.zayo.com or status.zayo.com.
+deprecated_operations: []

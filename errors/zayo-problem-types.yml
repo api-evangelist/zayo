@@ -1,0 +1,31 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/zayo-openapi-original.yml
+format: custom-json
+envelope:
+  description: >-
+    Zayo returns a JSON error envelope (not RFC 9457 problem+json). The body carries
+    an apiVersion and an error object with a numeric HTTP code, a UUID errorId for
+    Zayo-side troubleshooting, a human-readable message, and an optional errors[]
+    array of additional detail strings.
+  schema: '#/components/schemas/400Response'
+  fields:
+    apiVersion: API version of the request (string)
+    error.code: HTTP status code (integer)
+    error.errorId: UUID for Zayo troubleshooting
+    error.message: Detailed explanation of the error
+    error.errors: Additional error detail strings (typically null)
+problems:
+- status: 400
+  title: Bad Request
+  description: The request contains bad syntax, failed JSON/parameter validation, or cannot be fulfilled.
+  media_type: application/json
+  schema: '#/components/schemas/400Response'
+  applies_to_operations: 25
+  examples:
+  - 'Failed JSON Validation - [[0].countryCode - should NOT be shorter than 3 characters. limit: 3]'
+  - 'Failed Parameter Validation - [.buildingSfid - should match pattern ^[a-zA-Z0-9]{18}$]'
+notes: >-
+  Only 400 Bad Request response bodies are modeled in the OpenAPI (25 of 26 operations).
+  The getting-started docs reference standard 2xx/3xx/4xx/5xx HTTP semantics and a
+  401 Unauthorized (expired token) case, but 401/403/404/5xx bodies are not schema-modeled.

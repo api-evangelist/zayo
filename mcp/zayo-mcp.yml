@@ -1,0 +1,88 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: openapi/zayo-openapi-original.yml
+notes: 'No official hosted Zayo MCP server found; candidate tool list derived one-per-operation
+  from the published OpenAPI. Auth: OAuth2 client-credentials bearer token.'
+server:
+  name: zayo
+  transport: http
+tools:
+- name: validateBuildings
+  description: Validate building addresses
+  source_operation: openapi/zayo-openapi-original.yml#validateBuildings
+- name: getLocations
+  description: Get locations
+  source_operation: openapi/zayo-openapi-original.yml#getLocations
+- name: getCloudSites
+  description: Get cloud sites
+  source_operation: openapi/zayo-openapi-original.yml#getCloudSites
+- name: getProductCatalog
+  description: Get product catalog
+  source_operation: openapi/zayo-openapi-original.yml#getProductCatalog
+- name: getProductCodeDetails
+  description: Get product code details
+  source_operation: openapi/zayo-openapi-original.yml#getProductCodeDetails
+- name: requestQuote
+  description: Create or edit quote
+  source_operation: openapi/zayo-openapi-original.yml#requestQuote
+- name: getQuoteDetails
+  description: Get quote details
+  source_operation: openapi/zayo-openapi-original.yml#getQuoteDetails
+- name: getNNIs
+  description: View all NNI records
+  source_operation: openapi/zayo-openapi-original.yml#getNNIs
+- name: getOrderContacts
+  description: Get order contacts
+  source_operation: openapi/zayo-openapi-original.yml#getOrderContacts
+- name: submitOrder
+  description: Submit order
+  source_operation: openapi/zayo-openapi-original.yml#submitOrder
+- name: getJobDetails
+  description: Get job details
+  source_operation: openapi/zayo-openapi-original.yml#getJobDetails
+- name: getservices
+  description: Get services
+  source_operation: openapi/zayo-openapi-original.yml#getservices
+- name: getTicketCatalog
+  description: Get ticket catalog
+  source_operation: openapi/zayo-openapi-original.yml#getTicketCatalog
+- name: getTicketTypeDetails
+  description: Get ticket type details
+  source_operation: openapi/zayo-openapi-original.yml#getTicketTypeDetails
+- name: createTicket
+  description: Create ticket
+  source_operation: openapi/zayo-openapi-original.yml#createTicket
+- name: addTicketComment
+  description: Create ticket comment
+  source_operation: openapi/zayo-openapi-original.yml#addTicketComment
+- name: getTicketDetails
+  description: Get ticket details
+  source_operation: openapi/zayo-openapi-original.yml#getTicketDetails
+- name: getAllTickets
+  description: Get all tickets
+  source_operation: openapi/zayo-openapi-original.yml#getAllTickets
+- name: customerTicketAction
+  description: Send Ticket Action
+  source_operation: openapi/zayo-openapi-original.yml#customerTicketAction
+- name: getMaintenanceCases
+  description: Get all maintenance cases
+  source_operation: openapi/zayo-openapi-original.yml#getMaintenanceCases
+- name: getMaintenanceImpacts
+  description: Get all maintenance impacts
+  source_operation: openapi/zayo-openapi-original.yml#getMaintenanceImpacts
+- name: getMaintenanceNotifications
+  description: Get maintenance notifications
+  source_operation: openapi/zayo-openapi-original.yml#getMaintenanceNotifications
+- name: getMaintenanceNotificationDetails
+  description: Get maintenance notification details
+  source_operation: openapi/zayo-openapi-original.yml#getMaintenanceNotificationDetails
+- name: generateAuthToken
+  description: Generate auth token
+  source_operation: openapi/zayo-openapi-original.yml#generateAuthToken
+- name: registerCallbackUrl
+  description: Register callback URL
+  source_operation: openapi/zayo-openapi-original.yml#registerCallbackUrl
+- name: sendTestNotification
+  description: Send test notification
+  source_operation: openapi/zayo-openapi-original.yml#sendTestNotification

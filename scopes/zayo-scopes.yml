@@ -1,0 +1,21 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/zayo-openapi-original.yml
+docs: https://developer.zayo.com/docs/getting-started
+notes: >-
+  Zayo's client-credentials flow offers a single scope, openid. No finer-grained
+  permission/scope reference is published; access is provisioned per client_id.
+schemes:
+- name: OAuthClientCredentials
+  source: openapi/zayo-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.api.zayo.com/oauth/token
+  description: OAuth 2.0 using the Client Credentials grant type.
+scopes:
+- scope: openid
+  description: openid scope
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/zayo-openapi-original.yml

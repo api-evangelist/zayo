@@ -1,0 +1,36 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/zayo-openapi-original.yml
+standards:
+- id: oauth2
+  conforms: true
+  evidence: components.securitySchemes OAuthClientCredentials type oauth2 (clientCredentials flow, tokenUrl https://auth.api.zayo.com/oauth/token)
+- id: oauth2-client-credentials
+  conforms: true
+  evidence: clientCredentials grant documented in getting-started and OpenAPI
+- id: bearer-jwt
+  conforms: true
+  evidence: components.securitySchemes BearerToken type http scheme bearer bearerFormat JWT
+- id: oidc
+  conforms: partial
+  evidence: only the 'openid' scope is offered on the client-credentials flow; no /.well-known/openid-configuration is publicly served (403)
+- id: odata-pagination
+  conforms: true
+  evidence: list operations use an OData-style paging object (top/skip) per the spec descriptions
+- id: openapi-3.1
+  conforms: true
+  evidence: openapi 3.1.0 document published at https://developer.zayo.com/openapi/zayo.yaml
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: error responses use a custom application/json envelope, not application/problem+json
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no Sunset/Deprecation header support documented
+- id: fhir-r4
+  conforms: false
+- id: fapi
+  conforms: false
+- id: scim
+  conforms: false
+- id: psd2
+  conforms: false
