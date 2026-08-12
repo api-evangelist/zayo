@@ -252,6 +252,10 @@ apis:
   - type: Webhooks
     url: asyncapi/zayo-notifications-webhooks.yml
 common:
+- type: MCPServer
+  url: mcp/zayo-mcp.yml
+- type: Overlay
+  url: overlays/zayo-openapi-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/zayo-agentic-access.yml
 - type: DeveloperPortal
