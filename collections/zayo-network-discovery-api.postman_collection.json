@@ -1,0 +1,603 @@
+{
+  "item": [
+    {
+      "id": "8cce295d-ceeb-4890-b51c-2af83a10becc",
+      "name": "Network Discovery",
+      "description": {
+        "content": "Grow your footprint by analyzing network availability by utilizing our Building, Locations, and Cloud Providers APIs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b3e609ee-dbfd-465c-b6a7-dfb264c77387",
+          "name": "Validate building addresses",
+          "request": {
+            "name": "Validate building addresses",
+            "description": {
+              "content": "Validate any building in the world with a few parameters to see if Zayo is on net. Request an array of building addresses in a standard building format and you will either get matched or unmatched buildings. Matched buildings will return Zayo Network Status. Unmatched buildings might require alternative naming formats, otherwise, you can assume unmatched buildings are off net.  \n\nOnce you have a Building Id, you can use the Locations route to get location-based information. A `buildingId` or `locationId` is required for quoting.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "location-management",
+                "v2",
+                "buildings",
+                "validation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"buildings\": [\n    {\n      \"address\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"neighborhood\": \"<string>\",\n      \"city\": \"<string>\",\n      \"subregion\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postal\": \"<string>\"\n    },\n    {\n      \"address\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"neighborhood\": \"<string>\",\n      \"city\": \"<string>\",\n      \"subregion\": \"<string>\",\n      \"region\": \"<string>\",\n      \"postal\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "af844633-6cf2-42d8-8e3b-9dd832107d00",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "location-management",
+                    "v2",
+                    "buildings",
+                    "validation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"buildings\": [\n    {\n      \"address\": \"8 Buckingham Ave\",\n      \"city\": \"Slough\",\n      \"subregion\": \"\",\n      \"countryCode\": \"GBR\",\n      \"postal\": \"SL1 4AX\"\n    },\n    {\n      \"address\": \"60 Hudson Street\",\n      \"neighborhood\": \"Manhattan\",\n      \"city\": \"New York\",\n      \"subregion\": \"Manhattan\",\n      \"region\": \"New York\",\n      \"countryCode\": \"USA\",\n      \"postal\": \"10013\"\n    },\n    {\n      \"address\": \"123 Test Street\",\n      \"neighborhood\": \"Test Neighborhood\",\n      \"city\": \"Boulder\",\n      \"subregion\": \"Test Subregion\",\n      \"region\": \"CO\",\n      \"countryCode\": \"USA\",\n      \"postal\": \"80303\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v2\",\n  \"data\": {\n    \"matchedAddresses\": [\n      {\n        \"buildingId\": \"a0W600000009mrkEAA\",\n        \"matched_address\": \"60 Hudson St, New York, 10013\",\n        \"address\": \"60 Hudson Street\",\n        \"neighborhood\": null,\n        \"city\": \"New York\",\n        \"subregion\": null,\n        \"region\": null,\n        \"country\": \"USA\",\n        \"postal\": \"10013\",\n        \"zayoNetworkStatus\": \"On Zayo Network\",\n        \"buildingClassification\": \"On-Net\",\n        \"competitiveInternetEnablements\": \"Yes\",\n        \"latitude\": -74.00890867164877,\n        \"longitude\": 40.71790374632121\n      },\n      {\n        \"buildingId\": \"a0W60000002AmvsEAC\",\n        \"matched_address\": \"8 Buckingham Avenue, Slough, Berkshire, England, SL1 4\",\n        \"address\": \"8 Buckingham Ave\",\n        \"neighborhood\": null,\n        \"city\": \"Slough\",\n        \"subregion\": null,\n        \"region\": null,\n        \"country\": \"GBR\",\n        \"postal\": \"SL1 4AX\",\n        \"zayoNetworkStatus\": \"On Zayo Network\",\n        \"buildingClassification\": null,\n        \"competitiveInternetEnablements\": \"Yes\",\n        \"latitude\": -0.6338168030935715,\n        \"longitude\": 51.52350290497991\n      }\n    ],\n    \"unmatchedAddresses\": [\n      {\n        \"buildingId\": null,\n        \"address\": \"123 Test Street\",\n        \"neighborhood\": null,\n        \"city\": \"Boulder\",\n        \"subregion\": null,\n        \"region\": \"CO\",\n        \"country\": \"USA\",\n        \"postal\": \"80303\",\n        \"zayoNetworkStatus\": null,\n        \"message\": \"Unable to validate this address in the current format. Please reformat before resubmitting.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f68de9a-8da9-4d3b-8334-aa271c2ff4b7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "location-management",
+                    "v2",
+                    "buildings",
+                    "validation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"buildings\": [\n    {\n      \"address\": \"8 Buckingham Ave\",\n      \"city\": \"Slough\",\n      \"subregion\": \"\",\n      \"countryCode\": \"GBR\",\n      \"postal\": \"SL1 4AX\"\n    },\n    {\n      \"address\": \"60 Hudson Street\",\n      \"neighborhood\": \"Manhattan\",\n      \"city\": \"New York\",\n      \"subregion\": \"Manhattan\",\n      \"region\": \"New York\",\n      \"countryCode\": \"USA\",\n      \"postal\": \"10013\"\n    },\n    {\n      \"address\": \"123 Test Street\",\n      \"neighborhood\": \"Test Neighborhood\",\n      \"city\": \"Boulder\",\n      \"subregion\": \"Test Subregion\",\n      \"region\": \"CO\",\n      \"countryCode\": \"USA\",\n      \"postal\": \"80303\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v2\",\n  \"error\": {\n    \"errorId\": \"797ac530-9326-917e-fa38-13d82e065ffe\",\n    \"code\": 400,\n    \"message\": \"Error: Failed JSON Validation - [[0].countryCode - should NOT be shorter than 3 characters. limit: 3]\",\n    \"errors\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0dc804cc-f1e7-4575-91a6-8d09ea839d56",
+          "name": "Get locations",
+          "request": {
+            "name": "Get locations",
+            "description": {
+              "content": "View all locations for the specified building in the URL. Locations contain floor, room, and suite information as available, serviceability per product code, and network status. Locations are returned based on serviceability where most desirable locations are returned first. \n\nServiceability is represented by enabled and preferred. Enabled means Zayo can service that product at that location. Preferred means this location is Zayo's preferred location to service. For example, cross connects might not be required at preferred locations. There will only ever be 1 location for each preferred product, while several locations can be enabled for each product. ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "location-management",
+                "v2",
+                "building",
+                ":buildingId",
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "productCode",
+                  "value": "<string>",
+                  "description": "`productCode` query param will only return locations where the specified `productCode` values are enabled (and is required when `enabled` is populated)."
+                },
+                {
+                  "disabled": false,
+                  "key": "productCode",
+                  "value": "<string>",
+                  "description": "`productCode` query param will only return locations where the specified `productCode` values are enabled (and is required when `enabled` is populated)."
+                },
+                {
+                  "disabled": false,
+                  "key": "productCode",
+                  "value": "<string>",
+                  "description": "`productCode` query param will only return locations where the specified `productCode` values are enabled (and is required when `enabled` is populated)."
+                },
+                {
+                  "disabled": false,
+                  "key": "productCode",
+                  "value": "<string>",
+                  "description": "`productCode` query param will only return locations where the specified `productCode` values are enabled (and is required when `enabled` is populated)."
+                },
+                {
+                  "disabled": false,
+                  "key": "productCode",
+                  "value": "<string>",
+                  "description": "`productCode` query param will only return locations where the specified `productCode` values are enabled (and is required when `enabled` is populated)."
+                },
+                {
+                  "disabled": false,
+                  "key": "productCode",
+                  "value": "<string>",
+                  "description": "`productCode` query param will only return locations where the specified `productCode` values are enabled (and is required when `enabled` is populated)."
+                },
+                {
+                  "disabled": false,
+                  "key": "productCode",
+                  "value": "<string>",
+                  "description": "`productCode` query param will only return locations where the specified `productCode` values are enabled (and is required when `enabled` is populated)."
+                },
+                {
+                  "disabled": false,
+                  "key": "productCode",
+                  "value": "<string>",
+                  "description": "`productCode` query param will only return locations where the specified `productCode` values are enabled (and is required when `enabled` is populated)."
+                },
+                {
+                  "disabled": false,
+                  "key": "productCode",
+                  "value": "<string>",
+                  "description": "`productCode` query param will only return locations where the specified `productCode` values are enabled (and is required when `enabled` is populated)."
+                },
+                {
+                  "disabled": false,
+                  "key": "enabled",
+                  "value": "any"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "buildingId",
+                  "description": "(Required) `buildingId` returned from the validate building address route."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2f71063d-bcdd-4baa-bf15-d93f2fb47d15",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "location-management",
+                    "v2",
+                    "building",
+                    ":buildingId",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "productCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "any"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "buildingId",
+                      "description": "(Required) `buildingId` returned from the validate building address route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v2\",\n  \"data\": {\n    \"buildingId\": \"a0W60000002BxA8EAK\",\n    \"address\": \"9417 Corporate Lake Dr, Tampa, Florida, 33634\",\n    \"zayoNetworkStatus\": \"On Zayo Network\",\n    \"locations\": [\n      {\n        \"locationName\": \"9417 Corporate Lake Dr/Fl-1/Rm-MMR\",\n        \"locationId\": \"a0b6000000Avil2AAB\",\n        \"networkStatus\": \"On Zayo Network\",\n        \"buildingClassification\": \"On-Net\",\n        \"competitiveInternetEnablement\": \"Yes\",\n        \"suite\": null,\n        \"floor\": \"1\",\n        \"room\": \"MMR\",\n        \"enabled\": {\n          \"ETH-ELAN-M2M\": true,\n          \"ETH-ELINE-NNI\": true,\n          \"ETH-ELINE-P2P\": true,\n          \"ETH-ELINE-UNI\": true,\n          \"ETH-PDN-P2P\": false,\n          \"IP-DIA\": true,\n          \"IP-DIA-AGG\": true,\n          \"IP-VPN\": true,\n          \"WAVES-STD-P2P\": false\n        },\n        \"preferred\": {\n          \"ETH-ELAN-M2M\": true,\n          \"ETH-ELINE-NNI\": true,\n          \"ETH-ELINE-P2P\": true,\n          \"ETH-ELINE-UNI\": true,\n          \"ETH-PDN-P2P\": false,\n          \"IP-DIA\": true,\n          \"IP-DIA-AGG\": true,\n          \"IP-VPN\": true,\n          \"WAVES-STD-P2P\": false\n        }\n      },\n      {\n        \"locationName\": \"9417 Corporate Lake Dr/Fl-1/Rm-MPOE\",\n        \"locationId\": \"a0b4z00000QwxoRAAR\",\n        \"networkStatus\": \"Not on Zayo Network\",\n        \"buildingClassification\": \"On-Net\",\n        \"competitiveInternetEnablement\": \"Yes\",\n        \"suite\": null,\n        \"floor\": \"1\",\n        \"room\": \"MPOE\",\n        \"enabled\": {\n          \"ETH-ELAN-M2M\": false,\n          \"ETH-ELINE-NNI\": false,\n          \"ETH-ELINE-P2P\": false,\n          \"ETH-ELINE-UNI\": false,\n          \"ETH-PDN-P2P\": false,\n          \"IP-DIA\": false,\n          \"IP-DIA-AGG\": false,\n          \"IP-VPN\": false,\n          \"WAVES-STD-P2P\": false\n        },\n        \"preferred\": {\n          \"ETH-ELAN-M2M\": false,\n          \"ETH-ELINE-NNI\": false,\n          \"ETH-ELINE-P2P\": false,\n          \"ETH-ELINE-UNI\": false,\n          \"ETH-PDN-P2P\": false,\n          \"IP-DIA\": false,\n          \"IP-DIA-AGG\": false,\n          \"IP-VPN\": false,\n          \"WAVES-STD-P2P\": false\n        }\n      }\n    ],\n    \"messages\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "825be9f4-9290-4dc5-bf2c-b22de846e8d1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "location-management",
+                    "v2",
+                    "building",
+                    ":buildingId",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "productCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "enabled",
+                      "value": "any"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "buildingId",
+                      "description": "(Required) `buildingId` returned from the validate building address route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v2\",\n  \"error\": {\n    \"errorId\": \"4863bed3-9220-9a6b-dac9-9cd0abeae6c7\",\n    \"code\": 400,\n    \"message\": \"Error: Failed Parameter Validation - [.buildingSfid - should NOT be shorter than 18 characters. limit: 18], [.buildingSfid - should match pattern \\\\\\\"^[a-zA-Z0-9]{18}$\\\\\\\". pattern: ^[a-zA-Z0-9]{18}$]\",\n    \"errors\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ac1ed50a-f02a-4eb8-a988-aef80162366e",
+          "name": "Get cloud sites",
+          "request": {
+            "name": "Get cloud sites",
+            "description": {
+              "content": "Search for cloud on-ramp locations based on `productCodes`, `buildingIds`, `cloudProviders`, and `connectionTypes` values to get over 200 cloud on-ramp options. Filter option values are case sentitive. Providers include - Amazon AWS, Google Cloud, Microsoft Azure / Office365, IBM Cloud, Salesforce, Twilio, and many more!\n\nCloud on-ramp locations are returned per building and grouped in the desinations array. Within the destinations array, cloud on-ramps are returned based on the demarc (floor, room, suite), product code, and then connection type. Once you get down to the `connectionType` level, you will see available bandwidths for that Connection Type, for that product, for that cloud on ramp/demarc. Zayo will provide Dedicated connections at all of our cloud on-ramp locations, but we don't support Hosted at all the locations.\n\nWe recommend you apply filters to get the specific data you need to place a quote, otherwise if you are mapping Zayo's cloud serviceability, feel free to send in an empty request object. Please note, there is not pagination with this route.\n\n\n  *Please note: at this time only ETH-ELINE-UNI and ETH-ELINE-P2P product codes can be quoted with a cloudSite. You will apply `cloudProvider` key value pair from the `destinations` array, `connectionType` key value pair from the `destinationDetails` array,  and `locationId` key value pair from the `destinations` array to your quote request.*",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "quote-management",
+                "v2",
+                "sites",
+                "available-cloud-providers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filters\": {\n    \"productCodes\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"cloudProviders\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"connectionTypes\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9771bc86-e853-4797-8ce8-9397d16682a9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "quote-management",
+                    "v2",
+                    "sites",
+                    "available-cloud-providers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": {\n    \"productCodes\": [\n      \"ETH-ELINE-UNI\"\n    ],\n    \"buildingIds\": [\n      \"a0W600000009moPEAQ\"\n    ],\n    \"cloudProviders\": [\n      \"Google Cloud\"\n    ],\n    \"connectionTypes\": [\n      \"Direct\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v2\",\n  \"data\": [\n    {\n      \"buildingId\": \"a0W60000002BG6REAW\",\n      \"buildingAddress\": \"15 Pioneer Walk, Singapore, 627753 Singapore\",\n      \"destinations\": [\n        {\n          \"building\": \"Equinix SG2\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-1/Rm-MPOE\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"Asia Pacific (Signapore)\",\n          \"latitude\": 1.32187,\n          \"locationId\": \"a0b60000003MZCQAA4\",\n          \"longitude\": 103.695274,\n          \"region\": \"ap-southeast-1\",\n          \"zone\": \"EQSG2\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W60000008EahnEAC\",\n      \"buildingAddress\": \"800 Rue du Square-Victoria, Montreal, QC H4Z 1A1 Canada\",\n      \"destinations\": [\n        {\n          \"building\": \"eStruxture MTL-1\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-SS1/Rm-MMR1\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"Canada (Central)\",\n          \"latitude\": 45.500623,\n          \"locationId\": \"a0b6000000EkkQDAAZ\",\n          \"longitude\": -73.561876,\n          \"region\": \"ca-central-1\",\n          \"zone\": \"NTM62\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W600000009mo2EAA\",\n      \"buildingAddress\": \"21715 Filigree Ct, Ashburn, VA 20147 USA\",\n      \"destinations\": [\n        {\n          \"building\": \"Equinix DC2/DC11\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-1/Rm-Equinix\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"US East (N. Virginia)\",\n          \"latitude\": 39.0166517,\n          \"locationId\": \"a0b60000006E5q2AAC\",\n          \"longitude\": -77.4589872,\n          \"region\": \"us-east-1\",\n          \"zone\": \"EQDC2\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W600000009nMLEAY\",\n      \"buildingAddress\": \"350 E Cermak Rd, Chicago, IL 60616 USA\",\n      \"destinations\": [\n        {\n          \"building\": \"Lakeside Technology Center\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-5 or 6 or 8/Rm-Equinix\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"US East (Ohio)\",\n          \"latitude\": 41.853686,\n          \"locationId\": \"a0b60000008c0KYAAY\",\n          \"longitude\": -87.618249,\n          \"region\": \"us-east-2\",\n          \"zone\": \"EQC50\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W60000002AmytEAC\",\n      \"buildingAddress\": \"250 Front St W, Toronto, ON M5V 3G5 Canada\",\n      \"destinations\": [\n        {\n          \"building\": \"Allied 250 Front St W\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-B2/Rm-South MMR\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"Canada (Central)\",\n          \"latitude\": 43.64459,\n          \"locationId\": \"a0b6000000G6BthAAF\",\n          \"longitude\": -79.38801,\n          \"region\": \"ca-central-1\",\n          \"zone\": \"151FS\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W60000002AmvsEAC\",\n      \"buildingAddress\": \"8 Buckingham Ave, Slough, SL1 4AX United Kingdom\",\n      \"destinations\": [\n        {\n          \"building\": \"Equinix LD5\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-1/Rm-0601MC1.1\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"Europe (Ireland)\",\n          \"latitude\": 51.5222611,\n          \"locationId\": \"a0b60000003LBlYAAW\",\n          \"longitude\": -0.6294121,\n          \"region\": \"eu-west-1\",\n          \"zone\": \"EQLD5\"\n        },\n        {\n          \"building\": \"Equinix LD5\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-1/Rm-0601MC1.1\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": false\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"Europe (London)\",\n          \"latitude\": 51.5222611,\n          \"locationId\": \"a0b60000003LBlYAAW\",\n          \"longitude\": -0.6294121,\n          \"region\": \"eu-west-2\",\n          \"zone\": \"EQLD5\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W600000009nFhEAI\",\n      \"buildingAddress\": \"2001 6th Ave, Seattle, WA 98121 USA\",\n      \"destinations\": [\n        {\n          \"building\": \"Westin Building\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-12/Ste-1200\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"US West (Oregon)\",\n          \"latitude\": 47.6143693,\n          \"locationId\": \"a0b60000003Ku54AAC\",\n          \"longitude\": -122.3387104,\n          \"region\": \"us-west-2\",\n          \"zone\": \"SQSE2\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W60000000BNQYEA4\",\n      \"buildingAddress\": \"624 S Grand Ave, Los Angeles, CA 90017 USA\",\n      \"destinations\": [\n        {\n          \"building\": \"One Wilshire\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-4/Rm-MMR\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"US West (N. California)\",\n          \"latitude\": 34.047905,\n          \"locationId\": \"a0b60000003Ku11AAC\",\n          \"longitude\": -118.255571,\n          \"region\": \"us-west-1\",\n          \"zone\": \"CSOW\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W60000002AnABEA0\",\n      \"buildingAddress\": \"114 rue Ambroise Croizat, Saint-Denis, 93200 France\",\n      \"destinations\": [\n        {\n          \"building\": \"Equinix PA2/PA3, Reliance, zColo Saint Denis\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-G/Rm-120GS16 (Icare)\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"Europe (Paris)\",\n          \"latitude\": 48.927223,\n          \"locationId\": \"a0b60000008en3WAAQ\",\n          \"longitude\": 2.350562,\n          \"region\": \"eu-west-3\",\n          \"zone\": \"EQPA3\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W60000000A0DIEA0\",\n      \"buildingAddress\": \"910 15th St, Denver, CO 80202 USA\",\n      \"destinations\": [\n        {\n          \"building\": \"Denver Gas & Electric\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-3/Ste-350/Rm-MMR\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": false\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"US West (Oregon)\",\n          \"latitude\": 39.74556,\n          \"locationId\": \"a0b60000000TURgAAO\",\n          \"longitude\": -104.995682,\n          \"region\": \"us-west-2\",\n          \"zone\": \"CSDE1\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W60000002An1MEAS\",\n      \"buildingAddress\": \"227 Marsh Wall, London, E14 9SD United Kingdom\",\n      \"destinations\": [\n        {\n          \"building\": \"Digital Realty Sovereign House\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-3/Rm-MMR 2\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"Europe (London)\",\n          \"latitude\": 51.499894532300985,\n          \"locationId\": \"a0b60000003LGd8AAG\",\n          \"longitude\": -0.011129790474255729,\n          \"region\": \"eu-west-2\",\n          \"zone\": \"TCSH\"\n        },\n        {\n          \"building\": \"Digital Realty Sovereign House\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-3/Rm-MMR 2\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"Europe (Ireland)\",\n          \"latitude\": 51.499894532300985,\n          \"locationId\": \"a0b60000003LGd8AAG\",\n          \"longitude\": -0.011129790474255729,\n          \"region\": \"eu-west-1\",\n          \"zone\": \"TCSH\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W600000009ypzEAA\",\n      \"buildingAddress\": \"11 Great Oaks Blvd, San Jose, CA 95119 USA\",\n      \"destinations\": [\n        {\n          \"building\": \"Equinix SV1\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-1/Rm-Equinix\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"US West (N. California)\",\n          \"latitude\": 37.241589,\n          \"locationId\": \"a0b60000000DoPKAA0\",\n          \"longitude\": -121.783319,\n          \"region\": \"us-west-1\",\n          \"zone\": \"EQSV5\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W600000009mrjEAA\",\n      \"buildingAddress\": \"32 Avenue Of The Americas, New York, NY 10013 USA\",\n      \"destinations\": [\n        {\n          \"building\": \"32 Avenue Of The Americas\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-7/Ste-Coresite/Rm-700\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"US East (N. Virginia)\",\n          \"latitude\": 40.719979,\n          \"locationId\": \"a0b60000000VmskAAC\",\n          \"longitude\": -74.004689,\n          \"region\": \"us-east-1\",\n          \"zone\": \"CS32A\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W60000002AJTAEA4\",\n      \"buildingAddress\": \"2972 Stender Way, Santa Clara, CA 95054 USA\",\n      \"destinations\": [\n        {\n          \"building\": \"Coresite SV4\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-2/Rm-212A\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": false\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"US West (N. California)\",\n          \"latitude\": 37.3762704,\n          \"locationId\": \"a0b60000006I5WQAA0\",\n          \"longitude\": -121.9706989,\n          \"region\": \"us-west-1\",\n          \"zone\": \"CSSV4\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W60000002An9CEAS\",\n      \"buildingAddress\": \"137 Boulevard Voltaire, Paris, 75011 France\",\n      \"destinations\": [\n        {\n          \"building\": \"Telehouse 2\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-2/Rm-22.07\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"Europe (Frankfurt)\",\n          \"latitude\": 48.8562758,\n          \"locationId\": \"a0b60000008eiILAAY\",\n          \"longitude\": 2.3835683,\n          \"region\": \"eu-central-1\",\n          \"zone\": \"THV52\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W60000002AnGSEA0\",\n      \"buildingAddress\": \"Kleyerstraße 88-90, Frankfurt am Main, 60326 Germany\",\n      \"destinations\": [\n        {\n          \"building\": \"Equinix FR5, Itenos\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-G/Rm-Colo\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"Europe (Frankfurt)\",\n          \"latitude\": 50.09914717148319,\n          \"locationId\": \"a0b6000000EqsfLAAR\",\n          \"longitude\": 8.632502551280991,\n          \"region\": \"eu-central-1\",\n          \"zone\": \"EQFA5\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W60000002EI8EEAW\",\n      \"buildingAddress\": \"6327 NE Evergreen Pkwy - Bldg C, Hillsboro, OR 97124 USA\",\n      \"destinations\": [\n        {\n          \"building\": \"EdgeConnex POR01\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-1/Rm-104 MMR:2\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": false\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"US West (Oregon)\",\n          \"latitude\": 45.551671,\n          \"locationId\": \"a0b6000000G5qDSAAZ\",\n          \"longitude\": -122.915335,\n          \"region\": \"us-west-2\",\n          \"zone\": \"ECPO1\"\n        }\n      ]\n    },\n    {\n      \"buildingId\": \"a0W60000000ArT1EAK\",\n      \"buildingAddress\": \"12100 Sunrise Valley Dr, Reston, VA 20191 USA\",\n      \"destinations\": [\n        {\n          \"building\": \"Coresite Reston VA1\",\n          \"cloudProvider\": \"Amazon AWS\",\n          \"demarc\": \"Fl-1/Rm-CR-8\",\n          \"destinationDetails\": [\n            {\n              \"productCode\": \"ETH-ELINE-UNI\",\n              \"aggregatedBandwidth\": false,\n              \"connectionType\": {\n                \"hosted\": {\n                  \"bandwidths\": [\n                    \"10Mb\",\n                    \"20Mb\",\n                    \"30Mb\",\n                    \"40Mb\",\n                    \"50Mb\",\n                    \"60Mb\",\n                    \"70Mb\",\n                    \"80Mb\",\n                    \"90Mb\",\n                    \"100Mb\",\n                    \"200Mb\",\n                    \"300Mb\",\n                    \"400Mb\",\n                    \"500Mb\",\n                    \"600Mb\",\n                    \"700Mb\",\n                    \"800Mb\",\n                    \"900Mb\",\n                    \"1G\",\n                    \"2G\",\n                    \"3G\",\n                    \"5G\",\n                    \"250Mb\"\n                  ],\n                  \"evcEnabled\": true\n                }\n              }\n            }\n          ],\n          \"destinationName\": \"Fl-1/Rm-CR-8\",\n          \"latitude\": 38.950516,\n          \"locationId\": \"a0b60000003NUHJAA4\",\n          \"longitude\": -77.364571,\n          \"region\": \"us-east-1\",\n          \"zone\": \"CSVA1\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14e7ea99-283c-48ad-ac0e-c8f1600abe6a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "quote-management",
+                    "v2",
+                    "sites",
+                    "available-cloud-providers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": {\n    \"productCodes\": [\n      \"ETH-ELINE-UNI\"\n    ],\n    \"buildingIds\": [\n      \"a0W600000009moPEAQ\"\n    ],\n    \"cloudProviders\": [\n      \"Google Cloud\"\n    ],\n    \"connectionTypes\": [\n      \"Direct\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v2\",\n  \"error\": {\n    \"errorId\": \"2268d09e-b9d3-ca93-32a5-b4b3f624b077\",\n    \"code\": 400,\n    \"message\": \"Failed JSON Validation - /filters/buildingIds/0 should NOT be shorter than 18 characters,/filters/buildingIds/0 should match pattern \\\\\\\"a0W\\\\\\\"\",\n    \"errors\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zayo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f68ae859-df0f-4c2f-aacd-c13b09efd389",
+    "name": "Zayo APIs Maintenance Cases Network Discovery API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    \n\nContact Support:\n Name: Zayo API Team\n Email: zayoapi@zayo.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "item": [
+    {
+      "id": "2a09d542-ddb4-43fb-8b42-a0e8aeb33b0f",
+      "name": "Service Inventory",
+      "description": {
+        "content": "Monitor your critical services with our Service Inventory API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6d2be50c-7c23-4c55-853a-e0bdb30c937e",
+          "name": "Get services",
+          "request": {
+            "name": "Get services",
+            "description": {
+              "content": "Retrieve all non-disconnected services where locations of the services are reflected as components.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "service-management",
+                "v1",
+                "existing-services"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paging\": {\n    \"top\": 10,\n    \"skip\": 0\n  },\n  \"filter\": {\n    \"serviceName\": \"<string>\",\n    \"serviceId\": \"<string>\",\n    \"status\": \"<string>\",\n    \"productGroup\": \"<string>\",\n    \"productCategory\": \"<string>\",\n    \"product\": \"<string>\",\n    \"circuitId\": \"<string>\",\n    \"term\": \"<integer>\"\n  },\n  \"search\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "754b11ed-9642-4dbd-830b-6635819305f3",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "existing-services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paging\": {\n    \"top\": 50,\n    \"skip\": 0\n  },\n  \"filter\": {\n    \"serviceName\": \"<string>\",\n    \"serviceId\": \"a0M60000007Mv6XEAS\",\n    \"status\": \"Active\",\n    \"productGroup\": \"Wavelengths - Metro\",\n    \"productCategory\": \"Point-to-Point\",\n    \"product\": \"Standard Wavelength\",\n    \"circuitId\": \"WAVE/ZGBU/TEST\",\n    \"term\": 12\n  },\n  \"search\": \"Wave\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"data\": {\n    \"records\": [\n      {\n        \"serviceName\": \"254477\",\n        \"serviceId\": \"a0M6000000HKgWXEA1\",\n        \"accountName\": \"Test Account - Tranzact Billing\",\n        \"billingAccountNumber\": \"11-DevTest\",\n        \"status\": \"Pending Change\",\n        \"productGroup\": \"Wavelengths - Metro\",\n        \"productCategory\": \"Point-to-Point\",\n        \"product\": \"Standard Wavelength\",\n        \"circuitId\": \"WAVE/ZGBU/TEST\",\n        \"legacyCircuitId\": null,\n        \"customerCircuitId\": null,\n        \"bandwidth\": \"10G\",\n        \"term\": 24,\n        \"totalMrc\": 4500,\n        \"customerPO\": \"N/A\",\n        \"termStartDate\": \"2022-04-01\",\n        \"termEndDate\": \"2024-03-31\",\n        \"serviceNoticePeriodDays\": 90,\n        \"renewalIntervalMonths\": 12,\n        \"renewalTermType\": \"Auto-Renewal\",\n        \"components\": [\n          {\n            \"bandwidth\": \"10G\",\n            \"circuitId\": \"WAVE/ZGBU/TEST\",\n            \"customerCircuitId\": null,\n            \"legacyCircuitId\": null,\n            \"locations\": [\n              {\n                \"id\": \"a0b60000007Ws1vAAC\",\n                \"name\": \"639 E 18th Ave/Fl-B/Rm-B101\",\n                \"city\": \"Denver\",\n                \"state\": \"CO\",\n                \"postalCode\": 80203,\n                \"latitude\": 39.7451918,\n                \"longitude\": -104.9792774\n              },\n              {\n                \"id\": \"a0b60000000XO4AAAW\",\n                \"name\": \"910 15th St/Fl-7/Rm-751\",\n                \"city\": \"Denver\",\n                \"state\": \"CO\",\n                \"postalCode\": 80203,\n                \"latitude\": 39.74556,\n                \"longitude\": -104.995682\n              }\n            ],\n            \"parentId\": null,\n            \"id\": \"a1X60000002Me9XEAS\",\n            \"type\": null,\n            \"cfa\": null,\n            \"cfaZ\": null,\n            \"components\": []\n          }\n        ]\n      }\n    ],\n    \"metadata\": {\n      \"top\": 10,\n      \"skip\": 0,\n      \"currentPage\": 1,\n      \"totalPages\": 1,\n      \"totalRecordCount\": 1\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "525e91a9-40e0-43e7-8365-9e05a63eb92d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "existing-services"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paging\": {\n    \"top\": 50,\n    \"skip\": 0\n  },\n  \"filter\": {\n    \"serviceName\": \"<string>\",\n    \"serviceId\": \"a0M60000007Mv6XEAS\",\n    \"status\": \"Active\",\n    \"productGroup\": \"Wavelengths - Metro\",\n    \"productCategory\": \"Point-to-Point\",\n    \"product\": \"Standard Wavelength\",\n    \"circuitId\": \"WAVE/ZGBU/TEST\",\n    \"term\": 12\n  },\n  \"search\": \"Wave\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zayo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fe556b78-a62f-48a3-9e35-50d9f487571a",
+    "name": "Zayo APIs Maintenance Cases Service Inventory API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    \n\nContact Support:\n Name: Zayo API Team\n Email: zayoapi@zayo.com",
+      "type": "text/plain"
+    }
+  }
+}

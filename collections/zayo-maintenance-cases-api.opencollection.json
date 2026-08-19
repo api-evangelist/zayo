@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zayo APIs Maintenance Cases API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Maintenance Cases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all maintenance cases",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zayo.com/services/service-management/v1/maintenance-cases",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "\n:::warning\nIf no date filters are provided in the payload, results will be filtered server side for the Last 30 Days.\n:::\n\n\nRetrieve all Maintenance Cases based on filter, search, order by, and pagination options. Maintenance Cases include maintenance event information like urgency, level of impact, status, primary date, second primary date, third primary date, time, time zone, reason for maintenance, location, latitude, and longitude. \n\n\nThe recommended flow is to get your Maintenance Case, th"
+        },
+        {
+          "info": {
+            "name": "Get all maintenance impacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zayo.com/services/service-management/v1/maintenance-impacts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve all Maintenance Impacts based on filter, search, order by, and pagination options. Maintenance Impacts contain service-based attributes like Service Name, CircuitId, A Location Clli, Z Location Clli, and Legacy Circuit Id. \n \n \n The recommended flow is to get your Maintenance Case, then use the `caseNumber` or `caseId` as a filter option to receive the impacted circuits for that maintenance event."
+        },
+        {
+          "info": {
+            "name": "Get maintenance notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zayo.com/services/service-management/v1/maintenance-cases/:caseNumber/notifications",
+            "params": [
+              {
+                "name": "caseNumber",
+                "value": "",
+                "type": "path",
+                "description": "Case Number returned from the Maintenance Cases or Maintenance Impacts route."
+              }
+            ]
+          },
+          "docs": "Returns all available Maintenance Notifications based on the `caseNumber`. These notifications are also available via email to enabled users. Reach out to your account rep to get subscribed for Maintenance Notifications emails."
+        },
+        {
+          "info": {
+            "name": "Get maintenance notification details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zayo.com/services/service-management/v1/maintenance-cases/notifications/:maintenanceNotificationName",
+            "params": [
+              {
+                "name": "maintenanceNotificationName",
+                "value": "",
+                "type": "path",
+                "description": "`name` attribute returned from the get Maintenance Notifications route."
+              }
+            ]
+          },
+          "docs": "Returns maintenance notification details by Maintenance Notification Name. Maintenance Notification details include the email body in HTML."
+        },
+        {
+          "info": {
+            "name": "Generate auth token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zayo.com/services/notifications/v1/generate-auth-token"
+          },
+          "docs": "Generating the auth token only needs to be done once, since this auth token will be good for receiving all push notifications associated with your current API token. However, this endpoint may be called as many times as necessary to reset the auth token for additional security. The active auth token is always the most recently generated auth token.\n\n**Workflow to set up push notifications services:**\n\n1. Generate auth token | Generate the auth token to be used in the HTTP header to authenticate "
+        },
+        {
+          "info": {
+            "name": "Register callback URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zayo.com/services/notifications/v1/register-callback-url",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Once you've implemented a callback URL endpoint in your infrastructure register it with Zayo."
+        },
+        {
+          "info": {
+            "name": "Send test notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zayo.com/services/notifications/v1/send-test-notification",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Once the callback URL is registered, you can send test notifications to your registered callback URLs for a particular notification type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

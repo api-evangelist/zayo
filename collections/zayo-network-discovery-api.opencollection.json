@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zayo APIs Maintenance Cases Network Discovery API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Network Discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Validate building addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zayo.com/services/location-management/v2/buildings/validation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validate any building in the world with a few parameters to see if Zayo is on net. Request an array of building addresses in a standard building format and you will either get matched or unmatched buildings. Matched buildings will return Zayo Network Status. Unmatched buildings might require alternative naming formats, otherwise, you can assume unmatched buildings are off net.  \n\nOnce you have a Building Id, you can use the Locations route to get location-based information. A `buildingId` or `lo"
+        },
+        {
+          "info": {
+            "name": "Get locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zayo.com/services/location-management/v2/building/:buildingId/locations",
+            "params": [
+              {
+                "name": "buildingId",
+                "value": "",
+                "type": "path",
+                "description": "`buildingId` returned from the validate building address route."
+              },
+              {
+                "name": "productCode",
+                "value": "",
+                "type": "query",
+                "description": "`productCode` query param will only return locations where the specified `productCode` values are enabled (and is required when `enabled` is populated)."
+              },
+              {
+                "name": "enabled",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "View all locations for the specified building in the URL. Locations contain floor, room, and suite information as available, serviceability per product code, and network status. Locations are returned based on serviceability where most desirable locations are returned first. \n\nServiceability is represented by enabled and preferred. Enabled means Zayo can service that product at that location. Preferred means this location is Zayo's preferred location to service. For example, cross connects might"
+        },
+        {
+          "info": {
+            "name": "Get cloud sites",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zayo.com/services/quote-management/v2/sites/available-cloud-providers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for cloud on-ramp locations based on `productCodes`, `buildingIds`, `cloudProviders`, and `connectionTypes` values to get over 200 cloud on-ramp options. Filter option values are case sentitive. Providers include - Amazon AWS, Google Cloud, Microsoft Azure / Office365, IBM Cloud, Salesforce, Twilio, and many more!\n\nCloud on-ramp locations are returned per building and grouped in the desinations array. Within the destinations array, cloud on-ramps are returned based on the demarc (floor, r"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

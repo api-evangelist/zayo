@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zayo APIs Maintenance Cases Ticketing API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ticketing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create ticket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zayo.com/services/service-management/v1/create-ticket",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a ticket against your service. Associate your service via the `serviceId`, `componentId`, or `circuitId` returned from the Service Inventory route."
+        },
+        {
+          "info": {
+            "name": "Create ticket comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zayo.com/services/service-management/v1/ticket-comment",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a ticket comment to directly communicate with the Zayo NOC team. Once a comment is added on a ticket, the ticket status will update to Action Required, so that it notifies our NOC teams."
+        },
+        {
+          "info": {
+            "name": "Get ticket details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zayo.com/services/service-management/v1/ticket-details/:ticketName",
+            "params": [
+              {
+                "name": "ticketName",
+                "value": "",
+                "type": "path",
+                "description": "Ticket Number returned from the create ticket route."
+              }
+            ]
+          },
+          "docs": "Get ticket and ticket comment details."
+        },
+        {
+          "info": {
+            "name": "Get all tickets",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zayo.com/services/service-management/v1/all-tickets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve all tickets based on filter options and pagination."
+        },
+        {
+          "info": {
+            "name": "Send Ticket Action",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zayo.com/services/service-management/v1/customer-ticket-action",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send action for existing tickets whether to Approve Resolution or Cancel Ticket."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

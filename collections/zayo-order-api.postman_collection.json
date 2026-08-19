@@ -1,0 +1,520 @@
+{
+  "item": [
+    {
+      "id": "130f6a59-d3a2-4c1e-8082-f5be12046eed",
+      "name": "Order",
+      "description": {
+        "content": "Grow your footprint by reviewing Zayo products in our Product Catalog API, generating quotes with our Quoting API, and automating the ordering process through the Order API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "49afbdde-20af-4cf3-ab2c-10a8aa483cd5",
+          "name": "Get order contacts",
+          "request": {
+            "name": "Get order contacts",
+            "description": {
+              "content": "Returns order contact information per billing account for a specified quote. Use the `id` returned in the `billingAccounts` array, `id` returned in the `signers` array, and `id` returned in the `primary` array in the following respective fields in the order request payload - `billingAccountId`, `primaryContactId`, and `contractSignerId`. You use either the `quoteId` or `quoteName` path param, only one is required to retrieve your order information.\n\n*Please Note: At the moment, only `quoteId` is accepted in the order request payload.*",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "order-management",
+                "v2",
+                "orders",
+                "contacts",
+                ":quoteId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "quoteId",
+                  "description": "(Required) Either `quoteId` or `quoteName` is required. Unique quote identifier returned by the create or edit quote route."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cff3796e-ea2a-4af6-8f3f-11863e950213",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "order-management",
+                    "v2",
+                    "orders",
+                    "contacts",
+                    ":quoteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quoteId",
+                      "description": "(Required) Either `quoteId` or `quoteName` is required. Unique quote identifier returned by the create or edit quote route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v2\",\n  \"data\": {\n    \"quoteId\": \"0b85fdf6-f462-47b9-8bf3-7996f4f2db9a\",\n    \"currencyIsoCode\": \"USD\",\n    \"billingAccounts\": [\n      {\n        \"id\": \"0010z00001RkkUVAAZ\",\n        \"billingAccountNumber\": \"1-TrazDemo\",\n        \"currencyIsoCode\": \"USD\",\n        \"name\": \"Mordor Forging - Trial Account\",\n        \"signers\": [\n          {\n            \"id\": \"0030z00002OamyHAAR\",\n            \"firstName\": \"Hannah\",\n            \"lastName\": \"Wanderer\"\n          },\n          {\n            \"id\": \"0030z00002V068qAAB\",\n            \"firstName\": \"Leidy\",\n            \"lastName\": \"Perez\"\n          }\n        ],\n        \"primary\": [\n          {\n            \"id\": \"0030z00002OamyHAAR\",\n            \"firstName\": \"Hannah\",\n            \"lastName\": \"Wanderer\"\n          }\n        ]\n      },\n      {\n        \"id\": \"0010z00001RmCjJAAV\",\n        \"billingAccountNumber\": \"31857\",\n        \"currencyIsoCode\": \"USD\",\n        \"name\": \"Enterprise Networks Demo Test Account\",\n        \"signers\": [\n          {\n            \"id\": \"0030z00002UxqhqAAB\",\n            \"firstName\": \"Randall\",\n            \"lastName\": \"Holman\"\n          }\n        ],\n        \"primary\": [\n          {\n            \"id\": \"0030z00002UxqhqAAB\",\n            \"firstName\": \"Randall\",\n            \"lastName\": \"Holman\"\n          },\n          {\n            \"id\": \"0030z00002RTQwMAAX\",\n            \"firstName\": \"Devon\",\n            \"lastName\": \"Holt\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6a3801a-bb5c-4c87-b3dc-067774882123",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "order-management",
+                    "v2",
+                    "orders",
+                    "contacts",
+                    ":quoteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quoteId",
+                      "description": "(Required) Either `quoteId` or `quoteName` is required. Unique quote identifier returned by the create or edit quote route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "72946e43-43a3-43ff-b379-cbc08cc8750a",
+          "name": "Submit order",
+          "request": {
+            "name": "Submit order",
+            "description": {
+              "content": "Order a quote. Creates a job to be completed in the background that creates the New Order and saves the result as a `jobId` for lookup. Since this is a time-consuming task for Zayo, this route will trigger a job that will create an order directly in Zayo's ordering system. The response is a `jobId`, and you will follow up on the request via the `job/{jobId}` route to get the Order details.\n\nPre-requisite APIs include quotes route (alternativly have your account rep provide this value) and the contacts route to get your billing account and order contact information. SOF signature is still required after the order is placed. Certain orders are eligible for digital signature. \n\n*Please Note: At the moment, only `quoteId` is accepted in the order request payload.* ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "order-management",
+                "v2",
+                "orders",
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quoteId\": \"<uuid>\",\n  \"term\": \"<integer>\",\n  \"billingAccountId\": \"<string>\",\n  \"primaryContactId\": \"<string>\",\n  \"contractSignerId\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"poNumber\": \"<string>\",\n  \"msaRead\": false,\n  \"serviceScheduleRead\": false,\n  \"digitalSignature\": false,\n  \"provisioningDetails\": [\n    {\n      \"cloudProvider\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"sTagVlanId\": \"<string>\",\n      \"cTagVlanId\": \"<string>\"\n    },\n    {\n      \"cloudProvider\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"sTagVlanId\": \"<string>\",\n      \"cTagVlanId\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6c62950a-7550-4ce3-a73e-83525d27c9a1",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "order-management",
+                    "v2",
+                    "orders",
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quoteId\": \"<uuid>\",\n  \"term\": \"<integer>\",\n  \"billingAccountId\": \"0014z00001d89HqAAI\",\n  \"primaryContactId\": \"0030z00002YnGLRAA3\",\n  \"contractSignerId\": \"0030z00002YnGLRAA3\",\n  \"notes\": \"These are some notes\",\n  \"poNumber\": \"Zayo-12345\",\n  \"msaRead\": true,\n  \"serviceScheduleRead\": true,\n  \"digitalSignature\": true,\n  \"provisioningDetails\": [\n    {\n      \"cloudProvider\": \"Amazon AWS\",\n      \"accountId\": \"529554258215\",\n      \"sTagVlanId\": \"101\",\n      \"cTagVlanId\": \"232\"\n    },\n    {\n      \"cloudProvider\": \"Amazon AWS\",\n      \"accountId\": \"529554258215\",\n      \"sTagVlanId\": \"101\",\n      \"cTagVlanId\": \"232\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v2\",\n  \"data\": {\n    \"jobId\": \"a0e5a907-0851-47f2-8870-e58e565061f3\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4d3ce3c-0800-48e2-9c12-84b390031321",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "order-management",
+                    "v2",
+                    "orders",
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quoteId\": \"<uuid>\",\n  \"term\": \"<integer>\",\n  \"billingAccountId\": \"0014z00001d89HqAAI\",\n  \"primaryContactId\": \"0030z00002YnGLRAA3\",\n  \"contractSignerId\": \"0030z00002YnGLRAA3\",\n  \"notes\": \"These are some notes\",\n  \"poNumber\": \"Zayo-12345\",\n  \"msaRead\": true,\n  \"serviceScheduleRead\": true,\n  \"digitalSignature\": true,\n  \"provisioningDetails\": [\n    {\n      \"cloudProvider\": \"Amazon AWS\",\n      \"accountId\": \"529554258215\",\n      \"sTagVlanId\": \"101\",\n      \"cTagVlanId\": \"232\"\n    },\n    {\n      \"cloudProvider\": \"Amazon AWS\",\n      \"accountId\": \"529554258215\",\n      \"sTagVlanId\": \"101\",\n      \"cTagVlanId\": \"232\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dfafda6e-42c9-4fe9-95b3-29bf134b4078",
+          "name": "Get job details",
+          "request": {
+            "name": "Get job details",
+            "description": {
+              "content": "Returns job status. Once the job is finished processing it will return order details. The order job typically finishes processing within 30 seconds. The order details include a similar schema as the quote response in addition to the `serviceOrderNumber` attribute.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "order-management",
+                "v2",
+                "job",
+                ":jobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "jobId",
+                  "description": "(Required) Unique order job identifier returned by submit order route."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fece6c06-2035-4f7c-b6da-f5772af48b55",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "order-management",
+                    "v2",
+                    "job",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) Unique order job identifier returned by submit order route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v2\",\n  \"data\": {\n    \"status\": \"processing\",\n    \"result\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7eb34580-a041-40a2-8999-764b4edbb2dc",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "order-management",
+                    "v2",
+                    "job",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "jobId",
+                      "description": "(Required) Unique order job identifier returned by submit order route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zayo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dd3d7304-2f69-4fd1-a9f6-465d1e9cbf70",
+    "name": "Zayo APIs Maintenance Cases Order API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    \n\nContact Support:\n Name: Zayo API Team\n Email: zayoapi@zayo.com",
+      "type": "text/plain"
+    }
+  }
+}

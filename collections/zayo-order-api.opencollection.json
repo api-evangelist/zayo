@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zayo APIs Maintenance Cases Order API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get order contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zayo.com/services/order-management/v2/orders/contacts/:quoteId",
+            "params": [
+              {
+                "name": "quoteId",
+                "value": "",
+                "type": "path",
+                "description": "Either `quoteId` or `quoteName` is required. Unique quote identifier returned by the create or edit quote route."
+              }
+            ]
+          },
+          "docs": "Returns order contact information per billing account for a specified quote. Use the `id` returned in the `billingAccounts` array, `id` returned in the `signers` array, and `id` returned in the `primary` array in the following respective fields in the order request payload - `billingAccountId`, `primaryContactId`, and `contractSignerId`. You use either the `quoteId` or `quoteName` path param, only one is required to retrieve your order information.\n\n*Please Note: At the moment, only `quoteId` is"
+        },
+        {
+          "info": {
+            "name": "Submit order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zayo.com/services/order-management/v2/orders/order",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Order a quote. Creates a job to be completed in the background that creates the New Order and saves the result as a `jobId` for lookup. Since this is a time-consuming task for Zayo, this route will trigger a job that will create an order directly in Zayo's ordering system. The response is a `jobId`, and you will follow up on the request via the `job/{jobId}` route to get the Order details.\n\nPre-requisite APIs include quotes route (alternativly have your account rep provide this value) and the co"
+        },
+        {
+          "info": {
+            "name": "Get job details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zayo.com/services/order-management/v2/job/:jobId",
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "Unique order job identifier returned by submit order route."
+              }
+            ]
+          },
+          "docs": "Returns job status. Once the job is finished processing it will return order details. The order job typically finishes processing within 30 seconds. The order details include a similar schema as the quote response in addition to the `serviceOrderNumber` attribute."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

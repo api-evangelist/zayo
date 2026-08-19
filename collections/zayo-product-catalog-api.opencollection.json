@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zayo APIs Maintenance Cases Product Catalog API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Product Catalog",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get product catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zayo.com/services/quote-management/v3/catalog/product-code"
+          },
+          "docs": "Get the Zayo product catalog where products are represented as a `productCode`. For each `productCode` get the description and latest version."
+        },
+        {
+          "info": {
+            "name": "Get product code details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zayo.com/services/quote-management/v3/catalog/product-code-details/:productCode/:version",
+            "params": [
+              {
+                "name": "productCode",
+                "value": "",
+                "type": "path",
+                "description": "Product code returned from the /product-catalog route."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version returned from the /product-catalog route."
+              }
+            ]
+          },
+          "docs": "After you get the latest semantic version from the product catalog route, plug the version and the product code into the product code details route to dynamically receive the latest quote request schema with required and optional attributes needed per product code/version combination. The response of this route is the guide to your quote request. The product code details response and quote request schema includes 3 major components - `attrs` array, `configuration` object, and `preferences` objec"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

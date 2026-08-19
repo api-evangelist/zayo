@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zayo APIs Maintenance Cases Quote API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Quote",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create or edit quote",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zayo.com/services/quote-management/v3/quotes/quote",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a quote using building or location information from the Network Discovery APIs and product code details from the Product Catalog APIs. You can also update an existing quote by passing in the quoteId. Each quote response will include the quote confinguration, `estimatedInstallInterval`, and pricing for multiple terms within the `financialTerms` array."
+        },
+        {
+          "info": {
+            "name": "Get quote details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zayo.com/services/quote-management/v3/quotes/quote/:quoteId",
+            "params": [
+              {
+                "name": "quoteId",
+                "value": "",
+                "type": "path",
+                "description": "Either `quoteId` or `quoteName` is required. Unique quote identifier returned by the create or edit quote route."
+              }
+            ]
+          },
+          "docs": "View quote, product configuration, and pricing information by quoteId. Get the same details you'd get from a create quote or edit quote request. You can pass in the `quoteId` or `quoteName` param, only one is required to retrieve your quote information."
+        },
+        {
+          "info": {
+            "name": "View all NNI records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zayo.com/services/quote-management/v2/quotes/nnis",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve all NNI records including quotes, orders, and services. Used to identify an NNI to associate with your UNI quote via the `nniId` in the quote request payload. The `nniId` attribute is optional, so if it is omitted from the quote request, Zayo will always default to the nearest NNI."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

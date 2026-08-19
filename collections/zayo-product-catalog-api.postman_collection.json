@@ -1,0 +1,358 @@
+{
+  "item": [
+    {
+      "id": "0a9908d0-cba8-4ab4-810e-934b9b3dd5bf",
+      "name": "Product Catalog",
+      "description": {
+        "content": "View available Zayo products and product detials to use in the Quoting API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "841dbf8f-6a65-4a61-98d5-c7a2855558ea",
+          "name": "Get product catalog",
+          "request": {
+            "name": "Get product catalog",
+            "description": {
+              "content": "Get the Zayo product catalog where products are represented as a `productCode`. For each `productCode` get the description and latest version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "quote-management",
+                "v3",
+                "catalog",
+                "product-code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fe5c5fa7-3e8c-45d5-8a45-7032f29db593",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "quote-management",
+                    "v3",
+                    "catalog",
+                    "product-code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v3\",\n  \"data\": {\n    \"productCodes\": [\n      {\n        \"productCode\": \"ETH-PDN-P2P\",\n        \"version\": \"3.1.0\",\n        \"description\": \"Ethernet connectivity across a completely private managed network operated by Zayo with dedicated fiber and dedicated equipment.\"\n      },\n      {\n        \"productCode\": \"ETH-ELAN-M2M\",\n        \"version\": \"3.1.0\",\n        \"description\": \"A Carrier Ethernet, multipoint to multipoint configuration that allows communications across all locations.  Allows for an aggregated commit across locations.  Provides customers a simple WAN solution that is easier to maintain, support, and scale.\"\n      },\n      {\n        \"productCode\": \"ETH-ELINE-P2P\",\n        \"version\": \"3.3.0\",\n        \"description\": \"Metro and Intercity Point to Point service configurations provide an Ethernet Layer 2 private line connection between two locations.\"\n      },\n      {\n        \"productCode\": \"ETH-ELINE-NNI\",\n        \"version\": \"3.2.0\",\n        \"description\": \"Deliver full connectivity across your network by unifying multiple access points into a single aggregation point.\"\n      },\n      {\n        \"productCode\": \"ETH-ELINE-UNI\",\n        \"version\": \"3.3.0\",\n        \"description\": \"Metro & Intercity Point-to-Multi-Point service provides a hub-and-spoke configuration where multiple locations (UNIs) are homed to a single hub or aggregation point (NNI) at a central location.\"\n      },\n      {\n        \"productCode\": \"IP-VPN\",\n        \"version\": \"3.3.0\",\n        \"description\": \"IPVPN (Virtual Private Network using IP/MPLS backbone).\"\n      },\n      {\n        \"productCode\": \"IP-DIA\",\n        \"version\": \"3.7.0\",\n        \"description\": \"Zayo's high performance Dedicated Internet Access (DIA) service combines essential internet features with global internet reach and scalability for enterprises of all sizes.\"\n      },\n      {\n        \"productCode\": \"IP-DIA-AGG\",\n        \"version\": \"3.6.0\",\n        \"description\": \"Zayo's high performance Aggregated Dedicated Internet Access (DIA) service combines essential internet features with global internet reach and scalability for enterprises of all sizes.\"\n      },\n      {\n        \"productCode\": \"WAVES-STD-P2P\",\n        \"version\": \"3.0.0\",\n        \"description\": \"With Wavelength Point to Point solutions, feel confident with your bandwidth capacity. Zayo offers a range of flexible connectivity options that can be customized to meet your technical specifications. Connect between Tier 1-5 markets across North America.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd6c5607-c3c6-467a-8f70-1e06718d1fb8",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "quote-management",
+                    "v3",
+                    "catalog",
+                    "product-code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2158dacd-d7f2-4e74-a273-e512c1e42578",
+          "name": "Get product code details",
+          "request": {
+            "name": "Get product code details",
+            "description": {
+              "content": "After you get the latest semantic version from the product catalog route, plug the version and the product code into the product code details route to dynamically receive the latest quote request schema with required and optional attributes needed per product code/version combination. The response of this route is the guide to your quote request. The product code details response and quote request schema includes 3 major components - `attrs` array, `configuration` object, and `preferences` object. \n\nThe `attrs` array is where you can specify your existing `quoteId` to make edits to your quote. \n\nThe `configuration` object is where all of the product-specific attributes are returned. This schema will vary based on the product and version.\n\nThe `preferences` object is where you can specific non-configuration attributes like notes and a unique Id like a corresponding quoteId from your system. This schema is the same for all products and versions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "quote-management",
+                "v3",
+                "catalog",
+                "product-code-details",
+                ":productCode",
+                ":version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "productCode",
+                  "description": "(Required) Product code returned from the /product-catalog route."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version returned from the /product-catalog route."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "531c0061-a36b-4322-8ceb-82b0ccefec7b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "quote-management",
+                    "v3",
+                    "catalog",
+                    "product-code-details",
+                    ":productCode",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productCode",
+                      "description": "(Required) Product code returned from the /product-catalog route."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version returned from the /product-catalog route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v3\",\n  \"data\": {\n    \"productCodeConfigurations\": [\n      {\n        \"attrs\": [\n          {\n            \"name\": \"quoteId\",\n            \"displayName\": \"Quote Id\",\n            \"description\": \"Unique API identifier to be used for subsequent routes.\",\n            \"criteria\": {\n              \"dataType\": \"string\",\n              \"isRequired\": false\n            }\n          }\n        ],\n        \"configuration\": {\n          \"isRequired\": true,\n          \"attrs\": [\n            {\n              \"name\": \"productCode\",\n              \"displayName\": \"Product Code\",\n              \"description\": \"N/A\",\n              \"criteria\": {\n                \"dataType\": \"String\",\n                \"isRequired\": true\n              },\n              \"value\": \"ETH-ELINE-UNI\"\n            },\n            {\n              \"name\": \"version\",\n              \"displayName\": \"Version\",\n              \"description\": \"N/A\",\n              \"criteria\": {\n                \"dataType\": \"String\",\n                \"isRequired\": true\n              },\n              \"value\": \"3.3.0\"\n            },\n            {\n              \"name\": \"nodeId\",\n              \"displayName\": \"Node Id\",\n              \"description\": \"36-character UUID\",\n              \"criteria\": {\n                \"dataType\": \"String\",\n                \"isRequired\": true\n              },\n              \"value\": \"AAC758F0-F719-470D-B716-E8EC6804810F\"\n            },\n            {\n              \"name\": \"bandwidth\",\n              \"displayName\": \"Bandwidth\",\n              \"description\": \"Amount of data capacity for the service\",\n              \"criteria\": {\n                \"dataType\": \"String\",\n                \"isRequired\": true\n              },\n              \"options\": [\n                {\n                  \"value\": \"10Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"20Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"30Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"40Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"50Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"60Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"70Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"80Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"90Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"100Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"150Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"200Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"250Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"300Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"400Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"500Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"600Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"700Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"800Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"900Mb\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"1G\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"2G\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"3G\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"5G\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"10G\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"20G\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"30G\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                },\n                {\n                  \"value\": \"40G\",\n                  \"defaultValue\": false,\n                  \"allowForControllingFields\": []\n                }\n              ]\n            },\n            {\n              \"name\": \"burstableService\",\n              \"displayName\": \"Burstable Service\",\n              \"description\": \"Ability for traffic to exceed the Comitted Information Rate (CIR) at a cost\",\n              \"criteria\": {\n                \"dataType\": \"String\",\n                \"isRequired\": false\n              },\n              \"options\": [\n                {\n                  \"value\": true,\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": false,\n                  \"defaultValue\": true,\n                  \"allowedForControllingFields\": []\n                }\n              ]\n            },\n            {\n              \"name\": \"qualityOfService\",\n              \"displayName\": \"Quality of Service\",\n              \"description\": \"N/A\",\n              \"criteria\": {\n                \"dataType\": \"String\",\n                \"isRequired\": false\n              },\n              \"options\": [\n                {\n                  \"value\": false,\n                  \"defaultValue\": true,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": \"Metro-On\",\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                }\n              ]\n            },\n            {\n              \"name\": \"mefCertified\",\n              \"displayName\": \"MEF Certified\",\n              \"description\": \"N/A\",\n              \"criteria\": {\n                \"dataType\": \"String\",\n                \"isRequired\": false\n              },\n              \"options\": [\n                {\n                  \"value\": false,\n                  \"defaultValue\": true,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": true,\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                }\n              ]\n            },\n            {\n              \"name\": \"currencyIsoCode\",\n              \"displayName\": \"Currency ISO Code\",\n              \"description\": \"Three letter ISO code for Currency\",\n              \"criteria\": {\n                \"dataType\": \"String\",\n                \"isRequired\": false\n              },\n              \"options\": [\n                {\n                  \"value\": \"USD\",\n                  \"defaultValue\": true,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": \"CAD\",\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": \"EUR\",\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": \"GDP\",\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": \"HKD\",\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": \"AUD\",\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": \"CHF\",\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": \"JPY\",\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": \"SGD\",\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": \"MXN\",\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": \"BRL\",\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": \"DKK\",\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": \"SEK\",\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": \"ZAR\",\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                }\n              ]\n            }\n          ],\n          \"children\": [\n            {\n              \"minCount\": 1,\n              \"maxCount\": 1,\n              \"attrs\": [\n                {\n                  \"name\": \"productCode\",\n                  \"displayName\": \"Product Code\",\n                  \"description\": \"N/A\",\n                  \"criteria\": {\n                    \"dataType\": \"String\",\n                    \"isRequired\": true\n                  },\n                  \"value\": \"ETH-ELINE-UNI\"\n                },\n                {\n                  \"name\": \"version\",\n                  \"displayName\": \"Version\",\n                  \"description\": \"N/A\",\n                  \"criteria\": {\n                    \"dataType\": \"String\",\n                    \"isRequired\": true\n                  },\n                  \"value\": \"3.3.0\"\n                },\n                {\n                  \"name\": \"nodeId\",\n                  \"displayName\": \"Node Id\",\n                  \"description\": \"36-character UUID\",\n                  \"criteria\": {\n                    \"dataType\": \"String\",\n                    \"isRequired\": true\n                  },\n                  \"value\": \"61DE1859-7A99-4218-B43E-F96CD57303A0\"\n                },\n                {\n                  \"name\": \"portHandoffSpeed\",\n                  \"displayName\": \"Port Handoff Speed\",\n                  \"description\": \"GigE - Supports up to 1G, 10GigE - Supports up to 10G, 100GigE - Supports up to 100G\",\n                  \"criteria\": {\n                    \"dataType\": \"String\",\n                    \"isRequired\": false\n                  },\n                  \"options\": [\n                    {\n                      \"value\": \"10/100/1000BaseT\",\n                      \"defaultValue\": false,\n                      \"allowedForControllingFields\": [\n                        {\n                          \"controllingField\": \"bandwidth\",\n                          \"values\": [\n                            {\n                              \"value\": \"10Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"20Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"30Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"40Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"50Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"60Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"70Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"80Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"90Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"100Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"150Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"200Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"250Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"300Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"400Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"500Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"600Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"700Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"800Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"900Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"1G\",\n                              \"defaultValue\": false\n                            }\n                          ]\n                        }\n                      ]\n                    },\n                    {\n                      \"value\": \"GigE\",\n                      \"defaultValue\": false,\n                      \"allowedForControllingFields\": [\n                        {\n                          \"controllingField\": \"bandwidth\",\n                          \"values\": [\n                            {\n                              \"value\": \"10Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"20Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"30Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"40Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"50Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"60Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"70Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"80Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"90Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"100Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"150Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"200Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"250Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"300Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"400Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"500Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"600Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"700Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"800Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"900Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"1G\",\n                              \"defaultValue\": false\n                            }\n                          ]\n                        }\n                      ]\n                    },\n                    {\n                      \"value\": \"10GigE\",\n                      \"defaultValue\": false,\n                      \"allowedForControllingFields\": [\n                        {\n                          \"controllingField\": \"bandwidth\",\n                          \"values\": [\n                            {\n                              \"value\": \"10Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"20Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"30Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"40Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"50Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"60Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"70Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"80Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"90Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"100Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"150Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"200Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"250Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"300Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"400Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"500Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"600Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"700Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"800Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"900Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"1G\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"2G\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"3G\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"5G\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"10G\",\n                              \"defaultValue\": false\n                            }\n                          ]\n                        }\n                      ]\n                    },\n                    {\n                      \"value\": \"100GigE\",\n                      \"defaultValue\": false,\n                      \"allowedForControllingFields\": [\n                        {\n                          \"controllingField\": \"bandwidth\",\n                          \"values\": [\n                            {\n                              \"value\": \"10Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"20Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"30Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"40Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"50Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"60Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"70Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"80Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"90Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"100Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"150Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"200Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"250Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"300Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"400Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"500Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"600Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"700Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"800Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"900Mb\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"1G\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"2G\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"3G\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"5G\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"10G\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"20G\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"30G\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"40G\",\n                              \"defaultValue\": false\n                            }\n                          ]\n                        }\n                      ]\n                    }\n                  ]\n                },\n                {\n                  \"name\": \"handoff\",\n                  \"displayName\": \"Handoff\",\n                  \"description\": \"Handoff media expected for service delivery\",\n                  \"criteria\": {\n                    \"dataType\": \"String\",\n                    \"isRequired\": false\n                  },\n                  \"options\": [\n                    {\n                      \"value\": \"2-Fiber (Optical MMF)\",\n                      \"defaultValue\": false,\n                      \"allowedForControllingFields\": [\n                        {\n                          \"controllingField\": \"portHandoffSpeed\",\n                          \"values\": [\n                            {\n                              \"value\": \"GigE\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"10GigE\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"100GigE\",\n                              \"defaultValue\": false\n                            }\n                          ]\n                        }\n                      ]\n                    },\n                    {\n                      \"value\": \"2-Fiber (Optical SMF)\",\n                      \"defaultValue\": false,\n                      \"allowedForControllingFields\": [\n                        {\n                          \"controllingField\": \"portHandoffSpeed\",\n                          \"values\": [\n                            {\n                              \"value\": \"GigE\",\n                              \"defaultValue\": true\n                            },\n                            {\n                              \"value\": \"10GigE\",\n                              \"defaultValue\": true\n                            },\n                            {\n                              \"value\": \"100GigE\",\n                              \"defaultValue\": true\n                            }\n                          ]\n                        }\n                      ]\n                    },\n                    {\n                      \"value\": \"Copper (RJ-45 Electrical)\",\n                      \"defaultValue\": false,\n                      \"allowedForControllingFields\": [\n                        {\n                          \"controllingField\": \"portHandoffSpeed\",\n                          \"values\": [\n                            {\n                              \"value\": \"10/100/1000BaseT\",\n                              \"defaultValue\": true\n                            },\n                            {\n                              \"value\": \"10GigE\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"100GigE\",\n                              \"defaultValue\": false\n                            }\n                          ]\n                        }\n                      ]\n                    }\n                  ]\n                },\n                {\n                  \"name\": \"networkInterfaceDevice\",\n                  \"displayName\": \"Network Interface Device\",\n                  \"description\": \"N/A\",\n                  \"criteria\": {\n                    \"dataType\": \"String\",\n                    \"isRequired\": false\n                  },\n                  \"options\": [\n                    {\n                      \"value\": false,\n                      \"defaultValue\": false,\n                      \"allowedForControllingFields\": [\n                        {\n                          \"controllingField\": \"handoff\",\n                          \"values\": [\n                            {\n                              \"value\": \"2-Fiber (Optical MMF)\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"2-Fiber (Optical SMF)\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"Copper (RJ-45 Electrical)\",\n                              \"defaultValue\": false\n                            }\n                          ]\n                        },\n                        {\n                          \"controllingField\": \"mefCertified\",\n                          \"values\": [\n                            {\n                              \"value\": false,\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": true,\n                              \"defaultValue\": false\n                            }\n                          ]\n                        }\n                      ]\n                    },\n                    {\n                      \"value\": true,\n                      \"defaultValue\": false,\n                      \"allowedForControllingFields\": [\n                        {\n                          \"controllingField\": \"handoff\",\n                          \"values\": [\n                            {\n                              \"value\": \"2-Fiber (Optical MMF)\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"2-Fiber (Optical SMF)\",\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": \"Copper (RJ-45 Electrical)\",\n                              \"defaultValue\": false\n                            }\n                          ]\n                        },\n                        {\n                          \"controllingField\": \"mefCertified\",\n                          \"values\": [\n                            {\n                              \"value\": false,\n                              \"defaultValue\": false\n                            },\n                            {\n                              \"value\": true,\n                              \"defaultValue\": false\n                            }\n                          ]\n                        }\n                      ]\n                    }\n                  ]\n                },\n                {\n                  \"name\": \"cfaProvidedBy\",\n                  \"displayName\": \"CFA Provided By\",\n                  \"description\": \"Entity responsible for Customer Facility Assignment\",\n                  \"criteria\": {\n                    \"dataType\": \"String\",\n                    \"isRequired\": false\n                  },\n                  \"options\": [\n                    {\n                      \"value\": \"Zayo\",\n                      \"defaultValue\": true,\n                      \"allowedForControllingFields\": []\n                    },\n                    {\n                      \"value\": \"Customer\",\n                      \"defaultValue\": false,\n                      \"allowedForControllingFields\": []\n                    }\n                  ]\n                },\n                {\n                  \"name\": \"locationA\",\n                  \"displayName\": \"Location A\",\n                  \"description\": \"18-character location ID\",\n                  \"criteria\": {\n                    \"dataType\": \"Id\",\n                    \"isRequired\": false,\n                    \"anyRequired\": [\n                      \"locationA\",\n                      \"buildingA\"\n                    ]\n                  }\n                },\n                {\n                  \"name\": \"buildingA\",\n                  \"displayName\": \"Building A\",\n                  \"description\": \"18-character building ID\",\n                  \"criteria\": {\n                    \"dataType\": \"Id\",\n                    \"isRequired\": false,\n                    \"anyRequired\": [\n                      \"locationA\",\n                      \"buildingA\"\n                    ]\n                  }\n                },\n                {\n                  \"name\": \"nniId\",\n                  \"displayName\": \"NNI Id\",\n                  \"description\": \"18-character NNI ID\",\n                  \"criteria\": {\n                    \"dataType\": \"Id\",\n                    \"isRequired\": false\n                  }\n                },\n                {\n                  \"name\": \"cloudProvider\",\n                  \"displayName\": \"Cloud Provider\",\n                  \"description\": \"Name of provider\",\n                  \"criteria\": {\n                    \"dataType\": \"String\",\n                    \"isRequired\": false,\n                    \"schemaRefs\": [\n                      \"defs.json#/definitions/cloudlink\",\n                      \"defs.json#/definitions/checkProvider\",\n                      \"defs.json#/definitions/defaultConnectionType\"\n                    ]\n                  },\n                  \"options\": [\n                    {\n                      \"value\": null,\n                      \"defaultValue\": null,\n                      \"allowedForControllingFields\": []\n                    }\n                  ]\n                },\n                {\n                  \"name\": \"connectionType\",\n                  \"displayName\": \"Connection Type\",\n                  \"description\": \"Required when Cloud Provider is present.\",\n                  \"criteria\": {\n                    \"dataType\": \"String\",\n                    \"isRequired\": false,\n                    \"notRequired\": true,\n                    \"schemaRefs\": [\n                      \"defs.json#/definitions/evcEnabled\"\n                    ]\n                  },\n                  \"options\": [\n                    {\n                      \"value\": \"Dedicated\",\n                      \"defaultValue\": false,\n                      \"allowedForControllingFields\": []\n                    },\n                    {\n                      \"value\": \"Hosted\",\n                      \"defaultValue\": false,\n                      \"allowedForControllingFields\": []\n                    }\n                  ]\n                },\n                {\n                  \"name\": \"lag\",\n                  \"displayName\": \"LAG\",\n                  \"description\": \"LAG (Link Aggregation) gives you the ability to enhance your network capacity and reduce cost while maintaining a fast transmission speed by using all the same hardware devices.\",\n                  \"criteria\": {\n                    \"dataType\": \"String\",\n                    \"isRequired\": false,\n                    \"notRequired\": true\n                  },\n                  \"options\": [\n                    {\n                      \"value\": true,\n                      \"defaultValue\": false,\n                      \"allowedForControllingFields\": []\n                    },\n                    {\n                      \"value\": false,\n                      \"defaultValue\": true,\n                      \"allowedForControllingFields\": []\n                    }\n                  ]\n                }\n              ],\n              \"children\": []\n            }\n          ]\n        },\n        \"preferences\": {\n          \"isRequired\": false,\n          \"attrs\": [\n            {\n              \"name\": \"requestFollowUp\",\n              \"displayName\": \"Request Follow Up\",\n              \"description\": \"If \\\\\\\"Yes\\\\\\\" then quote is routed to the Tranzact Experts desk for research. If \\\\\\\"No\\\\\\\" then quote is disregarded. Please provide contact information under Notes for direct follow up.\",\n              \"criteria\": {\n                \"dataType\": \"String\",\n                \"isRequired\": false\n              },\n              \"options\": [\n                {\n                  \"value\": false,\n                  \"defaultValue\": true,\n                  \"allowedForControllingFields\": []\n                },\n                {\n                  \"value\": true,\n                  \"defaultValue\": false,\n                  \"allowedForControllingFields\": []\n                }\n              ]\n            },\n            {\n              \"name\": \"notes\",\n              \"displayName\": \"Notes\",\n              \"description\": \"Free form text field limited to 255 characters. Use to provide additional information relevant to the quote, for example Customer Contact email for follow up.\",\n              \"criteria\": {\n                \"dataType\": \"String\",\n                \"isRequired\": false\n              }\n            },\n            {\n              \"name\": \"quoteNameIdentifier\",\n              \"displayName\": \"Quote Name Identifier\",\n              \"description\": \"Customer Identifier\",\n              \"criteria\": {\n                \"dataType\": \"String\",\n                \"isRequired\": false\n              }\n            }\n          ]\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aeb418c1-142b-443e-937c-57e654b3a280",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "quote-management",
+                    "v3",
+                    "catalog",
+                    "product-code-details",
+                    ":productCode",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "productCode",
+                      "description": "(Required) Product code returned from the /product-catalog route."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version returned from the /product-catalog route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zayo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "069a7c04-a461-47ef-a396-753e2e316058",
+    "name": "Zayo APIs Maintenance Cases Product Catalog API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    \n\nContact Support:\n Name: Zayo API Team\n Email: zayoapi@zayo.com",
+      "type": "text/plain"
+    }
+  }
+}

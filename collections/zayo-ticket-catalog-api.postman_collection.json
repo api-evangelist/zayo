@@ -1,0 +1,352 @@
+{
+  "item": [
+    {
+      "id": "f61997ed-3772-4db8-8357-ab2650c32ee2",
+      "name": "Ticket Catalog",
+      "description": {
+        "content": "View available tickets and ticket details to use in the Ticketing API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ac9c5732-2d7e-41ce-99ba-464732839a71",
+          "name": "Get ticket catalog",
+          "request": {
+            "name": "Get ticket catalog",
+            "description": {
+              "content": "Get the Zayo trouble ticket catalog where tickets are represented as a `ticketType`. For each `ticketType` get the description and latest version.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "service-management",
+                "v1",
+                "ticket-catalog"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fe49020b-856c-443a-8611-54def9419091",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "ticket-catalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"data\": {\n    \"ticketTypes\": [\n      {\n        \"ticketType\": \"Billing\",\n        \"version\": \"1.0.0\",\n        \"description\": \"Inquiries related to receivables due on billing accounts.\"\n      },\n      {\n        \"ticketType\": \"Access Request\",\n        \"version\": \"1.0.0\",\n        \"description\": \"Request access into data centers and facilities.\"\n      },\n      {\n        \"ticketType\": \"Remote Hands\",\n        \"version\": \"1.0.0\",\n        \"description\": \"Support on tasks zColo can perform to be your hands and eyes regarding data center functions.\"\n      },\n      {\n        \"ticketType\": \"Customer Service\",\n        \"version\": \"1.0.0\",\n        \"description\": \"Customer support on general questions, service inventory, network documents, service credits and disputes.\"\n      },\n      {\n        \"ticketType\": \"Technical Support\",\n        \"version\": \"1.0.0\",\n        \"description\": \"Trouble ticket creation, escalate service repair issues, and RFO requests.\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13ce0b67-9ed0-4712-ae5e-aedebdda64d4",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "ticket-catalog"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a5ad6595-d419-46c8-a779-9927ca7b5f18",
+          "name": "Get ticket type details",
+          "request": {
+            "name": "Get ticket type details",
+            "description": {
+              "content": "After you get the latest semantic version from the ticket-catalog route, plug this into the ticket-type-details route to dynamically receive the latest request schema with required and optional attributes needed per ticket type/version combination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "service-management",
+                "v1",
+                "ticket-type-details",
+                ":ticketType",
+                ":version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ticketType",
+                  "description": "(Required) Ticket type returned from the get ticket catalog route."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Semantic version returned from the get ticket catalog route."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a3e46168-c048-4612-b5fa-b9b64a81cbfb",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "ticket-type-details",
+                    ":ticketType",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticketType",
+                      "description": "(Required) Ticket type returned from the get ticket catalog route."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version returned from the get ticket catalog route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"data\": {\n    \"attrs\": [\n      {\n        \"name\": \"ticketType\",\n        \"displayName\": \"Ticket Type\",\n        \"description\": \"Applicable ticket type from ticket catalog\",\n        \"criteria\": {\n          \"dataType\": \"string\",\n          \"isRequired\": true,\n          \"anyRequired\": []\n        },\n        \"value\": \"Technical Support\"\n      },\n      {\n        \"name\": \"componentId\",\n        \"displayName\": \"Component Id\",\n        \"description\": \"Unique Id obtained from GET Existing Services Route\",\n        \"criteria\": {\n          \"dataType\": \"string\",\n          \"isRequired\": false,\n          \"anyRequired\": [\n            \"componentId, serviceId\"\n          ]\n        }\n      },\n      {\n        \"name\": \"customerReferenceId\",\n        \"displayName\": \"Customer Reference Id\",\n        \"description\": \"Customer Input, reference specific to customer\",\n        \"criteria\": {\n          \"dataType\": \"string\",\n          \"isRequired\": false,\n          \"anyRequired\": []\n        }\n      },\n      {\n        \"name\": \"description\",\n        \"displayName\": \"Description\",\n        \"description\": \"Please provide a detailed statement of work\",\n        \"criteria\": {\n          \"dataType\": \"string\",\n          \"isRequired\": false,\n          \"anyRequired\": []\n        }\n      },\n      {\n        \"name\": \"downtimeInitialDate\",\n        \"displayName\": \"Downtime Initial Date\",\n        \"description\": \"ISO format date string of initial downtime\",\n        \"criteria\": {\n          \"dataType\": \"string\",\n          \"isRequired\": true,\n          \"anyRequired\": []\n        }\n      },\n      {\n        \"name\": \"downtimeInitialTime\",\n        \"displayName\": \"Downtime Initial Time\",\n        \"description\": \"ISO format time string of initial downtime\",\n        \"criteria\": {\n          \"dataType\": \"string\",\n          \"isRequired\": true,\n          \"anyRequired\": []\n        }\n      },\n      {\n        \"name\": \"serviceId\",\n        \"displayName\": \"Service Id\",\n        \"description\": \"Unique Id obtained from GET Existing Services Route\",\n        \"criteria\": {\n          \"dataType\": \"string\",\n          \"isRequired\": false,\n          \"anyRequired\": [\n            \"componentId, serviceId\"\n          ]\n        }\n      },\n      {\n        \"name\": \"serviceState\",\n        \"displayName\": \"Service state\",\n        \"description\": \"State of the service [Hard Down, Impaired, Request, Against, Service]\",\n        \"criteria\": {\n          \"dataType\": \"string\",\n          \"isRequired\": true,\n          \"anyRequired\": []\n        },\n        \"options\": [\n          {\n            \"value\": \"Hard Down\",\n            \"defaultValue\": false,\n            \"allowedForControllingFields\": []\n          },\n          {\n            \"value\": \"Impaired\",\n            \"defaultValue\": false,\n            \"allowedForControllingFields\": []\n          },\n          {\n            \"value\": \"Request Against Service\",\n            \"defaultValue\": false,\n            \"allowedForControllingFields\": []\n          }\n        ]\n      },\n      {\n        \"name\": \"subject\",\n        \"displayName\": \"Subject\",\n        \"description\": \"Summary of request\",\n        \"criteria\": {\n          \"dataType\": \"string\",\n          \"isRequired\": false,\n          \"anyRequired\": []\n        }\n      }\n    ],\n    \"contacts\": [\n      {\n        \"attrs\": [\n          {\n            \"name\": \"contactType\",\n            \"displayName\": \"Contact Type\",\n            \"description\": \"Indicator of what this contact should be reached out for (Technical or Primary)\",\n            \"criteria\": {\n              \"dataType\": \"string\",\n              \"isRequired\": false,\n              \"anyRequired\": []\n            },\n            \"options\": [\n              {\n                \"value\": \"Primary\",\n                \"defaultValue\": false,\n                \"allowedForControllingFields\": []\n              },\n              {\n                \"value\": \"Technical\",\n                \"defaultValue\": false,\n                \"allowedForControllingFields\": []\n              }\n            ]\n          },\n          {\n            \"name\": \"email\",\n            \"displayName\": \"Email\",\n            \"description\": \"Contact email\",\n            \"criteria\": {\n              \"dataType\": \"string\",\n              \"isRequired\": true,\n              \"anyRequired\": []\n            }\n          },\n          {\n            \"name\": \"fullName\",\n            \"displayName\": \"Full Name\",\n            \"description\": \"Contact full name\",\n            \"criteria\": {\n              \"dataType\": \"string\",\n              \"isRequired\": true,\n              \"anyRequired\": []\n            }\n          },\n          {\n            \"name\": \"phone\",\n            \"displayName\": \"Phone\",\n            \"description\": \"Contact phone number\",\n            \"criteria\": {\n              \"dataType\": \"string\",\n              \"isRequired\": true,\n              \"anyRequired\": []\n            }\n          }\n        ],\n        \"minCount\": 1,\n        \"maxCount\": 20\n      }\n    ],\n    \"troubleshooting\": {\n      \"attrs\": [\n        {\n          \"name\": \"circuitPassTraffic\",\n          \"displayName\": \"Circuit Passing Traffic\",\n          \"description\": \"Has this circuit passed traffice before?\",\n          \"criteria\": {\n            \"dataType\": \"boolean\",\n            \"isRequired\": false,\n            \"anyRequired\": []\n          }\n        },\n        {\n          \"name\": \"disconnectedFibers\",\n          \"displayName\": \"Disconnected Fibers\",\n          \"description\": \"Has physical maintenance been performed that disconnected fibers?\",\n          \"criteria\": {\n            \"dataType\": \"boolean\",\n            \"isRequired\": false,\n            \"anyRequired\": []\n          }\n        },\n        {\n          \"name\": \"gearOn\",\n          \"displayName\": \"Gear on\",\n          \"description\": \"Do you have physical or remote access to your gear?\",\n          \"criteria\": {\n            \"dataType\": \"boolean\",\n            \"isRequired\": false,\n            \"anyRequired\": []\n          }\n        },\n        {\n          \"name\": \"interfaceReset\",\n          \"displayName\": \"Interface Reset\",\n          \"description\": \"Does your interface have Duplex settings enabled?\",\n          \"criteria\": {\n            \"dataType\": \"boolean\",\n            \"isRequired\": false,\n            \"anyRequired\": []\n          }\n        },\n        {\n          \"name\": \"verifyLightLevels\",\n          \"displayName\": \"Verify Light Levels\",\n          \"description\": \"Have you verified input/output light levels?\",\n          \"criteria\": {\n            \"dataType\": \"boolean\",\n            \"isRequired\": false,\n            \"anyRequired\": []\n          }\n        }\n      ],\n      \"isRequired\": false\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b2a9806-b30d-4091-95be-e919b1b001f6",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "ticket-type-details",
+                    ":ticketType",
+                    ":version"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticketType",
+                      "description": "(Required) Ticket type returned from the get ticket catalog route."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Semantic version returned from the get ticket catalog route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zayo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3d3062e0-ddb0-439d-a3b3-98a9701abb22",
+    "name": "Zayo APIs Maintenance Cases Ticket Catalog API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    \n\nContact Support:\n Name: Zayo API Team\n Email: zayoapi@zayo.com",
+      "type": "text/plain"
+    }
+  }
+}

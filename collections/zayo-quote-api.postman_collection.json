@@ -1,0 +1,525 @@
+{
+  "item": [
+    {
+      "id": "b747a420-5f8b-4b17-a514-f94b33d7a92a",
+      "name": "Quote",
+      "description": {
+        "content": "Grow your footprint by reviewing Zayo products in our Product Catalog API, generating quotes with our Quoting API, and automating the ordering process through the Order API.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8494dcd7-4f6f-494f-a7bb-d87a49f7f7b2",
+          "name": "Create or edit quote",
+          "request": {
+            "name": "Create or edit quote",
+            "description": {
+              "content": "Creates a quote using building or location information from the Network Discovery APIs and product code details from the Product Catalog APIs. You can also update an existing quote by passing in the quoteId. Each quote response will include the quote confinguration, `estimatedInstallInterval`, and pricing for multiple terms within the `financialTerms` array.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "quote-management",
+                "v3",
+                "quotes",
+                "quote"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"configuration\": {\n    \"nodeId\": \"<uuid>\",\n    \"productCode\": \"<string>\",\n    \"version\": \"<string>\",\n    \"bandwidth\": \"<string>\",\n    \"currencyIsoCode\": \"<string>\",\n    \"burstableService\": \"<string>\",\n    \"qualityOfService\": \"<string>\",\n    \"mefCertified\": \"<string>\",\n    \"children\": [\n      {\n        \"nodeId\": \"<uuid>\",\n        \"productCode\": \"<string>\",\n        \"version\": \"<string>\",\n        \"buildingA\": \"<string>\",\n        \"locationA\": \"<string>\",\n        \"portHandoffSpeed\": \"<string>\",\n        \"handoff\": \"<string>\",\n        \"networkInterfaceDevice\": \"<string>\",\n        \"cfaProvidedBy\": \"<string>\",\n        \"cloudProvider\": \"<string>\",\n        \"connectionType\": \"<string>\",\n        \"nniId\": \"<string>\"\n      },\n      {\n        \"nodeId\": \"<uuid>\",\n        \"productCode\": \"<string>\",\n        \"version\": \"<string>\",\n        \"buildingA\": \"<string>\",\n        \"locationA\": \"<string>\",\n        \"portHandoffSpeed\": \"<string>\",\n        \"handoff\": \"<string>\",\n        \"networkInterfaceDevice\": \"<string>\",\n        \"cfaProvidedBy\": \"<string>\",\n        \"cloudProvider\": \"<string>\",\n        \"connectionType\": \"<string>\",\n        \"nniId\": \"<string>\"\n      }\n    ]\n  },\n  \"preferences\": {\n    \"requestFollowUp\": \"<string>\",\n    \"notes\": \"<string>\",\n    \"quoteNameIdentifier\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "59ffc68a-b796-4351-bd98-42edf492d980",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "quote-management",
+                    "v3",
+                    "quotes",
+                    "quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configuration\": {\n    \"nodeId\": \"AAC758F0-F719-470D-B716-E8EC6804810F\",\n    \"productCode\": \"ETH-ELINE-UNI\",\n    \"version\": \"3.3.0\",\n    \"bandwidth\": \"1G\",\n    \"currencyIsoCode\": \"USD\",\n    \"burstableService\": \"string\",\n    \"qualityOfService\": \"string\",\n    \"mefCertified\": \"string\",\n    \"children\": [\n      {\n        \"nodeId\": \"61DE1859-7A99-4218-B43E-F96CD57303A0\",\n        \"productCode\": \"ETH-ELINE-UNI\",\n        \"version\": \"3.3.0\",\n        \"buildingA\": \"a0W60000000CVbEEAW\",\n        \"locationA\": \"a0b6000000A6IzoAAF\",\n        \"portHandoffSpeed\": \"GigE\",\n        \"handoff\": \"2-Fiber (Optical MMF)\",\n        \"networkInterfaceDevice\": \"string\",\n        \"cfaProvidedBy\": \"Zayo\",\n        \"cloudProvider\": \"Amazon AWS\",\n        \"connectionType\": \"Hosted\",\n        \"nniId\": \"a0M0z00000OuUB8EAN\"\n      },\n      {\n        \"nodeId\": \"61DE1859-7A99-4218-B43E-F96CD57303A0\",\n        \"productCode\": \"ETH-ELINE-UNI\",\n        \"version\": \"3.3.0\",\n        \"buildingA\": \"a0W60000000CVbEEAW\",\n        \"locationA\": \"a0b6000000A6IzoAAF\",\n        \"portHandoffSpeed\": \"GigE\",\n        \"handoff\": \"2-Fiber (Optical MMF)\",\n        \"networkInterfaceDevice\": \"string\",\n        \"cfaProvidedBy\": \"Zayo\",\n        \"cloudProvider\": \"Amazon AWS\",\n        \"connectionType\": \"Hosted\",\n        \"nniId\": \"a0M0z00000OuUB8EAN\"\n      }\n    ]\n  },\n  \"preferences\": {\n    \"requestFollowUp\": \"string\",\n    \"notes\": \"These are some notes\",\n    \"quoteNameIdentifier\": \"Quote-123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v3\",\n  \"data\": {\n    \"configuration\": {\n      \"children\": [\n        {\n          \"productCode\": \"IP-DIA\",\n          \"version\": \"3.7.0\",\n          \"nodeId\": \"EED0662D-0710-43D2-8539-498496F3B77E\",\n          \"portHandoffSpeed\": \"10GigE\",\n          \"locationA\": \"a0b60000000W6LjAAK\",\n          \"connectedIpv4Address\": \"IPv4/31\",\n          \"additionalIpv4Addresses\": [\n            {\n              \"IPv4/31\": 0,\n              \"IPv4/29\": 0,\n              \"IPv4/28\": 0,\n              \"IPv4/27\": 0,\n              \"IPv4/26\": 0,\n              \"IPv4/24\": 0,\n              \"IPv4/30\": 0\n            }\n          ],\n          \"additionalIpv6Addresses\": [\n            \"IPv6/64 IPv6/48\"\n          ],\n          \"routing\": false,\n          \"lag\": false,\n          \"networkInterfaceDevice\": false,\n          \"cfaProvidedBy\": \"Zayo\",\n          \"handoff\": \"2-Fiber (Optical SMF)\"\n        }\n      ],\n      \"nodeId\": \"6DD6BC0E-CE1F-4EAC-8D4A-07DE8F5BF597\",\n      \"productCode\": \"IP-DIA\",\n      \"version\": \"3.7.0\",\n      \"ddosProtection\": {\n        \"ddosProtectionIncluded\": false,\n        \"cleanTraffic\": \"None\",\n        \"subscription\": \"None\"\n      },\n      \"currencyIsoCode\": \"USD\",\n      \"bandwidth\": \"10G\",\n      \"burstableService\": false,\n      \"bandwidthType\": \"Standard\",\n      \"product\": \"DIA\",\n      \"productCategory\": \"DIA\",\n      \"aggregatedBandwidth\": false,\n      \"locations\": [\n        {\n          \"locationId\": \"a0b60000000W6LjAAK\",\n          \"address\": \"393 Inverness Pkwy Englewood, CO 80112\",\n          \"floorRoomSuite\": \"Fl-1/Rm-DC-04\",\n          \"buildingNetworkStatus\": \"On Zayo Network\",\n          \"buildingClassification\": \"On-Net\",\n          \"competitiveInternetEnablement\": \"Yes\",\n          \"locationNetworkStatus\": \"On Zayo Network\",\n          \"preferredDemarc\": true,\n          \"customerAccessRights\": \"Full Access Tier 0\"\n        }\n      ]\n    },\n    \"preferences\": [\n      {\n        \"requestFollowUp\": false,\n        \"notes\": \"Some notes\",\n        \"quoteNameIdentifier\": \"Cutomer identifier, like a PO Number\"\n      }\n    ],\n    \"quoteId\": \"1cd080ac-1d02-4a9d-b7ee-3fe0d4a77d2b\",\n    \"quoteNumber\": \"Quote-10900936\",\n    \"estimatedInstallInterval\": \"45 days\",\n    \"financialTerms\": [\n      {\n        \"term\": 12,\n        \"totalMrc\": 1434.69,\n        \"totalNrc\": 1100\n      },\n      {\n        \"term\": 24,\n        \"totalMrc\": 1274.1,\n        \"totalNrc\": 1100\n      },\n      {\n        \"term\": 36,\n        \"totalMrc\": 1220.57,\n        \"totalNrc\": 1100\n      },\n      {\n        \"term\": 48,\n        \"totalMrc\": 1167.04,\n        \"totalNrc\": 1100\n      },\n      {\n        \"term\": 60,\n        \"totalMrc\": 1113.51,\n        \"totalNrc\": 1100\n      }\n    ],\n    \"lineItems\": [],\n    \"cpqStatus\": \"Approved\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f109fd5-5346-490b-a5ef-0ad9842a3197",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "quote-management",
+                    "v3",
+                    "quotes",
+                    "quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"configuration\": {\n    \"nodeId\": \"AAC758F0-F719-470D-B716-E8EC6804810F\",\n    \"productCode\": \"ETH-ELINE-UNI\",\n    \"version\": \"3.3.0\",\n    \"bandwidth\": \"1G\",\n    \"currencyIsoCode\": \"USD\",\n    \"burstableService\": \"string\",\n    \"qualityOfService\": \"string\",\n    \"mefCertified\": \"string\",\n    \"children\": [\n      {\n        \"nodeId\": \"61DE1859-7A99-4218-B43E-F96CD57303A0\",\n        \"productCode\": \"ETH-ELINE-UNI\",\n        \"version\": \"3.3.0\",\n        \"buildingA\": \"a0W60000000CVbEEAW\",\n        \"locationA\": \"a0b6000000A6IzoAAF\",\n        \"portHandoffSpeed\": \"GigE\",\n        \"handoff\": \"2-Fiber (Optical MMF)\",\n        \"networkInterfaceDevice\": \"string\",\n        \"cfaProvidedBy\": \"Zayo\",\n        \"cloudProvider\": \"Amazon AWS\",\n        \"connectionType\": \"Hosted\",\n        \"nniId\": \"a0M0z00000OuUB8EAN\"\n      },\n      {\n        \"nodeId\": \"61DE1859-7A99-4218-B43E-F96CD57303A0\",\n        \"productCode\": \"ETH-ELINE-UNI\",\n        \"version\": \"3.3.0\",\n        \"buildingA\": \"a0W60000000CVbEEAW\",\n        \"locationA\": \"a0b6000000A6IzoAAF\",\n        \"portHandoffSpeed\": \"GigE\",\n        \"handoff\": \"2-Fiber (Optical MMF)\",\n        \"networkInterfaceDevice\": \"string\",\n        \"cfaProvidedBy\": \"Zayo\",\n        \"cloudProvider\": \"Amazon AWS\",\n        \"connectionType\": \"Hosted\",\n        \"nniId\": \"a0M0z00000OuUB8EAN\"\n      }\n    ]\n  },\n  \"preferences\": {\n    \"requestFollowUp\": \"string\",\n    \"notes\": \"These are some notes\",\n    \"quoteNameIdentifier\": \"Quote-123\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v3\",\n  \"error\": {\n    \"errorId\": \"8d3cf823-fe28-067e-50a5-ca2c8e2b8786\",\n    \"code\": 400,\n    \"message\": \"Error: Failed JSON Validation - [ - should have required property 'bandwidth'. missingProperty: bandwidth]\",\n    \"errors\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9449338a-62c8-4dec-9f43-e14ee1d2a315",
+          "name": "Get quote details",
+          "request": {
+            "name": "Get quote details",
+            "description": {
+              "content": "View quote, product configuration, and pricing information by quoteId. Get the same details you'd get from a create quote or edit quote request. You can pass in the `quoteId` or `quoteName` param, only one is required to retrieve your quote information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "quote-management",
+                "v3",
+                "quotes",
+                "quote",
+                ":quoteId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "quoteId",
+                  "description": "(Required) Either `quoteId` or `quoteName` is required. Unique quote identifier returned by the create or edit quote route."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60ef934d-4a75-4090-b337-85f71be5b95f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "quote-management",
+                    "v3",
+                    "quotes",
+                    "quote",
+                    ":quoteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quoteId",
+                      "description": "(Required) Either `quoteId` or `quoteName` is required. Unique quote identifier returned by the create or edit quote route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v3\",\n  \"data\": {\n    \"configuration\": {\n      \"children\": [\n        {\n          \"productCode\": \"ETH-ELINE-P2P\",\n          \"version\": \"3.3.0\",\n          \"nodeId\": \"E21DFC33-B3D0-4C53-90A9-73A713E2217E\",\n          \"portHandoffSpeed\": \"10GigE\",\n          \"locationA\": \"a0b6000000FZkaZAAT\",\n          \"lag\": false,\n          \"cfaProvidedBy\": \"Zayo\",\n          \"handoff\": \"2-Fiber (Optical SMF)\",\n          \"networkInterfaceDevice\": false\n        },\n        {\n          \"productCode\": \"ETH-ELINE-P2P\",\n          \"version\": \"3.3.0\",\n          \"nodeId\": \"8798F7D1-2C02-4C3D-916D-7B095A8524DF\",\n          \"portHandoffSpeed\": \"10GigE\",\n          \"locationZ\": \"a0b60000003M8uxAAC\",\n          \"lag\": false,\n          \"cfaProvidedBy\": \"Zayo\",\n          \"handoff\": \"2-Fiber (Optical SMF)\",\n          \"networkInterfaceDevice\": false\n        }\n      ],\n      \"nodeId\": \"55E0230B-BB01-4D5B-B48B-07E7C9994616\",\n      \"productCode\": \"ETH-ELINE-P2P\",\n      \"version\": \"3.3.0\",\n      \"currencyIsoCode\": \"USD\",\n      \"bandwidth\": \"5G\",\n      \"burstableService\": false,\n      \"qualityOfService\": false,\n      \"mefCertified\": false,\n      \"aggregatedBandwidth\": false,\n      \"bandwidthType\": \"Standard\",\n      \"product\": \"ELine\",\n      \"productCategory\": \"Point-to-Point\",\n      \"locations\": [\n        {\n          \"locationId\": \"a0b6000000FZkaZAAT\",\n          \"address\": \"151 Front St W Toronto, ON M5J 2N1\",\n          \"floorSuiteRoom\": \"Fl-1/Rm-MMR 2\",\n          \"buildingNetworkStatus\": \"On Zayo Network\",\n          \"buildingClassification\": \"On-Net\",\n          \"locationNetworkStatus\": \"On Zayo Network\",\n          \"preferredDemarc\": true,\n          \"customerAccessRights\": \"Full Access Tier 0\"\n        },\n        {\n          \"locationId\": \"a0b60000003M8uxAAC\",\n          \"address\": \"3420 Ocean Park Blvd Santa Monica, CA 90405\",\n          \"floorSuiteRoom\": \"Fl-1/Rm-OSP Demarc\",\n          \"buildingNetworkStatus\": \"On Zayo Network\",\n          \"buildingClassification\": \"On-Net\",\n          \"locationNetworkStatus\": \"On Zayo Network\",\n          \"preferredDemarc\": true,\n          \"customerAccessRights\": \"Full Access Tier 0\"\n        }\n      ]\n    },\n    \"preferences\": {\n      \"requestFollowUp\": false\n    },\n    \"quoteId\": \"629896f7-61d4-4d19-ac6e-ddbcfe3e298b\",\n    \"quoteNumber\": \"Quote-10153701\",\n    \"estimatedInstallInterval\": \"40 days\",\n    \"financialTerms\": [\n      {\n        \"term\": \"12\",\n        \"totalMrc\": 1541.17,\n        \"totalNrc\": 859.17\n      },\n      {\n        \"term\": \"24\",\n        \"totalMrc\": 1348.52,\n        \"totalNrc\": 859.17\n      },\n      {\n        \"term\": \"36\",\n        \"totalMrc\": 1284.31,\n        \"totalNrc\": 859.17\n      },\n      {\n        \"term\": \"48\",\n        \"totalMrc\": 1220.09,\n        \"totalNrc\": 859.17\n      },\n      {\n        \"term\": \"60\",\n        \"totalMrc\": 1155.88,\n        \"totalNrc\": 859.17\n      }\n    ],\n    \"lineItems\": [],\n    \"cpqStatus\": \"Approved\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30a26da2-23b7-4b99-b55a-c36ae2f6e176",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "quote-management",
+                    "v3",
+                    "quotes",
+                    "quote",
+                    ":quoteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "quoteId",
+                      "description": "(Required) Either `quoteId` or `quoteName` is required. Unique quote identifier returned by the create or edit quote route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v2\",\n  \"error\": {\n    \"errorId\": \"f35506e9-e088-c6a9-6f3f-f94432841f79\",\n    \"code\": 400,\n    \"message\": \"Quote inaccessible!\",\n    \"errors\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7371b087-e683-43e7-bb6d-70ed755ce7ed",
+          "name": "View all NNI records",
+          "request": {
+            "name": "View all NNI records",
+            "description": {
+              "content": "Retrieve all NNI records including quotes, orders, and services. Used to identify an NNI to associate with your UNI quote via the `nniId` in the quote request payload. The `nniId` attribute is optional, so if it is omitted from the quote request, Zayo will always default to the nearest NNI.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "quote-management",
+                "v2",
+                "quotes",
+                "nnis"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter\": {\n    \"locationId\": \"<string>\",\n    \"type\": [\n      \"Quote\",\n      \"Service Order\",\n      \"Service\"\n    ]\n  },\n  \"paging\": {\n    \"top\": 10,\n    \"skip\": 0\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cf6dd11d-8674-4191-aa94-034920fdfec8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "quote-management",
+                    "v2",
+                    "quotes",
+                    "nnis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filter\": {\n    \"locationId\": \"a0b60000003KP8EAAW\",\n    \"type\": [\n      \"Service\"\n    ]\n  },\n  \"paging\": {\n    \"top\": 50,\n    \"skip\": 0\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v2\",\n  \"data\": {\n    \"records\": [\n      {\n        \"nniId\": \"a0M0z00000PiJ3DEAV\",\n        \"custNNI\": \"a1X0z000004aLbmEAE\",\n        \"type\": \"Service\",\n        \"bandwidth\": \"10G\",\n        \"circuitId\": \"ETYX/TEST008/ZYO\",\n        \"name\": 559510,\n        \"productCategory\": \"Pt to Multi-Pt (NNI)\",\n        \"location\": \"393 Inverness Pkwy/Fl-1/Rm-DC-04 Englewood, CO 80112\",\n        \"locationId\": \"a0b60000000W6LjAAK\",\n        \"address\": \"393 Inverness Pkwy\",\n        \"floor\": 1,\n        \"suite\": null,\n        \"room\": \"DC-04\",\n        \"state\": \"CO\",\n        \"zip\": 80112,\n        \"city\": \"Englewood\",\n        \"country\": \"USA\",\n        \"sortBy\": 1\n      },\n      {\n        \"nniId\": \"a0M0z00000PiJ33EAF\",\n        \"custNNI\": \"a1X0z000004aLbcEAE\",\n        \"type\": \"Service\",\n        \"bandwidth\": \"1G\",\n        \"circuitId\": \"ETYX/TEST005/ZYO\",\n        \"name\": 559510,\n        \"productCategory\": \"Pt to Multi-Pt (NNI)\",\n        \"location\": \"4100 Bryan St/Fl-1/Rm-LSA 199 Dallas, TX 75204\",\n        \"locationId\": \"a0b60000003N9p6AAC\",\n        \"address\": \"4100 Bryan St\",\n        \"floor\": 1,\n        \"suite\": null,\n        \"room\": \"LSA 199\",\n        \"state\": \"TX\",\n        \"zip\": 75204,\n        \"city\": \"Dallas\",\n        \"country\": \"USA\",\n        \"sortBy\": 1\n      }\n    ],\n    \"metaData\": {\n      \"top\": 2,\n      \"skip\": 0,\n      \"currentPage\": 1,\n      \"totalPages\": 98,\n      \"totalRecordCount\": 195\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9355951-81b4-4438-b932-84a45709d8b8",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "quote-management",
+                    "v2",
+                    "quotes",
+                    "nnis"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filter\": {\n    \"locationId\": \"a0b60000003KP8EAAW\",\n    \"type\": [\n      \"Service\"\n    ]\n  },\n  \"paging\": {\n    \"top\": 50,\n    \"skip\": 0\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zayo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "555b5a05-ea46-4d8f-a515-9e60d5d56ece",
+    "name": "Zayo APIs Maintenance Cases Quote API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    \n\nContact Support:\n Name: Zayo API Team\n Email: zayoapi@zayo.com",
+      "type": "text/plain"
+    }
+  }
+}

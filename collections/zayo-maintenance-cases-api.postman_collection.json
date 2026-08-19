@@ -1,0 +1,1141 @@
+{
+  "item": [
+    {
+      "id": "6eba128f-841a-4759-a194-5b20949b13c6",
+      "name": "Maintenance Cases",
+      "description": {
+        "content": "Monitor upcoming outages with Maintenance Cases API. The Zayo Maintenance Cases API is composed of a series of API calls that are intended to be leveraged sequentially with each request/response cycle providing the required inputs for the next step in the Maintenance Case flow.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5b7cf391-a5d6-42aa-aa6c-e4cd7556872c",
+          "name": "Get all maintenance cases",
+          "request": {
+            "name": "Get all maintenance cases",
+            "description": {
+              "content": "\n:::warning\nIf no date filters are provided in the payload, results will be filtered server side for the Last 30 Days.\n:::\n\n\nRetrieve all Maintenance Cases based on filter, search, order by, and pagination options. Maintenance Cases include maintenance event information like urgency, level of impact, status, primary date, second primary date, third primary date, time, time zone, reason for maintenance, location, latitude, and longitude. \n\n\nThe recommended flow is to get your Maintenance Case, then use the `caseNumber` or `caseId` as a filter option to receive the impacted circuits for that maintenance event.\n\n\nTo get related services impacted by this event data from the Maintenance Case, pass in the `caseId` or `caseNumber` value as a filter option in the Maintenance Impacts route.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "service-management",
+                "v1",
+                "maintenance-cases"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter\": {\n    \"caseId\": \"<string>\",\n    \"caseNumber\": \"<string>\",\n    \"levelOfImpact\": \"<string>\",\n    \"fromTime\": \"<string>\",\n    \"location\": \"<string>\",\n    \"latitude\": \"<string>\",\n    \"longitude\": \"<string>\",\n    \"primaryDate\": \"<string>\",\n    \"status\": \"<string>\",\n    \"toTime\": \"<string>\",\n    \"timeZone\": \"<string>\",\n    \"x2ndPrimaryDate\": \"<string>\",\n    \"x3rdPrimaryDate\": \"<string>\",\n    \"urgency\": \"<string>\",\n    \"or\": [\n      {\n        \"caseId\": \"<string>\",\n        \"caseNumber\": \"<string>\",\n        \"levelOfImpact\": \"<string>\"\n      },\n      {\n        \"caseId\": \"<string>\",\n        \"caseNumber\": \"<string>\",\n        \"levelOfImpact\": \"<string>\"\n      }\n    ]\n  },\n  \"orderBy\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"search\": \"<string>\",\n  \"paging\": {\n    \"top\": 10,\n    \"skip\": 0\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6bae733a-08b8-4ffd-8f28-919608d75335",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "maintenance-cases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filter\": {\n    \"primaryDate\": {\n      \"le\": \"2022-06-29\"\n    }\n  },\n  \"orderBy\": [\n    \"primaryDate desc\"\n  ],\n  \"paging\": {\n    \"top\": 10,\n    \"skip\": 0\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"data\": {\n    \"records\": [\n      {\n        \"caseId\": \"5004z00001dIOHFAA4\",\n        \"caseNumber\": \"TTN-0005809480\",\n        \"urgency\": \"Planned\",\n        \"levelOfImpact\": \"Service Affecting\",\n        \"status\": \"Closed\",\n        \"primaryDate\": \"2022-06-05\",\n        \"x2dPrimaryDate\": null,\n        \"x3rdPrimaryDate\": null,\n        \"fromTime\": \"06:00\",\n        \"toTime\": 720,\n        \"timeZone\": \"GMT\",\n        \"reasonForMaintenance\": \"Zayo is performing a mandatory vendor recommended software upgrade\",\n        \"location\": \"303 9 Ave Se, Calgary, AB, T2G 0R7\",\n        \"latitude\": 51.044168,\n        \"longitude\": -114.057667\n      },\n      {\n        \"caseId\": \"5004z00001cTR37AAG\",\n        \"caseNumber\": \"TTN-0005782528\",\n        \"urgency\": \"Planned\",\n        \"levelOfImpact\": \"Service Affecting\",\n        \"status\": \"Closed\",\n        \"primaryDate\": \"2022-05-15\",\n        \"x2dPrimaryDate\": null,\n        \"x3rdPrimaryDate\": null,\n        \"fromTime\": \"07:00\",\n        \"toTime\": 780,\n        \"timeZone\": \"GMT\",\n        \"reasonForMaintenance\": \"Zayo is performing a mandatory vendor recommended software upgrade\",\n        \"location\": \"175 W Cordova St, Vancouver, BC, V6B 1E1\",\n        \"latitude\": 49.28354,\n        \"longitude\": -123.10871\n      },\n      {\n        \"caseId\": \"5004z00001a47cdAAA\",\n        \"caseNumber\": \"TTN-0005504936\",\n        \"urgency\": \"Planned\",\n        \"levelOfImpact\": \"Service Affecting\",\n        \"status\": \"Closed\",\n        \"primaryDate\": \"2022-02-06\",\n        \"x2dPrimaryDate\": null,\n        \"x3rdPrimaryDate\": null,\n        \"fromTime\": \"00:01\",\n        \"toTime\": \"05:00\",\n        \"timeZone\": \"Eastern\",\n        \"reasonForMaintenance\": \"Zayo will be performing Repair on Fibers on Tube 3 must be re-installed/spliced as there are short/kinked to prevent imminent failure.\",\n        \"location\": \"45.39801 N , 75.74815 W\",\n        \"latitude\": null,\n        \"longitude\": null\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92631681-02c8-4dee-90e3-9ca622990e65",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "maintenance-cases"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filter\": {\n    \"primaryDate\": {\n      \"le\": \"2022-06-29\"\n    }\n  },\n  \"orderBy\": [\n    \"primaryDate desc\"\n  ],\n  \"paging\": {\n    \"top\": 10,\n    \"skip\": 0\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b76d660-cde8-470d-9597-a1592e6e54b5",
+          "name": "Get all maintenance impacts",
+          "request": {
+            "name": "Get all maintenance impacts",
+            "description": {
+              "content": "Retrieve all Maintenance Impacts based on filter, search, order by, and pagination options. Maintenance Impacts contain service-based attributes like Service Name, CircuitId, A Location Clli, Z Location Clli, and Legacy Circuit Id. \n \n \n The recommended flow is to get your Maintenance Case, then use the `caseNumber` or `caseId` as a filter option to receive the impacted circuits for that maintenance event.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "service-management",
+                "v1",
+                "maintenance-impacts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter\": {\n    \"caseNumber\": \"<string>\",\n    \"serviceId\": \"<string>\",\n    \"serviceName\": \"<string>\",\n    \"circuitId\": \"<string>\",\n    \"expectedImpact\": \"<string>\",\n    \"aLocationClli\": \"<string>\",\n    \"zLocationClli\": \"<string>\",\n    \"legacyCircuitId\": \"<string>\",\n    \"or\": [\n      {\n        \"caseNumber\": \"<string>\",\n        \"circuitId\": \"<string>\",\n        \"expectedImpact\": \"<string>\"\n      },\n      {\n        \"caseNumber\": \"<string>\",\n        \"circuitId\": \"<string>\",\n        \"expectedImpact\": \"<string>\"\n      }\n    ]\n  },\n  \"search\": \"<string>\",\n  \"orderBy\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"paging\": {\n    \"top\": 10,\n    \"skip\": 0\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "88f36838-75f7-4b51-866d-62aafd491b55",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "maintenance-impacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paging\": {\n    \"top\": 10,\n    \"skip\": 0\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"data\": {\n    \"records\": [\n      {\n        \"caseNumber\": \"TTN-0005809480\",\n        \"serviceId\": \"a0M6000000MnLy8EAF\",\n        \"serviceName\": 345313,\n        \"circuitId\": \"CV2PVC00008\",\n        \"expectedImpact\": \"Hard Down\",\n        \"aLocationClli\": \"CLGRABCD\",\n        \"zLocationClli\": \"TOROONXNSP1\",\n        \"legacyCircuitId\": \"07/LOXX/000455/UCN/001\"\n      }\n    ],\n    \"metadata\": {\n      \"top\": 5,\n      \"skip\": 0,\n      \"currentPage\": 1,\n      \"totalPages\": 1,\n      \"totalRecordCount\": 1\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11419043-7e44-4a2d-8f57-6aa53f6d4b85",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "maintenance-impacts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"paging\": {\n    \"top\": 10,\n    \"skip\": 0\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "33acd3a5-a93d-423a-9d4b-c0efe6f8db70",
+          "name": "Get maintenance notifications",
+          "request": {
+            "name": "Get maintenance notifications",
+            "description": {
+              "content": "Returns all available Maintenance Notifications based on the `caseNumber`. These notifications are also available via email to enabled users. Reach out to your account rep to get subscribed for Maintenance Notifications emails.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "service-management",
+                "v1",
+                "maintenance-cases",
+                ":caseNumber",
+                "notifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "caseNumber",
+                  "description": "(Required) Case Number returned from the Maintenance Cases or Maintenance Impacts route."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ab5c2dc9-879e-41d1-b60b-021412abbe24",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "maintenance-cases",
+                    ":caseNumber",
+                    "notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "caseNumber",
+                      "description": "(Required) Case Number returned from the Maintenance Cases or Maintenance Impacts route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"data\": [\n    {\n      \"name\": \"MNN-00482176\",\n      \"notificationType\": \"Maintenance Completed\",\n      \"lastModifiedDate\": \"2019-10-15 08:07:48+00:00\",\n      \"subject\": \"COMPLETED MAINTENANCE NOTIFICATION***Z-FAANG US***ZAYO TTN-0003590895 Planned***\",\n      \"toEmailList\": \"ipeng@zayo.com; ip-tac@zayo.com; iparch@zayo.com; ethernet.arch@zayo.com; net-eng@zayo.com; telemetry@zayo.com\"\n    },\n    {\n      \"name\": \"MNN-00482146\",\n      \"notificationType\": \"Maintenance Started\",\n      \"lastModifiedDate\": \"2019-10-15 07:45:05+00:00\",\n      \"subject\": \"START MAINTENANCE NOTIFICATION***Z-FAANG US***ZAYO TTN-0003590895 Planned***\",\n      \"toEmailList\": \"ipeng@zayo.com; ip-tac@zayo.com; iparch@zayo.com; ethernet.arch@zayo.com; net-eng@zayo.com; telemetry@zayo.com\"\n    },\n    {\n      \"name\": \"MNN-00457342\",\n      \"notificationType\": \"Scheduled\",\n      \"lastModifiedDate\": \"2019-09-26 20:07:24+00:00\",\n      \"subject\": \"***Z-FAANG US***ZAYO TTN-0003590895 Planned MAINTENANCE NOTIFICATION***\",\n      \"toEmailList\": \"ipeng@zayo.com; ip-tac@zayo.com; iparch@zayo.com; ethernet.arch@zayo.com; net-eng@zayo.com; telemetry@zayo.com\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0f1742e9-c60b-4f75-a0db-4fc5726bdeb1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "maintenance-cases",
+                    ":caseNumber",
+                    "notifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "caseNumber",
+                      "description": "(Required) Case Number returned from the Maintenance Cases or Maintenance Impacts route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1892c4bf-6ec6-4978-9e4d-bdac1f4fe53d",
+          "name": "Get maintenance notification details",
+          "request": {
+            "name": "Get maintenance notification details",
+            "description": {
+              "content": "Returns maintenance notification details by Maintenance Notification Name. Maintenance Notification details include the email body in HTML.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "service-management",
+                "v1",
+                "maintenance-cases",
+                "notifications",
+                ":maintenanceNotificationName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "maintenanceNotificationName",
+                  "description": "(Required) `name` attribute returned from the get Maintenance Notifications route."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dd33ad54-bb8d-4171-9422-9c3bb0252876",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "maintenance-cases",
+                    "notifications",
+                    ":maintenanceNotificationName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maintenanceNotificationName",
+                      "description": "(Required) `name` attribute returned from the get Maintenance Notifications route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"data\": {\n    \"name\": \"MNN-00482176\",\n    \"notificationType\": \"Maintenance Completed\",\n    \"lastModifiedDate\": \"2019-10-15 08:07:48+00:00\",\n    \"subject\": \"COMPLETED MAINTENANCE NOTIFICATION***Z-FAANG US***ZAYO TTN-0003590895 Planned***\",\n    \"emailBody\": \"Dear Zayo Customer,\\\\r\\\\n\\\\r\\\\n<br><br>Please be advised that the scheduled maintenance window has been completed in its entirety for this event.\\\\r\\\\n<br><br><font color=\\\\\\\"FF0000\\\\\\\">If your services are still being impacted please take a moment to review the service and bounce any interfaces that may have been impacted.  In the event that this does not fully restore your service please contact the Zayo NCC at 866-236-2824 or at <u>zayoncc@zayo.com</u>.</font>\\\\r\\\\n\\\\r\\\\n<br><br><b>Maintenance Ticket #: </b> TTN-0003590895\\\\r\\\\n\\\\r\\\\n<br><br> <b>Maintenance Window: </b> 00:01 - 05:00 Pacific\\\\r\\\\n\\\\r\\\\n<br><br><b>1<sup>st</sup> Activity Date: </b> 15-Oct-2019\\\\n\\\\r\\\\n\\\\r\\\\n<br><br><b>Location of Maintenance: </b> 2001 6th Ave, Seattle, WA\\\\r\\\\n\\\\r\\\\n<br><br><b>Reason for Maintenance: </b> Zayo will perform groom for network optimization.\\\\r\\\\n\\\\r\\\\n<br><br><b>Circuit(s) Affected: </b><br>\\\\r\\\\n<table border=3D\\\\\\\"1\\\\\\\"><tr>\\\\n<tr>\\\\n<th>Circuit Id</th>\\\\n<th>Expected Impact</th>\\\\n<th>A Location CLLI</th>\\\\n\\\\n<th>Z Location CLLI</th>\\\\n<th>Legacy Circuit Id</th>\\\\n</tr>\\\\n<tr>\\\\n<td>/IPYX/106744/   /ZYO /</td>\\\\n<td>Hard Down - Duration of maintenance window</td>\\\\n<td>STTLWACC000</td>\\\\n<td>STTLWAWB012</td>\\\\n<td></td>\\\\n</tr>\\\\n</table>\\\\n\\\\r\\\\n\\\\r\\\\n<br><br>If you have any questions or need any additional information related to this maintenance event, please contact the MR group at mr@zayo.com or call 866-236-2824.\\\\r\\\\n\\\\r\\\\n<br><br>Regards,<br><p><b>\\\\r\\\\n<font color=\\\\\\\"808080\\\\\\\" size=\\\\\\\"3\\\\\\\" face=\\\\\\\"Times New Roman\\\\\\\">Zay</font><font color=\\\\\\\"FF9900\\\\\\\" size=\\\\\\\"3\\\\\\\" face=\\\\\\\"Times New Roman\\\\\\\">o </font>\\\\r\\\\n<font color=\\\\\\\"808080\\\\\\\" size=\\\\\\\"3\\\\\\\" face=\\\\\\\"Times New Roman\\\\\\\">Global Change Management Team/<i>Équipe de Gestion du Changement Global Zay</font><font color=\\\\\\\"FF9900\\\\\\\" size=\\\\\\\"3\\\\\\\" face=\\\\\\\"Times New Roman\\\\\\\">o</font></i><br>\\\\r\\\\n<font color=\\\\\\\"808080\\\\\\\" size=\\\\\\\"3\\\\\\\" face=\\\\\\\"Times New Roman\\\\\\\">Zay</font><font color=\\\\\\\"FF9900\\\\\\\" size=\\\\\\\"3\\\\\\\" face=\\\\\\\"Times New Roman\\\\\\\"><b>o </b></font>\\\\r\\\\n<font color=\\\\\\\"808080\\\\\\\" size=\\\\\\\"3\\\\\\\" face=\\\\\\\"Times New Roman\\\\\\\">Group/<i>Le Groupe Zay</font><font color=\\\\\\\"FF9900\\\\\\\" size=\\\\\\\"3\\\\\\\" face=\\\\\\\"Times New Roman\\\\\\\">o</font></i></b>\\\\r\\\\n<font size=\\\\\\\"2\\\\\\\" face=\\\\\\\"Times New Roman\\\\\\\">\\\\r\\\\n<br>Toll free/<i>N° sans frais</i>: <a href=\\\\\\\"tel:1-866-236-2824\\\\\\\">1.866.236.2824 </a>\\\\r\\\\n<br>United Kingdom Toll Free/<i>N° sans frais Royaume-Uni</i>: <a href=\\\\\\\"tel:0800-169-1646\\\\\\\">0800.169.1646</a>\\\\r\\\\n<br>Email/<i>Courriel</i>: <a href=\\\\\\\"mailto:mr@zayo.com\\\\\\\">mr@zayo.com</a>\\\\r\\\\n<br>Website/<i>Site Web</i>: <a href=\\\\\\\"https://www.zayo.com\\\\\\\">https://www.zayo.com</a>\\\\r\\\\n\\\\r\\\\n<p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:\\\\r\\\\nnormal'><a href=\\\\\\\"http://www.zayo.com/company/about-zayo/\\\\\\\" target=\\\\\\\"_blank\\\\\\\"><b><span\\\\r\\\\nlang=EN-US style='font-family:\\\\\\\"Helvetica\\\\\\\",sans-serif;color:#ED7D31;background:\\\\r\\\\nwhite;mso-ansi-language:EN-US'>About Zayo</span></b></a><span lang=EN-US\\\\r\\\\nstyle='font-family:\\\\\\\"Helvetica\\\\\\\",sans-serif;color:#ED7D31;background:white;\\\\r\\\\nmso-ansi-language:EN-US'>&nbsp;|&nbsp;</span><a\\\\r\\\\nhref=\\\\\\\"http://www.zayo.com/solutions/global-network/\\\\\\\" target=\\\\\\\"_blank\\\\\\\"><b><span\\\\r\\\\nlang=EN-US style='font-family:\\\\\\\"Helvetica\\\\\\\",sans-serif;color:#ED7D31;background:\\\\r\\\\nwhite;mso-ansi-language:EN-US'>Network</span></b></a><strong><span lang=EN-US\\\\r\\\\nstyle='font-family:\\\\\\\"Helvetica\\\\\\\",sans-serif;color:#ED7D31;background:white;\\\\r\\\\nmso-ansi-language:EN-US'>&nbsp;</span></strong><span lang=EN-US\\\\r\\\\nstyle='font-family:\\\\\\\"Helvetica\\\\\\\",sans-serif;color:#ED7D31;background:white;\\\\r\\\\nmso-ansi-language:EN-US'>|&nbsp;</span><a\\\\r\\\\nhref=\\\\\\\"https://tranzact.zayo.com/#!/escalation-lists\\\\\\\" target=\\\\\\\"_blank\\\\\\\"><b><span\\\\r\\\\nlang=EN-US style='font-family:\\\\\\\"Helvetica\\\\\\\",sans-serif;color:#ED7D31;background:\\\\r\\\\nwhite;mso-ansi-language:EN-US'>Escalation List</span></b></a><b><span\\\\r\\\\nlang=EN-US style='font-family:\\\\\\\"Helvetica\\\\\\\",sans-serif;color:#ED7D31;background:\\\\r\\\\nwhite;mso-ansi-language:EN-US'>&nbsp;</span></b><span lang=EN-US\\\\r\\\\nstyle='font-family:\\\\\\\"Helvetica\\\\\\\",sans-serif;color:#ED7D31;background:white;\\\\r\\\\nmso-ansi-language:EN-US'>|&nbsp;</span><a\\\\r\\\\nhref=\\\\\\\"https://www.linkedin.com/company/530962/\\\\\\\" target=\\\\\\\"_blank\\\\\\\"><b><span\\\\r\\\\nlang=EN-US style='font-family:\\\\\\\"Helvetica\\\\\\\",sans-serif;color:#ED7D31;background:\\\\r\\\\nwhite;mso-ansi-language:EN-US'>LinkedIn</span></b></a><b><span lang=EN-US\\\\r\\\\nstyle='font-family:\\\\\\\"Helvetica\\\\\\\",sans-serif;color:#ED7D31;background:white;\\\\r\\\\nmso-ansi-language:EN-US'>&nbsp;</span></b><span lang=EN-US style='font-family:\\\\r\\\\n\\\\\\\"Helvetica\\\\\\\",sans-serif;color:#ED7D31;background:white;mso-ansi-language:EN-US'>|&nbsp;</span><a\\\\r\\\\nhref=\\\\\\\"https://twitter.com/zayogroup\\\\\\\" target=\\\\\\\"_blank\\\\\\\"><b><span lang=EN-US\\\\r\\\\nstyle='font-family:\\\\\\\"Helvetica\\\\\\\",sans-serif;color:#ED7D31;background:white;\\\\r\\\\nmso-ansi-language:EN-US'>Twitter</span></b></a><b><span lang=EN-US\\\\r\\\\nstyle='font-family:\\\\\\\"Helvetica\\\\\\\",sans-serif;color:#ED7D31;background:white;\\\\r\\\\nmso-ansi-language:EN-US'>&nbsp;</span></b><span lang=EN-US style='font-family:\\\\r\\\\n\\\\\\\"Helvetica\\\\\\\",sans-serif;color:#ED7D31;background:white;mso-ansi-language:EN-US'>|&nbsp;<a\\\\r\\\\nhref=\\\\\\\"https://tranzact.zayo.com/#!/login\\\\\\\" target=\\\\\\\"_blank\\\\\\\"><b><span\\\\r\\\\nstyle='color:#ED7D31'>Tranzact</span></b><span style='color:#ED7D31'>&nbsp;</span></a><o:p></o:p></span></p>\\\\r\\\\n\\\\r\\\\n\\\\r\\\\n<br><br><font color=\\\\\\\"008080\\\\\\\" size=\\\\\\\"1.5\\\\\\\" face=\\\\\\\"Times New Roman\\\\\\\">\\\\r\\\\nSTRICTLY PERSONAL AND CONFIDENTIAL. This email may contain confidential and proprietary material for the sole use of the intended recipient. Any review or distribution by others is strictly prohibited. If you are not the intended recipient please contact the sender and delete all copies.\\\\r\\\\n</font>\\\\r\\\\n</p>\",\n    \"toEmailList\": \"ipeng@zayo.com; ip-tac@zayo.com; iparch@zayo.com; ethernet.arch@zayo.com; net-eng@zayo.com; telemetry@zayo.com\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df3eb2be-bc31-4c74-a9f9-a467bdfb8da1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "maintenance-cases",
+                    "notifications",
+                    ":maintenanceNotificationName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "maintenanceNotificationName",
+                      "description": "(Required) `name` attribute returned from the get Maintenance Notifications route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5fcc70e4-12bf-48f1-b33e-18c9f9e3dcfa",
+          "name": "Generate auth token",
+          "request": {
+            "name": "Generate auth token",
+            "description": {
+              "content": "Generating the auth token only needs to be done once, since this auth token will be good for receiving all push notifications associated with your current API token. However, this endpoint may be called as many times as necessary to reset the auth token for additional security. The active auth token is always the most recently generated auth token.\n\n**Workflow to set up push notifications services:**\n\n1. Generate auth token | Generate the auth token to be used in the HTTP header to authenticate invocations to your callback endpoint.\n2. Implement a callback URL endpoint on your infrastructure.\n    The callback URL endpoint must meet the following requirements:\n    \n    ● Implemented on HTTPS\n    \n    ● Accessible from any IP address\n    \n    ● Requires an `Authorization` header with the auth token generated in Step 1\n    \n    ● Rejects (via HTTP 401) a request that does not have an `Authorization` header or has the\n    wrong `Authorization` header\n    \n    ● Accepts a HTTP POST request with a JSON body\n\n3. Register callback URL | Register your endpoint to recieve Maintenance Notifications.\n4. Send test notification | Test out your endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "notifications",
+                "v1",
+                "generate-auth-token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencode"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"grant_type\": \"<string>\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"scope\": \"<string>\"\n}"
+            }
+          },
+          "response": [
+            {
+              "id": "b6cba567-6ab4-4592-840e-65f479549d68",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "notifications",
+                    "v1",
+                    "generate-auth-token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"grant_type\": \"client_credentials\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"scope\": \"openID\"\n}"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"data\": {\n    \"authToken\": \"270aa0bd-b485-75b6-2952-fb3a85da2656\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3993b8fc-a87f-4bfe-8fed-dbd140d6f976",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "notifications",
+                    "v1",
+                    "generate-auth-token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"grant_type\": \"client_credentials\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"scope\": \"openID\"\n}"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a6b51ba-0920-449b-a474-68990f747324",
+          "name": "Register callback URL",
+          "request": {
+            "name": "Register callback URL",
+            "description": {
+              "content": "Once you've implemented a callback URL endpoint in your infrastructure register it with Zayo.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "notifications",
+                "v1",
+                "register-callback-url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notificationType\": \"<string>\",\n  \"callbackUrl\": \"<url>\",\n  \"accounts\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9ed2acbb-53be-4720-b636-d23fd7b1beb0",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "notifications",
+                    "v1",
+                    "register-callback-url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notificationType\": \"Maintenance Notifications\",\n  \"callbackUrl\": \"https://sample-zayo-callback-endpoint.com/sampleCallback\",\n  \"accounts\": [\n    \"0010z00001XWmYBAA1\",\n    \"0010z00001XXXiEAAX\",\n    \"0014z00001d8bxoAAA\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"data\": {\n    \"id\": \"58bfe26e-38a7-4c67-868a-65f536c3ae51\",\n    \"target\": \"https://4381968a-143c-4195-87db-986c11fb54ce.mock.pstmn.io/sampleCallback\",\n    \"notification_type\": \"Maintenance Notifications\",\n    \"account_id\": \"0016000000unFcJAAU\",\n    \"target_account_ids\": [\n      \"0016000000umyBWAAY, 0010z00001XVx7hAAD, 0010z00001XVxgNAAT, 0010z00001XWdh2AAD, 0014z00001b1FMPAA2, 0014z00001d89HqAAI\",\n      \"0016000000umyBWAAY, 0010z00001XVx7hAAD, 0010z00001XVxgNAAT, 0010z00001XWdh2AAD, 0014z00001b1FMPAA2, 0014z00001d89HqAAI\"\n    ],\n    \"conditions\": null,\n    \"enabled\": true,\n    \"created_at\": \"2022-06-28T03:44:45.394Z\",\n    \"updated_at\": \"2022-06-28T03:44:45.394Z\",\n    \"created_by_username\": \"tranzactquote.api@zayo.com\",\n    \"created_by_user_id\": \"44a5d370-18a9-11eb-883f-e1dcd53ef907\",\n    \"target_type\": \"CALLBACK_URL\",\n    \"target_header\": null,\n    \"oauth_access_token_header\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2d9ca2a-03d8-45d3-9612-b8467a149fb7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "notifications",
+                    "v1",
+                    "register-callback-url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notificationType\": \"Maintenance Notifications\",\n  \"callbackUrl\": \"https://sample-zayo-callback-endpoint.com/sampleCallback\",\n  \"accounts\": [\n    \"0010z00001XWmYBAA1\",\n    \"0010z00001XXXiEAAX\",\n    \"0014z00001d8bxoAAA\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ed7e28d-5226-4fd9-af99-2474075425f6",
+          "name": "Send test notification",
+          "request": {
+            "name": "Send test notification",
+            "description": {
+              "content": "Once the callback URL is registered, you can send test notifications to your registered callback URLs for a particular notification type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "notifications",
+                "v1",
+                "send-test-notification"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notificationType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "27610136-1dca-4beb-bf86-4066ba86af64",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "notifications",
+                    "v1",
+                    "send-test-notification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notificationType\": \"Maintenance Notifications\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"data\": {\n    \"name\": \"MNN-12345678\",\n    \"type\": \"Calendar\",\n    \"case\": \"TTN-0123456789\",\n    \"timestamp\": \"2021-01-01T12:00:00\",\n    \"urgency\": \"Planned\",\n    \"levelOfImpact\": \"Potential Service Affecting\",\n    \"circuitId\": \"/xxx/xxxxxx/   /xxx /\",\n    \"primaryDate\": \"2021-01-03\",\n    \"x2ndPrimaryDate\": null,\n    \"x3rdPrimaryDate\": null,\n    \"fromTime\": \"00:01\",\n    \"toTime\": \"05:00\",\n    \"timeZone\": \"Mountain\",\n    \"reasonForMaintenance\": \"reason for maintenance\",\n    \"location\": \"Boulder, CO\",\n    \"accountIds\": [\n      \"0016000000unFcJAAU\",\n      \"0016000000unFcJAAU\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dae8046f-d4eb-4e79-b34f-9e9bb36ee18f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "notifications",
+                    "v1",
+                    "send-test-notification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"notificationType\": \"Maintenance Notifications\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zayo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6ecf6c0f-15d5-45ca-929b-23f8690b1d24",
+    "name": "Zayo APIs Maintenance Cases API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    \n\nContact Support:\n Name: Zayo API Team\n Email: zayoapi@zayo.com",
+      "type": "text/plain"
+    }
+  }
+}

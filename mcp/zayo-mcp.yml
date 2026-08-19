@@ -2,8 +2,8 @@ generated: '2026-07-21'
 method: derived
 status: candidate
 source: openapi/zayo-openapi-original.yml
-notes: 'No official hosted Zayo MCP server found; candidate tool list derived one-per-operation
-  from the published OpenAPI. Auth: OAuth2 client-credentials bearer token.'
+notes: 'No official hosted Zayo MCP server found; candidate tool list derived one-per-operation from the
+  published OpenAPI. Auth: OAuth2 client-credentials bearer token.'
 server:
   name: zayo
   transport: http
@@ -86,3 +86,9 @@ tools:
 - name: sendTestNotification
   description: Send test notification
   source_operation: openapi/zayo-openapi-original.yml#sendTestNotification
+deployment:
+  mode: none
+  verified: derived
+  tools: 26
+  checked: '2026-08-12'
+  source: catalog MCP census

@@ -1,0 +1,779 @@
+{
+  "item": [
+    {
+      "id": "6ad4bf9b-2314-4208-9aa5-82f12b417760",
+      "name": "Ticketing",
+      "description": {
+        "content": "Create various types of tickets, view all tickets, and create ticket comments.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "63d9f322-c6a0-44d9-9f0e-9366383e9704",
+          "name": "Create ticket",
+          "request": {
+            "name": "Create ticket",
+            "description": {
+              "content": "Create a ticket against your service. Associate your service via the `serviceId`, `componentId`, or `circuitId` returned from the Service Inventory route.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "service-management",
+                "v1",
+                "create-ticket"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ticketType\": \"<string>\",\n  \"circuitId\": \"<string>\",\n  \"downtimeInitialDate\": \"<date>\",\n  \"downtimeInitialTime\": \"<time>\",\n  \"serviceState\": \"<string>\",\n  \"contacts\": [\n    {\n      \"contactType\": \"<string>\",\n      \"fullName\": \"<string>\",\n      \"email\": \"<email>\",\n      \"phone\": \"<string>\"\n    }\n  ],\n  \"customerReferenceId\": \"<string>\",\n  \"description\": \"<string>\",\n  \"serviceId\": \"<string>\",\n  \"componentId\": \"<string>\",\n  \"subject\": \"<string>\",\n  \"troubleshooting\": {\n    \"circuitPassTraffic\": \"<boolean>\",\n    \"disconnectedFibers\": \"<boolean>\",\n    \"gearOn\": \"<boolean>\",\n    \"interfaceReset\": \"<boolean>\",\n    \"verifyLightLevels\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b66f957a-1030-4b50-9c21-b23224d11aeb",
+              "name": "Success - Technical Support ticket type",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "create-ticket"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ticketType\": \"Technical Support\",\n  \"circuitId\": \"ETYX/TEST011/ZYO\",\n  \"downtimeInitialDate\": \"2022-06-29\",\n  \"downtimeInitialTime\": \"20:20:39+00:00\",\n  \"serviceState\": \"Impaired\",\n  \"contacts\": [\n    {\n      \"contactType\": \"Primary\",\n      \"fullName\": \"Devon Holt\",\n      \"email\": \"devon.holt@zayo.com\",\n      \"phone\": \"123-456-7890\"\n    }\n  ],\n  \"customerReferenceId\": \"Zayo-1398732\",\n  \"description\": \"TESTING API\",\n  \"serviceId\": \"a0M0z00000PiJ3SEAV\",\n  \"componentId\": \"a1X0z000004aLc6EAE\",\n  \"subject\": \"TESTING\",\n  \"troubleshooting\": {\n    \"circuitPassTraffic\": false,\n    \"disconnectedFibers\": false,\n    \"gearOn\": true,\n    \"interfaceReset\": false,\n    \"verifyLightLevels\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"data\": {\n    \"status\": \"New\",\n    \"ticketId\": \"5004z00001dIuveAAC\",\n    \"ticketNumber\": \"TTN-0005833575\",\n    \"customerReferenceId\": \"Zayo-239823\",\n    \"dateTimeOpened\": \"2022-04-25T20:29:49.000+0000\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c103887-98b3-417f-b074-1ee7bb3a4c03",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "create-ticket"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ticketType\": \"Technical Support\",\n  \"circuitId\": \"ETYX/TEST011/ZYO\",\n  \"downtimeInitialDate\": \"2022-06-29\",\n  \"downtimeInitialTime\": \"20:20:39+00:00\",\n  \"serviceState\": \"Impaired\",\n  \"contacts\": [\n    {\n      \"contactType\": \"Primary\",\n      \"fullName\": \"Devon Holt\",\n      \"email\": \"devon.holt@zayo.com\",\n      \"phone\": \"123-456-7890\"\n    }\n  ],\n  \"customerReferenceId\": \"Zayo-1398732\",\n  \"description\": \"TESTING API\",\n  \"serviceId\": \"a0M0z00000PiJ3SEAV\",\n  \"componentId\": \"a1X0z000004aLc6EAE\",\n  \"subject\": \"TESTING\",\n  \"troubleshooting\": {\n    \"circuitPassTraffic\": false,\n    \"disconnectedFibers\": false,\n    \"gearOn\": true,\n    \"interfaceReset\": false,\n    \"verifyLightLevels\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6592e05e-8d0b-4b0d-8af3-86e2d37dd475",
+          "name": "Create ticket comment",
+          "request": {
+            "name": "Create ticket comment",
+            "description": {
+              "content": "Add a ticket comment to directly communicate with the Zayo NOC team. Once a comment is added on a ticket, the ticket status will update to Action Required, so that it notifies our NOC teams.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "service-management",
+                "v1",
+                "ticket-comment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"commentBody\": \"<string>\",\n  \"contactEmail\": \"<email>\",\n  \"contactName\": \"<string>\",\n  \"ticketId\": {},\n  \"ticketNumber\": \"<string>\",\n  \"customerReferenceId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "165adac1-e656-4831-950a-2ee5a1088676",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "ticket-comment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"commentBody\": \"The problem was not resolved, please address.\",\n  \"contactEmail\": \"wwhite@company.com\",\n  \"contactName\": \"Walter White\",\n  \"ticketId\": {},\n  \"ticketNumber\": \"TTN-0003449133\",\n  \"customerReferenceId\": \"Ticket 1029342\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"data\": {\n    \"message\": \"Ticket comment was successfully created\",\n    \"success\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49c7177a-ad84-47d2-995c-2cad79c368eb",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "ticket-comment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"commentBody\": \"The problem was not resolved, please address.\",\n  \"contactEmail\": \"wwhite@company.com\",\n  \"contactName\": \"Walter White\",\n  \"ticketId\": {},\n  \"ticketNumber\": \"TTN-0003449133\",\n  \"customerReferenceId\": \"Ticket 1029342\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c3929a4-0f42-40a9-8a62-aa338b0166ea",
+          "name": "Get ticket details",
+          "request": {
+            "name": "Get ticket details",
+            "description": {
+              "content": "Get ticket and ticket comment details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "service-management",
+                "v1",
+                "ticket-details",
+                ":ticketName"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "ticketName",
+                  "description": "(Required) Ticket Number returned from the create ticket route."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ab77a10e-3a77-4361-a5e4-6d7639bdf947",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "ticket-details",
+                    ":ticketName"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "ticketName",
+                      "description": "(Required) Ticket Number returned from the create ticket route."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"data\": {\n    \"serviceSummary\": {\n      \"billingAccountNumber\": \"11-DevTest\",\n      \"componentId\": \"a1X0z000004aLc6EAE\",\n      \"customerAccount\": \"Test Account - Tranzact Billing\",\n      \"poNumber\": \"TT-1298126\",\n      \"serviceId\": \"a0M0z00000PiJ3SEAV\",\n      \"serviceName\": \"559512\"\n    },\n    \"ticketDetails\": {\n      \"ticketComments\": [\n        {\n          \"commentBody\": \"Dear Zayo Customer, <br/><br/>We are investigating a possible service interruption which may be impacting your circuit. We regret that your services are impacted and appreciate your patience while we troubleshoot and work diligently to resolve the underlying issue. We will continue to provide updates until your services have been restored. If you have any additional questions please contact the Zayo Network Control Center and reference the ticket below.<br/><br/>GENERAL INFORMATION<br/>Case Number: TTN-0006181640<br/>Customer Ticket Number: Zayo-1398732<br/>Customer Circuit Id: <br/>Case Subject: TESTING<br/>Case Description: TESTING API\\\\n\\\\nContact Email: devon.holt@zayo.com\\\\nContact Name: Devon Holt\\\\nContact Phone: 123-456-7890\\\\nContact Type: Primary<br/>Case Status: New<br/>Case Sub-Status: In Queue<br/><br/>LOCATION INFORMATION <br/>Location A: <br/>Location Z: <br/><br/>For quick access to ticket creation and updates, please visit our <a href=\\\\\\\"https://tranzact.zayo.com\\\\\\\">Tranzact</a> portal. <br/>Zayo US: 1.866.236.2824<br/>Zayo Canada: 1.888.404.9296<br/>Zayo UK: +44 (0) 20 3846 4222<br/>Zayo France: +33 (0) 1 49 97 07 37<br/>Website: https://www.zayo.com\\\",\",\n          \"createdBy\": \"Tranzact Admin\",\n          \"createdDate\": \"2022-09-08T20:04:20.000+0000\"\n        },\n        {\n          \"commentBody\": \"Dear Zayo Customer, <br/><br/>We are investigating a possible service interruption which may be impacting your circuit. We regret that your services are impacted and appreciate your patience while we troubleshoot and work diligently to resolve the underlying issue. We will continue to provide updates until your services have been restored. If you have any additional questions please contact the Zayo Network Control Center and reference the ticket below.<br/><br/>GENERAL INFORMATION<br/>Case Number: TTN-0006181640<br/>Customer Ticket Number: Zayo-1398732<br/>Customer Circuit Id: <br/>Case Subject: TESTING<br/>Case Description: TESTING API\\\\n\\\\nContact Email: devon.holt@zayo.com\\\\nContact Name: Devon Holt\\\\nContact Phone: 123-456-7890\\\\nContact Type: Primary<br/>Case Status: New<br/>Case Sub-Status: In Queue<br/><br/>LOCATION INFORMATION <br/>Location A: <br/>Location Z: <br/><br/>For quick access to ticket creation and updates, please visit our <a href=\\\\\\\"https://tranzact.zayo.com\\\\\\\">Tranzact</a> portal. <br/>Zayo US: 1.866.236.2824<br/>Zayo Canada: 1.888.404.9296<br/>Zayo UK: +44 (0) 20 3846 4222<br/>Zayo France: +33 (0) 1 49 97 07 37<br/>Website: https://www.zayo.com\\\",\",\n          \"createdBy\": \"Tranzact Admin\",\n          \"createdDate\": \"2022-09-08T20:04:20.000+0000\"\n        }\n      ],\n      \"closureSummary\": \"This was a test ticket and has been closed.\",\n      \"contacts\": [\n        {\n          \"email\": \"test@test.com\",\n          \"fullName\": \"Test Test\",\n          \"phone\": \"(877) 502-8600\"\n        },\n        {\n          \"email\": \"test@test.com\",\n          \"fullName\": \"Test Test\",\n          \"phone\": \"(877) 502-8600\"\n        }\n      ],\n      \"criticalDates\": {\n        \"dateTimeOpened\": \"2022-09-08T20:04:20.000+0000\",\n        \"dateTimeClosed\": \"2022-09-08T20:36:25.000+0000\",\n        \"downtimeInitialDate\": \"2022-09-08T20:04:19.000+0000\",\n        \"lastUpdateDateTime\": \"2022-09-08T20:36:24.000+0000\",\n        \"restoreDateTime\": \"2022-09-08T20:36:25.000+0000\"\n      },\n      \"customerReferenceId\": \"Zayo-1398732\",\n      \"description\": \"TESTING API\\\\r\\\\n\\\\r\\\\nContact Email: devon.holt@zayo.com\\\\r\\\\nContact Name: Devon Holt\\\\r\\\\nContact Phone: 123-456-7890\\\\r\\\\nContact Type: Primary\",\n      \"impact\": \"Impaired\",\n      \"repairAction\": {\n        \"fixType\": \"string\",\n        \"otherRestore\": \"string\",\n        \"restoreAction\": \"string\",\n        \"restoreItem\": \"string\"\n      },\n      \"subject\": \"TESTING\",\n      \"symptom\": \"Degraded\",\n      \"ticketOwner\": \"Technical Support Desk\",\n      \"ticketNumber\": \"TTN-0006181640\",\n      \"ticketStatus\": \"Cancelled\",\n      \"ticketSubStatus\": \"Cancelled\",\n      \"ticketType\": \"Technical Support\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "655c9b6b-75b4-4925-b7f6-f3e781e7a727",
+          "name": "Get all tickets",
+          "request": {
+            "name": "Get all tickets",
+            "description": {
+              "content": "Retrieve all tickets based on filter options and pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "service-management",
+                "v1",
+                "all-tickets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filter\": {\n    \"serviceId\": \"<string>\",\n    \"serviceName\": \"<string>\",\n    \"componenteId\": \"<string>\",\n    \"circuitId\": \"<string>\",\n    \"customerReferenceId\": \"<string>\",\n    \"dateTimeOpened\": \"<dateTime>\",\n    \"legacyCircuitId\": \"<string>\",\n    \"status\": \"<string>\",\n    \"ticketId\": \"<string>\",\n    \"ticketNumber\": \"<string>\",\n    \"ticketType\": \"<string>\",\n    \"subject\": \"<string>\",\n    \"and\": [\n      {\n        \"circuitId\": \"<string>\",\n        \"componentId\": \"<string>\",\n        \"customerReferenceId\": \"<string>\"\n      },\n      {\n        \"circuitId\": \"<string>\",\n        \"componentId\": \"<string>\",\n        \"customerReferenceId\": \"<string>\"\n      }\n    ],\n    \"or\": [\n      {\n        \"circuitId\": \"<string>\",\n        \"componentId\": \"<string>\",\n        \"customerReferenceId\": \"<string>\"\n      },\n      {\n        \"circuitId\": \"<string>\",\n        \"componentId\": \"<string>\",\n        \"customerReferenceId\": \"<string>\"\n      }\n    ]\n  },\n  \"paging\": {\n    \"top\": 10,\n    \"skip\": 0\n  },\n  \"search\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2f25c3ea-9de6-4bb6-a04e-9695d8002dc7",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "all-tickets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filter\": {\n    \"or\": [\n      {\n        \"status\": \"New\"\n      },\n      {\n        \"status\": \"Isolation and Repair\"\n      }\n    ]\n  },\n  \"paging\": {\n    \"top\": 50,\n    \"skip\": 0\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"data\": {\n    \"records\": [\n      {\n        \"circuitId\": null,\n        \"componentId\": null,\n        \"customerReferenceId\": null,\n        \"description\": \"Issue: Slow Service - Constant  Description: test Customer Reported Initial Down time : Jun 27, 2022 2:59 PM\",\n        \"legacyCircuitId\": null,\n        \"serviceId\": \"a0M0z00000PiJ3XEAV\",\n        \"serviceName\": \"559513\",\n        \"status\": \"Service Restored\",\n        \"subStatus\": \"Monitor\",\n        \"subject\": \"Test Account - GBP / ETYX/TEST012/ZYO / Hard Down\",\n        \"dateTimeOpened\": \"2022-06-27T15:01:30.000Z\",\n        \"dateTimeClosed\": null,\n        \"ticketId\": \"5004z00001dBSudAAG\",\n        \"ticketNumber\": \"TTN-0005993810\",\n        \"ticketType\": \"Technical Support\"\n      },\n      {\n        \"circuitId\": null,\n        \"componentId\": null,\n        \"customerReferenceId\": null,\n        \"description\": \"Issue: Slow Service - Constant  Description: test Customer Reported Initial Down time : Jun 27, 2022 2:59 PM\",\n        \"legacyCircuitId\": null,\n        \"serviceId\": \"a0M0z00000PiJ3XEAV\",\n        \"serviceName\": \"559513\",\n        \"status\": \"Service Restored\",\n        \"subStatus\": \"Monitor\",\n        \"subject\": \"Test Account - GBP / ETYX/TEST012/ZYO / Hard Down\",\n        \"dateTimeOpened\": \"2022-06-27T15:01:30.000Z\",\n        \"dateTimeClosed\": null,\n        \"ticketId\": \"5004z00001dBSudAAG\",\n        \"ticketNumber\": \"TTN-0005993810\",\n        \"ticketType\": \"Technical Support\"\n      }\n    ],\n    \"metadata\": {\n      \"top\": 5,\n      \"skip\": 0,\n      \"currentPage\": 1,\n      \"totalPages\": 4964,\n      \"totalRecordCount\": 24818\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18414f7f-c45d-41ae-8ac0-dd474a52cc4f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "all-tickets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filter\": {\n    \"or\": [\n      {\n        \"status\": \"New\"\n      },\n      {\n        \"status\": \"Isolation and Repair\"\n      }\n    ]\n  },\n  \"paging\": {\n    \"top\": 50,\n    \"skip\": 0\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"error\": {\n    \"errorId\": \"851e419f-93df-46b3-a718-819e923c88f4\",\n    \"code\": 400,\n    \"message\": \"string\",\n    \"errors\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8a84ae7-9bd6-41de-bfd0-00335f3252e4",
+          "name": "Send Ticket Action",
+          "request": {
+            "name": "Send Ticket Action",
+            "description": {
+              "content": "Send action for existing tickets whether to Approve Resolution or Cancel Ticket.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "services",
+                "service-management",
+                "v1",
+                "customer-ticket-action"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"contactEmail\": \"<email>\",\n  \"contactName\": \"<string>\",\n  \"ticketId\": {},\n  \"ticketNumber\": \"<string>\",\n  \"ticketAction\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "57e528ce-22e5-4a1d-8971-2b2c7e7d6ac4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "customer-ticket-action"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contactEmail\": \"wwhite@company.com\",\n  \"contactName\": \"Walter White\",\n  \"ticketId\": {},\n  \"ticketNumber\": \"TTN-0003449133\",\n  \"ticketAction\": \"Approve Resolution\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"data\": {\n    \"message\": \"Ticket was successfully updated.\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ea7b7be-10a9-4cd1-8f1a-0e2a42a007f7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "services",
+                    "service-management",
+                    "v1",
+                    "customer-ticket-action"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"contactEmail\": \"wwhite@company.com\",\n  \"contactName\": \"Walter White\",\n  \"ticketId\": {},\n  \"ticketNumber\": \"TTN-0003449133\",\n  \"ticketAction\": \"Approve Resolution\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"v1\",\n  \"error\": {\n    \"errorId\": \"797ac530-9326-917e-fa38-13d82e065ffe\",\n    \"code\": 400,\n    \"message\": \"Your ticket has not been picked up yet. To cancel ticket, please cancel by set ticketAction field on request payload as Cancel Ticket\",\n    \"errors\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zayo.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "29e3137c-6b17-4611-b20c-231790785456",
+    "name": "Zayo APIs Maintenance Cases Ticketing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    \n\nContact Support:\n Name: Zayo API Team\n Email: zayoapi@zayo.com",
+      "type": "text/plain"
+    }
+  }
+}

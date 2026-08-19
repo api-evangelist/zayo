@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zayo APIs Maintenance Cases Ticket Catalog API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ticket Catalog",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get ticket catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zayo.com/services/service-management/v1/ticket-catalog"
+          },
+          "docs": "Get the Zayo trouble ticket catalog where tickets are represented as a `ticketType`. For each `ticketType` get the description and latest version."
+        },
+        {
+          "info": {
+            "name": "Get ticket type details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zayo.com/services/service-management/v1/ticket-type-details/:ticketType/:version",
+            "params": [
+              {
+                "name": "ticketType",
+                "value": "",
+                "type": "path",
+                "description": "Ticket type returned from the get ticket catalog route."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Semantic version returned from the get ticket catalog route."
+              }
+            ]
+          },
+          "docs": "After you get the latest semantic version from the ticket-catalog route, plug this into the ticket-type-details route to dynamically receive the latest request schema with required and optional attributes needed per ticket type/version combination."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
