@@ -161,6 +161,8 @@ apis:
   humanURL: https://developer.zayo.com/
   baseURL: https://api.zayo.com
   tags:
+  - Quotes
+  tags_raw:
   - Quote
   properties:
   - type: OpenAPI
