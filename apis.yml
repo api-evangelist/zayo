@@ -266,6 +266,9 @@ apis:
   - type: Webhooks
     url: asyncapi/zayo-notifications-webhooks.yml
 common:
+- type: CapabilityMap
+  url: capabilities/zayo-capability-edges.yml
+  name: Zayo Business Capability Map
 - type: MCPServer
   url: mcp/zayo-mcp.yml
 - type: Overlay

@@ -1,0 +1,55 @@
+slug: zayo
+provider: Zayo
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Telecommunications
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Order
+  spec_file: zayo-order-api-openapi.yml
+  capability_id: BC-2620.10
+  capability_id_l1: BC-2620
+  capability_name: Service Order Capture
+  confidence: 0.8
+  evidence: '"Submit order" POST /services/order-management/v2/orders/order, "Get order contacts"'
+  reason: Operator's order-management surface for submitting telecom service orders from a quote and tracking
+    the resulting job — service order capture in the fulfilment chain.
+- tag: Ticketing
+  spec_file: zayo-ticketing-api-openapi.yml
+  capability_id: BC-430.10
+  capability_id_l1: BC-430
+  capability_name: Customer Inquiry Management
+  confidence: 0.8
+  evidence: '"Create ticket", "Create ticket comment", "Get all tickets", schema technicalSupportTicketRequest'
+  reason: Customer-facing trouble/support ticket lifecycle against the carrier's portal — inbound contact
+    capture, correspondence and resolution tracking. Could partly overlap with customer-impacting incident
+    handling, hence 0.8.
+- tag: Quote
+  spec_file: zayo-quote-api-openapi.yml
+  capability_id: BC-410.40
+  capability_id_l1: BC-410
+  capability_name: Quote & Configuration Management
+  confidence: 0.75
+  evidence: '"Create or edit quote", "Get quote details", schemas uniQuoteRequest/uniCloudLinkQuoteResponse'
+  reason: Configure-price-quote surface for telecom circuits and cloud connections; quoting is the lead-to-order
+    quote & configuration capability. Slight ambiguity with telecom order capture keeps confidence below
+    0.8.
+- tag: Product Catalog
+  spec_file: zayo-product-catalog-api-openapi.yml
+  capability_id: BC-2650.40
+  capability_id_l1: BC-2650
+  capability_name: Product Catalogue Publication
+  confidence: 0.7
+  evidence: '"Get product catalog" GET /services/quote-management/v3/catalog/product-code, "Get product
+    code details"'
+  reason: Read access to the carrier's telecom product/offer catalogue by product code and version, exposed
+    to partners and channels — catalogue publication with version control. L2 held at 0.7 as only retrieval,
+    not design, is exposed.
