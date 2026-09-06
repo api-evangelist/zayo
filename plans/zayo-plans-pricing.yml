@@ -1,0 +1,85 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Zayo Group Holdings
+providerId: zayo-group
+generated: '2026-09-06'
+method: searched
+created: '2026-05-04'
+modified: '2026-09-06'
+source: >-
+  https://developer.zayo.com/docs/api/zayo-apis (the API introduction, which states the API
+  itself is free), https://developer.zayo.com/docs/contact, https://developer.zayo.com/docs/faq,
+  and probes of https://www.zayo.com/pricing (HTTP 200 but a soft 404 returning the marketing
+  homepage) on 2026-09-06.
+tags:
+- Fiber
+- Network
+- Telecom
+- Connectivity
+description: >-
+  Zayo publishes no API plans and no price list. Two distinct commercial facts sit behind that
+  single zero, and they should not be collapsed. First, the API itself is free: Zayo's own API
+  introduction says "Zayo offers free APIs to help make doing business with Zayo easier" — there
+  is no metering, no per-call charge and no paid tier. Second, everything the API transacts —
+  dark fiber, wavelengths, Ethernet, IP transit, dedicated internet, CloudLink, DynamicLink,
+  managed services — is quoted per route, capacity, term and SLA through the Quote API and the
+  Zayo deal desk, and never listed publicly. A quote may come back ICB (individual case basis)
+  when deal management needs to review it manually.
+plan_count: 0
+plans: []
+pricing_model: free-api-over-quoted-services
+access:
+  self_serve_signup: false
+  how_to_get_access: >-
+    Email zayoapi@zayo.com or submit the Request Access form at
+    https://developer.zayo.com/docs/contact. Credentials (client_id / client_secret) are issued
+    by the Zayo API team; there is no self-serve key.
+  form_fields:
+  - First Name
+  - Last Name
+  - Email
+  - Company
+  - Job Responsibility
+  - Phone
+  - Which API(s) are you interested in?
+  - Comments
+  trial: false
+  public_sandbox: false
+api_pricing:
+  charged: false
+  evidence: >-
+    "Zayo offers free APIs to help make doing business with Zayo easier."
+    (info.description in https://developer.zayo.com/openapi/zayo.yaml and
+    https://developer.zayo.com/docs/api/zayo-apis)
+  metering: none published
+  quota: none published
+service_pricing:
+  published: false
+  mechanism: quote
+  quote_operations:
+  - requestQuote
+  - getQuoteDetails
+  - getProductCatalog
+  - getProductCodeDetails
+  icb_note: >-
+    "ICB or individual case basis means that our deal management team needs additional time to
+    evaluate options. This may result in updated pricing or a No Bid."
+    (https://developer.zayo.com/docs/faq)
+  off_net_note: >-
+    "Yes pricing is based on Zayo build costs, you will not receive alternative vendor options."
+    (https://developer.zayo.com/docs/faq)
+  currency_field: currencyIsoCode appears throughout the quote and order schemas.
+evidence:
+- url: https://www.zayo.com/pricing
+  status: 200
+  finding: soft 404 — returns the www.zayo.com marketing homepage, not a pricing page
+- url: https://developer.zayo.com/docs/api/zayo-apis
+  status: 200
+  finding: '"Zayo offers free APIs" — the API carries no charge'
+- url: https://developer.zayo.com/docs/contact
+  status: 200
+  finding: Request Access form is the only onboarding route
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

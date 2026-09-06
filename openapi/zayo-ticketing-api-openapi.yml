@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   version: '1.0'
   title: Zayo APIs Maintenance Cases Ticketing API
@@ -602,6 +602,20 @@ paths:
                       errors: []
 components:
   schemas:
+    ticketTypes:
+      title: Get All Tickets Ticket Types
+      type: string
+      enum:
+      - Access Request
+      - Billing
+      - Customer Service
+      - Disconnect Request
+      - Professional Services
+      - Remote Hands
+      - Tech Assist
+      - Technical Support
+      - Service Inquiry
+      - Shipping & Receiving
     ticketTypeFilter:
       title: Get All Tickets Ticket Type Filter
       type:
@@ -667,106 +681,6 @@ components:
         ticketType:
           description: Type of the ticket.
           $ref: '#/components/schemas/ticketTypeFilter'
-    ticketTypes:
-      title: Get All Tickets Ticket Types
-      type: string
-      enum:
-      - Access Request
-      - Billing
-      - Customer Service
-      - Disconnect Request
-      - Professional Services
-      - Remote Hands
-      - Tech Assist
-      - Technical Support
-      - Service Inquiry
-      - Shipping & Receiving
-    dateTimeOpened:
-      title: Get All Tickets Date Time Opened
-      type:
-      - string
-      - object
-      anyOf:
-      - type: string
-        format: date-time
-      - type: string
-        format: date
-      - type: object
-        additionalProperties: false
-        properties:
-          eq:
-            type: string
-            description: Equal to.
-            oneOf:
-            - format: date-time
-            - format: date
-          ge:
-            type: string
-            description: Greater than or equal to.
-            oneOf:
-            - format: date-time
-            - format: date
-          gt:
-            type: string
-            description: Greater than.
-            oneOf:
-            - format: date-time
-            - format: date
-          le:
-            type: string
-            description: Less than or equal to.
-            oneOf:
-            - format: date-time
-            - format: date
-          lt:
-            type: string
-            description: Less than.
-            oneOf:
-            - format: date-time
-            - format: date
-    billingTicketRequest:
-      title: Billing Ticket Request
-      type: object
-      required:
-      - ticketType
-      properties:
-        ticketType:
-          type: string
-          example: Billing
-        description:
-          type: string
-          example: test api ticket create
-        serviceId:
-          type: string
-          example: a0M6000000Mve6iEAB
-        componentId:
-          type: string
-          example: ''
-        customerReferenceId:
-          type: string
-          example: 'Ticket #123'
-        contacts:
-          type: array
-          items:
-            type: object
-            required:
-            - contactType
-            - fullName
-            - email
-            properties:
-              contactType:
-                type: string
-                example: Primary
-              fullName:
-                type: string
-                example: Hannah Wanderer
-              email:
-                type: string
-                format: email
-                example: test@zayo.com
-              phone:
-                type: string
-                example: '3038858963'
     accessRequestTicketRequest:
       title: Access Request Ticket Request
       type: object
@@ -830,6 +744,77 @@ components:
         serviceId:
           type: string
           example: a0M6000000Mve6iEAB
+    dateTimeOpened:
+      title: Get All Tickets Date Time Opened
+      type:
+      - string
+      - object
+      anyOf:
+      - type: string
+        format: date-time
+      - type: string
+        format: date
+      - type: object
+        additionalProperties: false
+        properties:
+          eq:
+            type: string
+            description: Equal to.
+            oneOf:
+            - format: date-time
+            - format: date
+          ge:
+            type: string
+            description: Greater than or equal to.
+            oneOf:
+            - format: date-time
+            - format: date
+          gt:
+            type: string
+            description: Greater than.
+            oneOf:
+            - format: date-time
+            - format: date
+          le:
+            type: string
+            description: Less than or equal to.
+            oneOf:
+            - format: date-time
+            - format: date
+          lt:
+            type: string
+            description: Less than.
+            oneOf:
+            - format: date-time
+            - format: date
+    baseFilter:
+      title: Get All Tickets Base Filter
+      type:
+      - string
+      - object
+      anyOf:
+      - type: string
+      - type: object
+        additionalProperties: false
+        properties:
+          eq:
+            type: string
+            description: Equal to.
+          ge:
+            type: string
+            description: Greater than or equal to.
+          gt:
+            type: string
+            description: Greater than.
+          le:
+            type: string
+            description: Less than or equal to.
+          lt:
+            type: string
+            description: Less than.
+          ne:
+            type: string
+            description: Not equal to.
     400Response:
       title: 400 Response
       description: Bad Request
@@ -964,34 +949,49 @@ components:
               description: Have you verified input/output light levels?
           additionalProperties: false
       additionalProperties: false
-    baseFilter:
-      title: Get All Tickets Base Filter
-      type:
-      - string
-      - object
-      anyOf:
-      - type: string
-      - type: object
-        additionalProperties: false
-        properties:
-          eq:
-            type: string
-            description: Equal to.
-          ge:
-            type: string
-            description: Greater than or equal to.
-          gt:
-            type: string
-            description: Greater than.
-          le:
-            type: string
-            description: Less than or equal to.
-          lt:
-            type: string
-            description: Less than.
-          ne:
-            type: string
-            description: Not equal to.
+    billingTicketRequest:
+      title: Billing Ticket Request
+      type: object
+      required:
+      - ticketType
+      properties:
+        ticketType:
+          type: string
+          example: Billing
+        description:
+          type: string
+          example: test api ticket create
+        serviceId:
+          type: string
+          example: a0M6000000Mve6iEAB
+        componentId:
+          type: string
+          example: ''
+        customerReferenceId:
+          type: string
+          example: 'Ticket #123'
+        contacts:
+          type: array
+          items:
+            type: object
+            required:
+            - contactType
+            - fullName
+            - email
+            properties:
+              contactType:
+                type: string
+                example: Primary
+              fullName:
+                type: string
+                example: Hannah Wanderer
+              email:
+                type: string
+                format: email
+                example: test@zayo.com
+              phone:
+                type: string
+                example: '3038858963'
   securitySchemes:
     BearerToken:
       type: http

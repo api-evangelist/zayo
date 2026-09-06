@@ -1,0 +1,85 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Zayo Group Holdings
+providerId: zayo-group
+generated: '2026-09-06'
+method: searched
+created: '2026-05-04'
+modified: '2026-09-06'
+source: >-
+  Full read of https://developer.zayo.com/openapi/zayo.yaml (30 operations),
+  https://developer.zayo.com/docs/getting-started and https://developer.zayo.com/docs/faq on
+  2026-09-06.
+tags:
+- Fiber
+- Network
+- Telecom
+- Rate Limiting
+description: >-
+  Zayo publishes no rate limits and emits no rate-limit signal. This is a measured zero, not an
+  unchecked one: every one of the 30 operations in Zayo's own OpenAPI was examined and none
+  declares a 429 response, a RateLimit-* or X-RateLimit-* header, or a Retry-After header, and
+  the Getting Started page's error table stops at the 4xx/5xx range description without
+  mentioning throttling. The practical consequence is that a client has no runtime budget
+  signal at all — it cannot learn its remaining quota, and cannot be told when to come back.
+limit_count: 0
+limits: []
+response_headers: []
+responseCodes:
+  throttled: null
+  note: >-
+    429 does not appear anywhere in the contract. Declared status codes across the whole
+    surface are 200 (30 operations), 400 (29) and 401 (4), plus an undeclared
+    components.responses.ServerError.
+documented:
+  in_contract: false
+  in_docs: false
+  contract_evidence: >-
+    Zero occurrences of "429", "RateLimit", "X-RateLimit" or "Retry-After" in
+    https://developer.zayo.com/openapi/zayo.yaml.
+  docs_evidence: >-
+    https://developer.zayo.com/docs/getting-started documents authentication, an API overview,
+    versioning, error-handling ranges and support — and no limits.
+    https://developer.zayo.com/docs/faq answers eleven questions, none about throttling.
+observed:
+  probed: false
+  note: >-
+    Not observed live. api.zayo.com requires OAuth client credentials issued by the Zayo API
+    team on every path — an unauthenticated request returns 403 {"message":"Missing
+    Authentication Token"} from AWS API Gateway — so there is no anonymous response on which to
+    read runtime headers. API Evangelist holds no Zayo credentials and does not obtain them.
+inferred_constraints:
+- constraint: getCloudSites has no pagination
+  detail: >-
+    Zayo states "there is not pagination with this route", and the operation can return Zayo's
+    entire cloud serviceability map when sent an empty request object. That is the largest
+    single response on the surface and the most likely place an undocumented limit bites.
+  source: https://developer.zayo.com/openapi/zayo.yaml
+- constraint: validateBuildings caps at 20 buildings per request
+  detail: >-
+    The `buildings` array is minItems 1, maxItems 20, uniqueItems true. This is a payload
+    bound, not a rate limit, but it is the only quantitative throttle Zayo publishes anywhere.
+  source: https://developer.zayo.com/openapi/zayo.yaml
+- constraint: default page size of 10
+  detail: >-
+    getservices and getNNIs default `paging.top` to 10 with no stated maximum, so a large
+    inventory is many round trips.
+  source: https://developer.zayo.com/openapi/zayo.yaml
+policies:
+- name: Client-side backoff
+  description: >-
+    With no server signal, clients should implement exponential backoff with jitter on 5xx and
+    on any unexplained failure, and should not tune concurrency to a number Zayo has not
+    published.
+- name: Ask the account team
+  description: >-
+    Any operational limit is communicated through zayoapi@zayo.com or the Zayo account team,
+    not through the API or the portal.
+gap: >-
+  Publishing RateLimit-Limit / RateLimit-Remaining / RateLimit-Reset (or the X-RateLimit-*
+  family) and declaring a 429 with Retry-After would cost Zayo nothing in commercial terms —
+  the API is free — and would turn an unknowable budget into a runtime-readable one.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

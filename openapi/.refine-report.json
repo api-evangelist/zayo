@@ -23,6 +23,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "zayo-maintenance-cases-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "zayo-network-discovery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "zayo-order-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "zayo-product-catalog-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "zayo-quote-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "zayo-service-inventory-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "zayo-ticket-catalog-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "zayo-ticketing-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

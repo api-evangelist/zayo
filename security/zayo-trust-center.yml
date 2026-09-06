@@ -1,0 +1,118 @@
+specification: API Commons TrustCenter
+specificationVersion: '0.1'
+provider: Zayo Group Holdings
+providerId: zayo-group
+generated: '2026-09-06'
+method: searched
+source: https://trust.zayo.com
+http_status: 200
+description: >-
+  Zayo operates a dedicated trust centre at trust.zayo.com covering data protection and
+  privacy, governance, risk and resilience, and its security programme, with a named
+  security-compliance page listing actual certifications and their scope. It is unusually
+  candid: Zayo states plainly which products are certified and which are not, and why.
+trust_center:
+  url: https://trust.zayo.com
+  sections:
+  - name: Data Protection and Privacy
+    url: https://trust.zayo.com/data-protection-privacy/
+    pages:
+    - https://trust.zayo.com/data-protection-privacy/cookie-statement/
+    - https://trust.zayo.com/data-protection-privacy/interactions-with-customer-data/
+    - https://trust.zayo.com/data-protection-privacy/privacy-statement/
+    - https://trust.zayo.com/data-protection-privacy/purpose-of-data-collected/
+    - https://trust.zayo.com/data-protection-privacy/types-of-data-we-collect/
+  - name: Governance
+    url: https://trust.zayo.com/governance/
+    pages:
+    - https://trust.zayo.com/governance/commitment-to-trust-and-transparency/
+    - https://trust.zayo.com/governance/policies-and-standards/
+    - https://trust.zayo.com/governance/policies-and-standards/acceptable-use-policy/
+    - https://trust.zayo.com/governance/policies-and-standards/anti-corruption-policy/
+    - https://trust.zayo.com/governance/policies-and-standards/code-of-conduct/
+    - https://trust.zayo.com/governance/policies-and-standards/environmental-policy/
+    - https://trust.zayo.com/governance/policies-and-standards/esg-statement/
+    - https://trust.zayo.com/governance/policies-and-standards/modern-slavery-human-trafficking-policy/
+    - https://trust.zayo.com/governance/policies-and-standards/privacy-policy/
+  - name: Risk and Resilience
+    url: https://trust.zayo.com/risk-resilience/
+    pages:
+    - https://trust.zayo.com/risk-resilience/enterprise-resilience/
+    - https://trust.zayo.com/risk-resilience/incident-response/
+    - https://trust.zayo.com/risk-resilience/risk-management/
+    - https://trust.zayo.com/risk-resilience/security-notifications/
+    - https://trust.zayo.com/risk-resilience/third-party-risk-management/
+    - https://trust.zayo.com/risk-resilience/vulnerability-management/
+  - name: Security Program
+    url: https://trust.zayo.com/security-program/
+    pages:
+    - https://trust.zayo.com/security-program/security-awareness-training/
+    - https://trust.zayo.com/security-program/security-compliance/
+    - https://trust.zayo.com/security-program/security-compliance/international-regulatory-compliance/
+    - https://trust.zayo.com/security-program/security-compliance/section-889-of-the-national-defense-authorization-act-ndaa-statement-of-compliance/
+  - name: Support
+    url: https://trust.zayo.com/support/
+    pages:
+    - https://trust.zayo.com/support/complementary-user-entity-controls/
+    - https://trust.zayo.com/support/faqs/
+compliance:
+  page: https://trust.zayo.com/security-program/security-compliance/
+  provider_last_updated: '2026-05-27'
+  frameworks:
+  - name: Common Control Framework (CCF)
+    note: Zayo's own control framework, organised into control families.
+  - name: Unified Compliance Framework (UCF)
+    note: >-
+      Zayo states it follows the UCF, which harmonises "key standards including ISO, NIST, SOC
+      1 and 2, PCI-DSS, and more" and "laws, regulations, and directives, including CCPA/CPRA,
+      DORA, FedRAMP, GDPR, NIS2, TSA, and others". These are framework alignments Zayo maps to,
+      not certifications it claims to hold.
+  certifications:
+  - name: ISO/IEC 27001
+    scope: Zayo Europe, France and the United Kingdom
+    status: held
+  - name: ISO 9001
+    scope: Zayo Europe, France and the United Kingdom
+    status: held
+  - name: ISO 14001
+    scope: Zayo Europe, France and the United Kingdom
+    status: held
+  - name: ISO 45001
+    scope: Zayo Europe, France and the United Kingdom
+    status: held
+  - name: ISO 20243
+    scope: Listed among current certifications
+    status: held
+  - name: SOC 2
+    scope: Zayo Group, LLC — Managed Edge and Canadian voice services
+    status: held
+    artifact: 2025 Zayo Managed Edge SOC 2 audit executive summary, published on the page
+  - name: Section 889 NDAA
+    scope: Company-wide
+    status: statement of compliance
+  stated_exclusion: >-
+    "Zayo does not hold security certifications for its network transport products, as we do
+    not collect, store, or process customer data." Zayo says a company-wide certification
+    effort for its other products and services began in 2025, with a third party engaged to
+    mature the programme across the US, Canada and European markets.
+  api_relevance: >-
+    None of the named certifications is scoped to the developer API at api.zayo.com. The API
+    handles customer quotes, orders, tickets and invoices, which is exactly the customer data
+    the network-transport exclusion says Zayo does not process — the certification scope and
+    the API surface do not currently meet.
+evidence:
+- url: https://trust.zayo.com
+  status: 200
+  fetched: '2026-09-06'
+- url: https://trust.zayo.com/security-program/security-compliance/
+  status: 200
+  fetched: '2026-09-06'
+  keywords:
+  - ISO 27001
+  - SOC 2
+  - Unified Compliance Framework
+  - FedRAMP
+  - PCI-DSS
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

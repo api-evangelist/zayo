@@ -1,0 +1,50 @@
+specification: API Commons Packages
+specificationVersion: '0.1'
+provider: Zayo Group Holdings
+providerId: zayo-group
+generated: '2026-09-06'
+method: searched
+source: >-
+  Registry search of npm (registry.npmjs.org search API), PyPI, and a check for a
+  Zayo GitHub organization, plus a full read of the Zayo Developer Portal
+  (https://developer.zayo.com/docs/getting-started, /docs/api-catalog, /docs/faq).
+description: >-
+  Zayo Group publishes no first-party client libraries. The Developer Portal documents
+  raw HTTP + OAuth 2.0 client-credentials usage only (curl examples), and offers a
+  downloadable OpenAPI definition at https://developer.zayo.com/openapi/zayo.yaml as the
+  integration artifact instead of SDKs. Consumers are expected to generate their own
+  clients from that document, or to integrate via one of the third-party integrators
+  Zayo names in its FAQ.
+package_count: 0
+official_package_count: 0
+packages: []
+registries_checked:
+- registry: npm
+  endpoint: https://registry.npmjs.org/-/v1/search?text=zayo
+  result: >-
+    One unrelated match, `zayo-spectre` (v1.1.0, published 2019-12-05), a CSS theme
+    published from gitlab.com/zayo — no evidence it is Zayo Group Holdings, and it is not
+    an API client. Not recorded as a package.
+- registry: pypi
+  endpoint: https://pypi.org/pypi/zayo/json
+  status: 404
+  result: no package
+- registry: github
+  endpoint: https://api.github.com/orgs/zayo
+  status: 404
+  result: >-
+    No GitHub organization found for zayo, zayogroup, zayo-group or ZayoGroup; the
+    developer portal links to no source repository.
+integrators:
+  note: >-
+    Zayo's own FAQ (https://developer.zayo.com/docs/faq) names third-party integrators
+    that have completed Zayo API development. These are other companies' products, not
+    Zayo packages, and are recorded here only as context.
+  named:
+  - Connectbase
+  - Masterstream
+  - Trunkstar
+  - NDA Corp
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

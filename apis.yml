@@ -266,6 +266,30 @@ apis:
   - type: Webhooks
     url: asyncapi/zayo-notifications-webhooks.yml
 common:
+- type: Website
+  url: https://www.zayo.com
+- type: Login
+  url: https://tranzact.zayo.com
+- type: Blog
+  url: https://www.zayo.com/feed/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/zayo-group
+- type: Integrations
+  url: https://www.zayo.com/partners/
+- type: Security
+  url: https://www.zayo.com/security/
+- type: Compliance
+  url: https://trust.zayo.com/security-program/security-compliance/
+- type: TrustCenter
+  url: security/zayo-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/zayo-vulnerability-disclosure.yml
+- type: Packages
+  url: packages/zayo-packages.yml
+- type: Plans
+  url: plans/zayo-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/zayo-rate-limits.yml
 - type: CapabilityMap
   url: capabilities/zayo-capability-edges.yml
   name: Zayo Business Capability Map

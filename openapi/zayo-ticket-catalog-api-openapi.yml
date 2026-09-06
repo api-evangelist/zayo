@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   version: '1.0'
   title: Zayo APIs Maintenance Cases Ticket Catalog API
@@ -296,6 +296,87 @@ paths:
                 $ref: '#/components/schemas/400Response'
 components:
   schemas:
+    billingTicketDetails:
+      title: Billing Ticket Details
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          example: v1
+        data:
+          type: object
+          properties:
+            attrs:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: ticketType
+                  displayName:
+                    type: string
+                    example: Ticket Type
+                  description:
+                    type: string
+                    example: Applicable ticket type from ticket catalog
+                  criteria:
+                    type: object
+                    properties:
+                      dataType:
+                        type: string
+                        example: string
+                      isRequired:
+                        type: boolean
+                        example: true
+                  value:
+                    type: string
+                    example: Billing
+            contacts:
+              type: array
+              items:
+                type: object
+                properties:
+                  attrs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: ticketType
+                        displayName:
+                          type: string
+                          example: Ticket Type
+                        description:
+                          type: string
+                          example: Applicable ticket type from ticket catalog
+                        criteria:
+                          type: object
+                          properties:
+                            dataType:
+                              type: string
+                              example: string
+                            isRequired:
+                              type: boolean
+                              example: true
+                        options:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                                example: Primary
+                              defaultValue:
+                                type: boolean
+                                example: false
+                  minCount:
+                    type: integer
+                    example: 1
+                  maxCount:
+                    type: integer
+                    example: 20
     technicalSupportTicketDetails:
       title: Technical Support Ticket Details
       type: object
@@ -445,198 +526,6 @@ components:
                 isRequired:
                   type: boolean
                   example: false
-    customerServiceTicketDetails:
-      title: Customer Service Ticket Details
-      type: object
-      properties:
-        apiVersion:
-          type: string
-          example: v1
-        data:
-          type: object
-          properties:
-            attrs:
-              type: array
-              items:
-                type: object
-                properties:
-                  name:
-                    type: string
-                    example: ticketType
-                  displayName:
-                    type: string
-                    example: Ticket Type
-                  description:
-                    type: string
-                    example: Applicable ticket type from ticket catalog
-                  criteria:
-                    type: object
-                    properties:
-                      dataType:
-                        type: string
-                        example: string
-                      isRequired:
-                        type: boolean
-                        example: true
-                  value:
-                    type: string
-                    example: Customer Service
-            contacts:
-              type: array
-              items:
-                type: object
-                properties:
-                  attrs:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                          example: ticketType
-                        displayName:
-                          type: string
-                          example: Ticket Type
-                        description:
-                          type: string
-                          example: Applicable ticket type from ticket catalog
-                        criteria:
-                          type: object
-                          properties:
-                            dataType:
-                              type: string
-                              example: string
-                            isRequired:
-                              type: boolean
-                              example: true
-                        options:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              value:
-                                type: string
-                                example: Primary
-                              defaultValue:
-                                type: boolean
-                                example: false
-                  minCount:
-                    type: integer
-                    example: 1
-                  maxCount:
-                    type: integer
-                    example: 20
-    400Response:
-      title: 400 Response
-      description: Bad Request
-      type: object
-      properties:
-        apiVersion:
-          type: string
-          description: API version of the request.
-        error:
-          type: object
-          description: Error information from the request.
-          properties:
-            errorId:
-              type: string
-              format: uuid
-              example: 851e419f-93df-46b3-a718-819e923c88f4
-              description: UUID for Zayo troubleshooting.
-            code:
-              type: integer
-              example: 400
-              description: 400 - the request contains bad syntax or cannot be fulfilled.
-            message:
-              type: string
-              description: More detailed explanation of the error.
-            errors:
-              type: array
-              description: Additional error information, if necessary.
-              items:
-                type: string
-                description: Not used yet by Zayo teams, this is typically null.
-    billingTicketDetails:
-      title: Billing Ticket Details
-      type: object
-      properties:
-        apiVersion:
-          type: string
-          example: v1
-        data:
-          type: object
-          properties:
-            attrs:
-              type: array
-              items:
-                type: object
-                properties:
-                  name:
-                    type: string
-                    example: ticketType
-                  displayName:
-                    type: string
-                    example: Ticket Type
-                  description:
-                    type: string
-                    example: Applicable ticket type from ticket catalog
-                  criteria:
-                    type: object
-                    properties:
-                      dataType:
-                        type: string
-                        example: string
-                      isRequired:
-                        type: boolean
-                        example: true
-                  value:
-                    type: string
-                    example: Billing
-            contacts:
-              type: array
-              items:
-                type: object
-                properties:
-                  attrs:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                          example: ticketType
-                        displayName:
-                          type: string
-                          example: Ticket Type
-                        description:
-                          type: string
-                          example: Applicable ticket type from ticket catalog
-                        criteria:
-                          type: object
-                          properties:
-                            dataType:
-                              type: string
-                              example: string
-                            isRequired:
-                              type: boolean
-                              example: true
-                        options:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              value:
-                                type: string
-                                example: Primary
-                              defaultValue:
-                                type: boolean
-                                example: false
-                  minCount:
-                    type: integer
-                    example: 1
-                  maxCount:
-                    type: integer
-                    example: 20
     accessRequestTicketDetails:
       title: Access Request Ticket Details
       type: object
@@ -750,6 +639,117 @@ components:
         isrequired:
           type: boolean
           example: false
+    400Response:
+      title: 400 Response
+      description: Bad Request
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the request.
+        error:
+          type: object
+          description: Error information from the request.
+          properties:
+            errorId:
+              type: string
+              format: uuid
+              example: 851e419f-93df-46b3-a718-819e923c88f4
+              description: UUID for Zayo troubleshooting.
+            code:
+              type: integer
+              example: 400
+              description: 400 - the request contains bad syntax or cannot be fulfilled.
+            message:
+              type: string
+              description: More detailed explanation of the error.
+            errors:
+              type: array
+              description: Additional error information, if necessary.
+              items:
+                type: string
+                description: Not used yet by Zayo teams, this is typically null.
+    customerServiceTicketDetails:
+      title: Customer Service Ticket Details
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          example: v1
+        data:
+          type: object
+          properties:
+            attrs:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: ticketType
+                  displayName:
+                    type: string
+                    example: Ticket Type
+                  description:
+                    type: string
+                    example: Applicable ticket type from ticket catalog
+                  criteria:
+                    type: object
+                    properties:
+                      dataType:
+                        type: string
+                        example: string
+                      isRequired:
+                        type: boolean
+                        example: true
+                  value:
+                    type: string
+                    example: Customer Service
+            contacts:
+              type: array
+              items:
+                type: object
+                properties:
+                  attrs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: ticketType
+                        displayName:
+                          type: string
+                          example: Ticket Type
+                        description:
+                          type: string
+                          example: Applicable ticket type from ticket catalog
+                        criteria:
+                          type: object
+                          properties:
+                            dataType:
+                              type: string
+                              example: string
+                            isRequired:
+                              type: boolean
+                              example: true
+                        options:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              value:
+                                type: string
+                                example: Primary
+                              defaultValue:
+                                type: boolean
+                                example: false
+                  minCount:
+                    type: integer
+                    example: 1
+                  maxCount:
+                    type: integer
+                    example: 20
   securitySchemes:
     BearerToken:
       type: http
