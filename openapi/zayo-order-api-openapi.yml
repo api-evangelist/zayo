@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
   version: '1.0'
-  title: Zayo APIs Maintenance Cases Order API
-  description: 'Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    '
+  title: Zayo Order API
+  description: Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces. Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.
   x-logo:
     url: https://zayo-ui-bucket.s3-us-west-2.amazonaws.com/Common/Logos/zayo-logo-orange.png
     altText: Zayo orange logo
@@ -156,7 +156,13 @@ paths:
   /services/order-management/v2/orders/order:
     post:
       summary: Submit order
-      description: "Order a quote. Creates a job to be completed in the background that creates the New Order and saves the result as a `jobId` for lookup. Since this is a time-consuming task for Zayo, this route will trigger a job that will create an order directly in Zayo's ordering system. The response is a `jobId`, and you will follow up on the request via the `job/{jobId}` route to get the Order details.\n\nPre-requisite APIs include quotes route (alternativly have your account rep provide this value) and the contacts route to get your billing account and order contact information. SOF signature is still required after the order is placed. Certain orders are eligible for digital signature. \n\n*Please Note: At the moment, only `quoteId` is accepted in the order request payload.* "
+      description: 'Order a quote. Creates a job to be completed in the background that creates the New Order and saves the result as a `jobId` for lookup. Since this is a time-consuming task for Zayo, this route will trigger a job that will create an order directly in Zayo''s ordering system. The response is a `jobId`, and you will follow up on the request via the `job/{jobId}` route to get the Order details.
+
+
+        Pre-requisite APIs include quotes route (alternativly have your account rep provide this value) and the contacts route to get your billing account and order contact information. SOF signature is still required after the order is placed. Certain orders are eligible for digital signature.
+
+
+        *Please Note: At the moment, only `quoteId` is accepted in the order request payload.*'
       operationId: submitOrder
       tags:
       - Order

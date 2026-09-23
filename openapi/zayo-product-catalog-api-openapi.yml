@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
   version: '1.0'
-  title: Zayo APIs Maintenance Cases Product Catalog API
-  description: 'Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    '
+  title: Zayo Product Catalog API
+  description: Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces. Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.
   x-logo:
     url: https://zayo-ui-bucket.s3-us-west-2.amazonaws.com/Common/Logos/zayo-logo-orange.png
     altText: Zayo orange logo
@@ -141,7 +141,16 @@ paths:
   /services/quote-management/v3/catalog/product-code-details/{productCode}/{version}:
     get:
       summary: Get product code details
-      description: "After you get the latest semantic version from the product catalog route, plug the version and the product code into the product code details route to dynamically receive the latest quote request schema with required and optional attributes needed per product code/version combination. The response of this route is the guide to your quote request. The product code details response and quote request schema includes 3 major components - `attrs` array, `configuration` object, and `preferences` object. \n\nThe `attrs` array is where you can specify your existing `quoteId` to make edits to your quote. \n\nThe `configuration` object is where all of the product-specific attributes are returned. This schema will vary based on the product and version.\n\nThe `preferences` object is where you can specific non-configuration attributes like notes and a unique Id like a corresponding quoteId from your system. This schema is the same for all products and versions."
+      description: 'After you get the latest semantic version from the product catalog route, plug the version and the product code into the product code details route to dynamically receive the latest quote request schema with required and optional attributes needed per product code/version combination. The response of this route is the guide to your quote request. The product code details response and quote request schema includes 3 major components - `attrs` array, `configuration` object, and `preferences` object.
+
+
+        The `attrs` array is where you can specify your existing `quoteId` to make edits to your quote.
+
+
+        The `configuration` object is where all of the product-specific attributes are returned. This schema will vary based on the product and version.
+
+
+        The `preferences` object is where you can specific non-configuration attributes like notes and a unique Id like a corresponding quoteId from your system. This schema is the same for all products and versions.'
       operationId: getProductCodeDetails
       tags:
       - Product Catalog

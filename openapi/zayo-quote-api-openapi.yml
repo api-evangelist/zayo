@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
   version: '1.0'
-  title: Zayo APIs Maintenance Cases Quote API
-  description: 'Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces.  Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.    '
+  title: Zayo Quote API
+  description: Zayo offers free APIs to help make doing business with Zayo easier. The world is shifting from user-led interfaces to system-to-system integration through application programming interfaces. Zayo, your trusted digital transformation partner, is ready to help. Seamless integration to Zayo’s Customer Portal responds to the growing need for automation. Discover how to expand your network, get quotes, order quotes, and manage your network with our Ticketing and Maintenance Cases API.
   x-logo:
     url: https://zayo-ui-bucket.s3-us-west-2.amazonaws.com/Common/Logos/zayo-logo-orange.png
     altText: Zayo orange logo
@@ -883,6 +883,139 @@ paths:
                 $ref: '#/components/schemas/400Response'
 components:
   schemas:
+    uniCloudLinkQuoteRequest:
+      title: ETH-ELINE-UNI Cloud Request
+      type: object
+      properties:
+        configuration:
+          type: object
+          required:
+          - nodeId
+          - productCode
+          - version
+          - bandwidth
+          - cloudProvider
+          properties:
+            nodeId:
+              type: string
+              example: AAC758F0-F719-470D-B716-E8EC6804810F
+              format: uuid
+            productCode:
+              type: string
+              example: ETH-ELINE-UNI
+            version:
+              type: string
+              example: 3.3.0
+            currencyIsoCode:
+              type: string
+              example: USD
+            bandwidth:
+              type: string
+              example: 1G
+            burstableService:
+              type: string
+              example: false
+            qualityOfService:
+              type: string
+              example: false
+            mefCertified:
+              type: string
+              example: false
+            children:
+              type: array
+              items:
+                type: object
+                required:
+                - nodeId
+                - productCode
+                - version
+                - buildingA
+                - locationA
+                properties:
+                  productCode:
+                    type: string
+                    example: ETH-ELINE-UNI
+                  version:
+                    type: string
+                    example: 3.3.0
+                  nodeId:
+                    type: string
+                    format: uuid
+                    example: 61DE1859-7A99-4218-B43E-F96CD57303A0
+                  portHandoffSpeed:
+                    type: string
+                    example: GigE
+                  handoff:
+                    type: string
+                    example: 2-Fiber (Optical MMF)
+                  networkInterfaceDevice:
+                    type: string
+                    example: true
+                  cfaProvidedBy:
+                    type: string
+                    example: Zayo
+                  buildingA:
+                    type: string
+                    example: a0W60000000CVbEEAW
+                    description: buildingId returned from the /buildings/validation route. Either a buildingA or locationA is required.
+                  locationA:
+                    type: string
+                    example: a0b6000000A6IzoAAF
+                    description: locationId returned from the /building/{buildingId}/locations route. Either a buildingA or locationA is required.
+                  cloudProvider:
+                    type: string
+                    example: Amazon AWS
+                    description: 'Cloud Provider you wish to connect with. Options include - Accenture, ADISTA, AIS Business Cloud, Ajubeo, Alibaba Cloud, Amazon AWS, Artisan Infrastructure, Carpathia Hosting, Cisco Webex Edge Connect, Cloudflare, DataBank Cloud Services, Day 1 Solutions, Enovance, Expedient, Flexential: FlexAnywhere, Fullsave, Google Cloud, GROUPE RDI, Hosting.com, IBM Cloud, Ikoula, IntelePeer, Internap, Linkbynet, Lunavi Inc, Microsoft Azure / Office365, Microsoft Cloud for Government, NetDepot, Nimbix, Oracle Cloud, Outscale, OVH, Oxalide, Packet, Phoenix NAP, QTS Cloud Services, RapidScale, Salesforce, Scale Matrix, StratoGen, The Faction Group, Twilio, Virtustream, Vitelity Cloud, VMware Cloud on AWS, Wasabi Cloud, and Xtium.'
+                  connectionType:
+                    type: string
+                    example: Hosted
+                    description: Type of connection to the cloud on ramp, options include - dedicated or hosted.
+                  nniId:
+                    type: string
+                    example: a0M0z00000OuUB8EAN
+                    description: Unique identifier of the related NNI service where you want to add a cloud connection. You can find all NNIs in the view all NNI records route. If this field is null, Zayo will default to the closest NNI service. If no services are found, then you will get an error to associate a related NNI record. The best way to solve this error is to create an NNI quote and use the quoteId as the nniId.
+        preferences:
+          type: object
+          properties:
+            requestFollowUp:
+              type: string
+              example: false
+            notes:
+              type: string
+              example: These are some notes
+            quoteNameIdentifier:
+              type: string
+              example: Quote-123
+    400Response:
+      title: 400 Response
+      description: Bad Request
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the request.
+        error:
+          type: object
+          description: Error information from the request.
+          properties:
+            errorId:
+              type: string
+              format: uuid
+              example: 851e419f-93df-46b3-a718-819e923c88f4
+              description: UUID for Zayo troubleshooting.
+            code:
+              type: integer
+              example: 400
+              description: 400 - the request contains bad syntax or cannot be fulfilled.
+            message:
+              type: string
+              description: More detailed explanation of the error.
+            errors:
+              type: array
+              description: Additional error information, if necessary.
+              items:
+                type: string
+                description: Not used yet by Zayo teams, this is typically null.
     uniQuoteRequest:
       title: ETH-ELINE-UNI Request
       type: object
@@ -980,170 +1113,6 @@ components:
             quoteNameIdentifier:
               type: string
               example: Quote-123
-    uniQuoteResponse:
-      title: ETH-ELINE-UNI Response
-      type: object
-      properties:
-        apiVersion:
-          type: string
-          example: v3
-        data:
-          type: object
-          properties:
-            configuration:
-              type: object
-              properties:
-                children:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      productCode:
-                        type: string
-                        example: ETH-ELINE-UNI
-                      version:
-                        type: string
-                        example: 3.3.0
-                      nodeId:
-                        type: string
-                        format: uuid
-                        example: AAC758F0-F719-470D-B716-E8EC6804810F
-                      evcEnabled:
-                        type: string
-                        example: 'No'
-                      portHandoffSpeed:
-                        type: string
-                        example: 10/100/1000BaseT
-                      handoff:
-                        type: string
-                        example: Copper (RJ-45 Electrical)
-                      networkInterfaceDevice:
-                        type: string
-                        example: 'Yes'
-                      cfaProvidedBy:
-                        type: string
-                        example: Zayo
-                      locationA:
-                        type: string
-                        example: a0b6000000A6IzoAAF
-                      lag:
-                        type: string
-                        example: false
-                nodeId:
-                  type: string
-                  example: C8E0AA1C-D301-462C-A9B7-3CA3B33F5E1C
-                  format: uuid
-                productCode:
-                  type: string
-                  example: ETH-ELINE-UNI
-                version:
-                  type: string
-                  example: 3.3.0
-                currencyIsoCode:
-                  type: string
-                  example: USD
-                bandwidth:
-                  type: string
-                  example: 50Mb
-                burstableService:
-                  type: string
-                  example: 'No'
-                qualityOfService:
-                  type: string
-                  example: 'Off'
-                mefCertified:
-                  type: string
-                  example: 'No'
-                aggregatedBandwidth:
-                  type: string
-                  example: 'No'
-                bandwidthType:
-                  type: string
-                  example: Standard
-                product:
-                  type: string
-                  example: ELine
-                productCategory:
-                  type: string
-                  example: Pt to Multi-Pt (UNI)
-                locations:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      locationId:
-                        type: string
-                        example: a0b6000000A6IzoAAF
-                      address:
-                        type: string
-                        example: 1656 McCarthy Blvd Milpitas, CA 95035
-                      floorSuiteRoom:
-                        type: string
-                        example: Fl-1/Rm-MMR
-                      buildingNetworkStatus:
-                        type: string
-                        example: On Zayo Network
-                      buildingClassification:
-                        type: string
-                        example: On-Net
-                      locationNetworkStatus:
-                        type: string
-                        example: On Zayo Network
-                      preferredDemarc:
-                        type: string
-                        example: true
-                      customerAccessRights:
-                        type: string
-                        example: Full Access Tier 0
-                      nniLocation:
-                        type: boolean
-                        example: false
-            preferences:
-              type: object
-              properties:
-                requestFollowUp:
-                  type: string
-                  example: 'No'
-                notes:
-                  type: string
-                  example: These are some notes
-                quoteNameIdentifier:
-                  type: string
-                  example: Quote-123
-            quoteId:
-              type: string
-              example: 0b85fdf6-f462-47b9-8bf3-7996f4f2db9a
-              format: uuid
-            quoteNumber:
-              type: string
-              example: Quote-9500090
-            estimatedInstallInterval:
-              type: string
-              example: 40 days
-            financialTerms:
-              type: array
-              items:
-                type: object
-                properties:
-                  term:
-                    type: string
-                    example: '12'
-                  totalMrc:
-                    anyOf:
-                    - type: integer
-                      example: 806
-                    - type: number
-                      example: 957.2
-                    - type: string
-                      example: ICB
-                  totalNrc:
-                    anyOf:
-                    - type: integer
-                      example: 500
-                    - type: number
-                      example: 500.5
-                    - type: string
-                      example: ICB
     uniCloudLinkQuoteResponse:
       title: ETH-ELINE-UNI Cloud Response
       type: object
@@ -1331,139 +1300,170 @@ components:
                       example: 500.5
                     - type: string
                       example: ICB
-    400Response:
-      title: 400 Response
-      description: Bad Request
+    uniQuoteResponse:
+      title: ETH-ELINE-UNI Response
       type: object
       properties:
         apiVersion:
           type: string
-          description: API version of the request.
-        error:
+          example: v3
+        data:
           type: object
-          description: Error information from the request.
           properties:
-            errorId:
+            configuration:
+              type: object
+              properties:
+                children:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      productCode:
+                        type: string
+                        example: ETH-ELINE-UNI
+                      version:
+                        type: string
+                        example: 3.3.0
+                      nodeId:
+                        type: string
+                        format: uuid
+                        example: AAC758F0-F719-470D-B716-E8EC6804810F
+                      evcEnabled:
+                        type: string
+                        example: 'No'
+                      portHandoffSpeed:
+                        type: string
+                        example: 10/100/1000BaseT
+                      handoff:
+                        type: string
+                        example: Copper (RJ-45 Electrical)
+                      networkInterfaceDevice:
+                        type: string
+                        example: 'Yes'
+                      cfaProvidedBy:
+                        type: string
+                        example: Zayo
+                      locationA:
+                        type: string
+                        example: a0b6000000A6IzoAAF
+                      lag:
+                        type: string
+                        example: false
+                nodeId:
+                  type: string
+                  example: C8E0AA1C-D301-462C-A9B7-3CA3B33F5E1C
+                  format: uuid
+                productCode:
+                  type: string
+                  example: ETH-ELINE-UNI
+                version:
+                  type: string
+                  example: 3.3.0
+                currencyIsoCode:
+                  type: string
+                  example: USD
+                bandwidth:
+                  type: string
+                  example: 50Mb
+                burstableService:
+                  type: string
+                  example: 'No'
+                qualityOfService:
+                  type: string
+                  example: 'Off'
+                mefCertified:
+                  type: string
+                  example: 'No'
+                aggregatedBandwidth:
+                  type: string
+                  example: 'No'
+                bandwidthType:
+                  type: string
+                  example: Standard
+                product:
+                  type: string
+                  example: ELine
+                productCategory:
+                  type: string
+                  example: Pt to Multi-Pt (UNI)
+                locations:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      locationId:
+                        type: string
+                        example: a0b6000000A6IzoAAF
+                      address:
+                        type: string
+                        example: 1656 McCarthy Blvd Milpitas, CA 95035
+                      floorSuiteRoom:
+                        type: string
+                        example: Fl-1/Rm-MMR
+                      buildingNetworkStatus:
+                        type: string
+                        example: On Zayo Network
+                      buildingClassification:
+                        type: string
+                        example: On-Net
+                      locationNetworkStatus:
+                        type: string
+                        example: On Zayo Network
+                      preferredDemarc:
+                        type: string
+                        example: true
+                      customerAccessRights:
+                        type: string
+                        example: Full Access Tier 0
+                      nniLocation:
+                        type: boolean
+                        example: false
+            preferences:
+              type: object
+              properties:
+                requestFollowUp:
+                  type: string
+                  example: 'No'
+                notes:
+                  type: string
+                  example: These are some notes
+                quoteNameIdentifier:
+                  type: string
+                  example: Quote-123
+            quoteId:
               type: string
+              example: 0b85fdf6-f462-47b9-8bf3-7996f4f2db9a
               format: uuid
-              example: 851e419f-93df-46b3-a718-819e923c88f4
-              description: UUID for Zayo troubleshooting.
-            code:
-              type: integer
-              example: 400
-              description: 400 - the request contains bad syntax or cannot be fulfilled.
-            message:
+            quoteNumber:
               type: string
-              description: More detailed explanation of the error.
-            errors:
-              type: array
-              description: Additional error information, if necessary.
-              items:
-                type: string
-                description: Not used yet by Zayo teams, this is typically null.
-    uniCloudLinkQuoteRequest:
-      title: ETH-ELINE-UNI Cloud Request
-      type: object
-      properties:
-        configuration:
-          type: object
-          required:
-          - nodeId
-          - productCode
-          - version
-          - bandwidth
-          - cloudProvider
-          properties:
-            nodeId:
+              example: Quote-9500090
+            estimatedInstallInterval:
               type: string
-              example: AAC758F0-F719-470D-B716-E8EC6804810F
-              format: uuid
-            productCode:
-              type: string
-              example: ETH-ELINE-UNI
-            version:
-              type: string
-              example: 3.3.0
-            currencyIsoCode:
-              type: string
-              example: USD
-            bandwidth:
-              type: string
-              example: 1G
-            burstableService:
-              type: string
-              example: false
-            qualityOfService:
-              type: string
-              example: false
-            mefCertified:
-              type: string
-              example: false
-            children:
+              example: 40 days
+            financialTerms:
               type: array
               items:
                 type: object
-                required:
-                - nodeId
-                - productCode
-                - version
-                - buildingA
-                - locationA
                 properties:
-                  productCode:
+                  term:
                     type: string
-                    example: ETH-ELINE-UNI
-                  version:
-                    type: string
-                    example: 3.3.0
-                  nodeId:
-                    type: string
-                    format: uuid
-                    example: 61DE1859-7A99-4218-B43E-F96CD57303A0
-                  portHandoffSpeed:
-                    type: string
-                    example: GigE
-                  handoff:
-                    type: string
-                    example: 2-Fiber (Optical MMF)
-                  networkInterfaceDevice:
-                    type: string
-                    example: true
-                  cfaProvidedBy:
-                    type: string
-                    example: Zayo
-                  buildingA:
-                    type: string
-                    example: a0W60000000CVbEEAW
-                    description: buildingId returned from the /buildings/validation route. Either a buildingA or locationA is required.
-                  locationA:
-                    type: string
-                    example: a0b6000000A6IzoAAF
-                    description: locationId returned from the /building/{buildingId}/locations route. Either a buildingA or locationA is required.
-                  cloudProvider:
-                    type: string
-                    example: Amazon AWS
-                    description: 'Cloud Provider you wish to connect with. Options include - Accenture, ADISTA, AIS Business Cloud, Ajubeo, Alibaba Cloud, Amazon AWS, Artisan Infrastructure, Carpathia Hosting, Cisco Webex Edge Connect, Cloudflare, DataBank Cloud Services, Day 1 Solutions, Enovance, Expedient, Flexential: FlexAnywhere, Fullsave, Google Cloud, GROUPE RDI, Hosting.com, IBM Cloud, Ikoula, IntelePeer, Internap, Linkbynet, Lunavi Inc, Microsoft Azure / Office365, Microsoft Cloud for Government, NetDepot, Nimbix, Oracle Cloud, Outscale, OVH, Oxalide, Packet, Phoenix NAP, QTS Cloud Services, RapidScale, Salesforce, Scale Matrix, StratoGen, The Faction Group, Twilio, Virtustream, Vitelity Cloud, VMware Cloud on AWS, Wasabi Cloud, and Xtium.'
-                  connectionType:
-                    type: string
-                    example: Hosted
-                    description: Type of connection to the cloud on ramp, options include - dedicated or hosted.
-                  nniId:
-                    type: string
-                    example: a0M0z00000OuUB8EAN
-                    description: Unique identifier of the related NNI service where you want to add a cloud connection. You can find all NNIs in the view all NNI records route. If this field is null, Zayo will default to the closest NNI service. If no services are found, then you will get an error to associate a related NNI record. The best way to solve this error is to create an NNI quote and use the quoteId as the nniId.
-        preferences:
-          type: object
-          properties:
-            requestFollowUp:
-              type: string
-              example: false
-            notes:
-              type: string
-              example: These are some notes
-            quoteNameIdentifier:
-              type: string
-              example: Quote-123
+                    example: '12'
+                  totalMrc:
+                    anyOf:
+                    - type: integer
+                      example: 806
+                    - type: number
+                      example: 957.2
+                    - type: string
+                      example: ICB
+                  totalNrc:
+                    anyOf:
+                    - type: integer
+                      example: 500
+                    - type: number
+                      example: 500.5
+                    - type: string
+                      example: ICB
   securitySchemes:
     BearerToken:
       type: http

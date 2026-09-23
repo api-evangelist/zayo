@@ -1,14 +1,7 @@
 {
   "provider": "zayo",
   "sources": [
-    "zayo-maintenance-cases-api-openapi.yml",
-    "zayo-network-discovery-api-openapi.yml",
-    "zayo-order-api-openapi.yml",
-    "zayo-product-catalog-api-openapi.yml",
-    "zayo-quote-api-openapi.yml",
-    "zayo-service-inventory-api-openapi.yml",
-    "zayo-ticket-catalog-api-openapi.yml",
-    "zayo-ticketing-api-openapi.yml"
+    "_original/zayo-openapi-original.yml"
   ],
   "outputs": [
     "zayo-maintenance-cases-api-openapi.yml",
@@ -24,15 +17,18 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "zayo-maintenance-cases-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "zayo-network-discovery-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "zayo-order-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "zayo-product-catalog-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "zayo-quote-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "zayo-service-inventory-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "zayo-ticket-catalog-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "zayo-ticketing-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "zayo-openapi-original.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "zayo-maintenance-cases-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zayo-network-discovery-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zayo-order-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zayo-product-catalog-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zayo-quote-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zayo-service-inventory-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zayo-ticket-catalog-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zayo-ticketing-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
