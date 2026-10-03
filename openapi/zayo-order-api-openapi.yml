@@ -537,9 +537,9 @@ paths:
                             additionalIpv6Addresses:
                               IPv6/64: 0
                               IPv6/48: 0
-                            routing: false
-                            lag: false
-                            networkInterfaceDevice: false
+                            routing: 'No'
+                            lag: 'No'
+                            networkInterfaceDevice: 'No'
                             cfaProvidedBy: Zayo
                             handoff: 2-Fiber (Optical SMF)
                             buildingA: a0W60000000AGCAEA4
@@ -552,11 +552,11 @@ paths:
                             subscription: None
                           currencyIsoCode: USD
                           bandwidth: 10G
-                          burstableService: false
+                          burstableService: 'No'
                           bandwidthType: Standard
                           product: DIA
                           productCategory: DIA
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           locations: []
         '400':
           description: Bad Request

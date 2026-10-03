@@ -745,7 +745,7 @@ paths:
                                       example: ETH-ELINE-UNI
                                     aggregatedBandwidth:
                                       type: string
-                                      example: false
+                                      example: 'No'
                                     connectionType:
                                       type: object
                                       properties:
@@ -801,7 +801,7 @@ paths:
                         demarc: Fl-1/Rm-MPOE
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -843,7 +843,7 @@ paths:
                         demarc: Fl-SS1/Rm-MMR1
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -885,7 +885,7 @@ paths:
                         demarc: Fl-1/Rm-Equinix
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -927,7 +927,7 @@ paths:
                         demarc: Fl-5 or 6 or 8/Rm-Equinix
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -969,7 +969,7 @@ paths:
                         demarc: Fl-B2/Rm-South MMR
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1011,7 +1011,7 @@ paths:
                         demarc: Fl-1/Rm-0601MC1.1
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1050,7 +1050,7 @@ paths:
                         demarc: Fl-1/Rm-0601MC1.1
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1092,7 +1092,7 @@ paths:
                         demarc: Fl-12/Ste-1200
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1134,7 +1134,7 @@ paths:
                         demarc: Fl-4/Rm-MMR
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1176,7 +1176,7 @@ paths:
                         demarc: Fl-G/Rm-120GS16 (Icare)
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1218,7 +1218,7 @@ paths:
                         demarc: Fl-3/Ste-350/Rm-MMR
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1260,7 +1260,7 @@ paths:
                         demarc: Fl-3/Rm-MMR 2
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1299,7 +1299,7 @@ paths:
                         demarc: Fl-3/Rm-MMR 2
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1341,7 +1341,7 @@ paths:
                         demarc: Fl-1/Rm-Equinix
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1383,7 +1383,7 @@ paths:
                         demarc: Fl-7/Ste-Coresite/Rm-700
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1425,7 +1425,7 @@ paths:
                         demarc: Fl-2/Rm-212A
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1467,7 +1467,7 @@ paths:
                         demarc: Fl-2/Rm-22.07
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1509,7 +1509,7 @@ paths:
                         demarc: Fl-G/Rm-Colo
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1551,7 +1551,7 @@ paths:
                         demarc: Fl-1/Rm-104 MMR:2
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:
@@ -1593,7 +1593,7 @@ paths:
                         demarc: Fl-1/Rm-CR-8
                         destinationDetails:
                         - productCode: ETH-ELINE-UNI
-                          aggregatedBandwidth: false
+                          aggregatedBandwidth: 'No'
                           connectionType:
                             hosted:
                               bandwidths:

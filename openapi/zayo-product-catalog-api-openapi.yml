@@ -409,7 +409,7 @@ paths:
                                           properties:
                                             value:
                                               type: string
-                                              example: true
+                                              example: 'Yes'
                                               description: This is the enum value for the attribute.
                                             defaultValue:
                                               type: boolean
@@ -550,10 +550,10 @@ paths:
                               dataType: String
                               isRequired: false
                             options:
-                            - value: true
+                            - value: 'Yes'
                               defaultValue: false
                               allowedForControllingFields: []
-                            - value: false
+                            - value: 'No'
                               defaultValue: true
                               allowedForControllingFields: []
                           - name: qualityOfService
@@ -563,7 +563,7 @@ paths:
                               dataType: String
                               isRequired: false
                             options:
-                            - value: false
+                            - value: 'Off'
                               defaultValue: true
                               allowedForControllingFields: []
                             - value: Metro-On
@@ -576,10 +576,10 @@ paths:
                               dataType: String
                               isRequired: false
                             options:
-                            - value: false
+                            - value: 'No'
                               defaultValue: true
                               allowedForControllingFields: []
-                            - value: true
+                            - value: 'Yes'
                               defaultValue: false
                               allowedForControllingFields: []
                           - name: currencyIsoCode
@@ -920,7 +920,7 @@ paths:
                                 dataType: String
                                 isRequired: false
                               options:
-                              - value: false
+                              - value: 'No'
                                 defaultValue: false
                                 allowedForControllingFields:
                                 - controllingField: handoff
@@ -933,11 +933,11 @@ paths:
                                     defaultValue: false
                                 - controllingField: mefCertified
                                   values:
-                                  - value: false
+                                  - value: 'No'
                                     defaultValue: false
-                                  - value: true
+                                  - value: 'Yes'
                                     defaultValue: false
-                              - value: true
+                              - value: 'Yes'
                                 defaultValue: false
                                 allowedForControllingFields:
                                 - controllingField: handoff
@@ -950,9 +950,9 @@ paths:
                                     defaultValue: false
                                 - controllingField: mefCertified
                                   values:
-                                  - value: false
+                                  - value: 'No'
                                     defaultValue: false
-                                  - value: true
+                                  - value: 'Yes'
                                     defaultValue: false
                             - name: cfaProvidedBy
                               displayName: CFA Provided By
@@ -1029,10 +1029,10 @@ paths:
                                 isRequired: false
                                 notRequired: true
                               options:
-                              - value: true
+                              - value: 'Yes'
                                 defaultValue: false
                                 allowedForControllingFields: []
-                              - value: false
+                              - value: 'No'
                                 defaultValue: true
                                 allowedForControllingFields: []
                             children: []
@@ -1046,10 +1046,10 @@ paths:
                               dataType: String
                               isRequired: false
                             options:
-                            - value: false
+                            - value: 'No'
                               defaultValue: true
                               allowedForControllingFields: []
-                            - value: true
+                            - value: 'Yes'
                               defaultValue: false
                               allowedForControllingFields: []
                           - name: notes
