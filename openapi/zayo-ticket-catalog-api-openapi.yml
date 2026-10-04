@@ -377,36 +377,6 @@ components:
                   maxCount:
                     type: integer
                     example: 20
-    400Response:
-      title: 400 Response
-      description: Bad Request
-      type: object
-      properties:
-        apiVersion:
-          type: string
-          description: API version of the request.
-        error:
-          type: object
-          description: Error information from the request.
-          properties:
-            errorId:
-              type: string
-              format: uuid
-              example: 851e419f-93df-46b3-a718-819e923c88f4
-              description: UUID for Zayo troubleshooting.
-            code:
-              type: integer
-              example: 400
-              description: 400 - the request contains bad syntax or cannot be fulfilled.
-            message:
-              type: string
-              description: More detailed explanation of the error.
-            errors:
-              type: array
-              description: Additional error information, if necessary.
-              items:
-                type: string
-                description: Not used yet by Zayo teams, this is typically null.
     technicalSupportTicketDetails:
       title: Technical Support Ticket Details
       type: object
@@ -669,6 +639,36 @@ components:
         isrequired:
           type: boolean
           example: false
+    400Response:
+      title: 400 Response
+      description: Bad Request
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the request.
+        error:
+          type: object
+          description: Error information from the request.
+          properties:
+            errorId:
+              type: string
+              format: uuid
+              example: 851e419f-93df-46b3-a718-819e923c88f4
+              description: UUID for Zayo troubleshooting.
+            code:
+              type: integer
+              example: 400
+              description: 400 - the request contains bad syntax or cannot be fulfilled.
+            message:
+              type: string
+              description: More detailed explanation of the error.
+            errors:
+              type: array
+              description: Additional error information, if necessary.
+              items:
+                type: string
+                description: Not used yet by Zayo teams, this is typically null.
     billingTicketDetails:
       title: Billing Ticket Details
       type: object

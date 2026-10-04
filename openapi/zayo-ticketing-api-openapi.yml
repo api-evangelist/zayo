@@ -602,49 +602,36 @@ paths:
                       errors: []
 components:
   schemas:
-    dateTimeOpened:
-      title: Get All Tickets Date Time Opened
-      type:
-      - string
-      - object
-      anyOf:
-      - type: string
-        format: date-time
-      - type: string
-        format: date
-      - type: object
-        additionalProperties: false
-        properties:
-          eq:
-            type: string
-            description: Equal to.
-            oneOf:
-            - format: date-time
-            - format: date
-          ge:
-            type: string
-            description: Greater than or equal to.
-            oneOf:
-            - format: date-time
-            - format: date
-          gt:
-            type: string
-            description: Greater than.
-            oneOf:
-            - format: date-time
-            - format: date
-          le:
-            type: string
-            description: Less than or equal to.
-            oneOf:
-            - format: date-time
-            - format: date
-          lt:
-            type: string
-            description: Less than.
-            oneOf:
-            - format: date-time
-            - format: date
+    400Response:
+      title: 400 Response
+      description: Bad Request
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the request.
+        error:
+          type: object
+          description: Error information from the request.
+          properties:
+            errorId:
+              type: string
+              format: uuid
+              example: 851e419f-93df-46b3-a718-819e923c88f4
+              description: UUID for Zayo troubleshooting.
+            code:
+              type: integer
+              example: 400
+              description: 400 - the request contains bad syntax or cannot be fulfilled.
+            message:
+              type: string
+              description: More detailed explanation of the error.
+            errors:
+              type: array
+              description: Additional error information, if necessary.
+              items:
+                type: string
+                description: Not used yet by Zayo teams, this is typically null.
     billingTicketRequest:
       title: Billing Ticket Request
       type: object
@@ -688,115 +675,34 @@ components:
               phone:
                 type: string
                 example: '3038858963'
-    400Response:
-      title: 400 Response
-      description: Bad Request
-      type: object
-      properties:
-        apiVersion:
-          type: string
-          description: API version of the request.
-        error:
-          type: object
-          description: Error information from the request.
-          properties:
-            errorId:
-              type: string
-              format: uuid
-              example: 851e419f-93df-46b3-a718-819e923c88f4
-              description: UUID for Zayo troubleshooting.
-            code:
-              type: integer
-              example: 400
-              description: 400 - the request contains bad syntax or cannot be fulfilled.
-            message:
-              type: string
-              description: More detailed explanation of the error.
-            errors:
-              type: array
-              description: Additional error information, if necessary.
-              items:
-                type: string
-                description: Not used yet by Zayo teams, this is typically null.
-    ticketTypes:
-      title: Get All Tickets Ticket Types
-      type: string
-      enum:
-      - Access Request
-      - Billing
-      - Customer Service
-      - Disconnect Request
-      - Professional Services
-      - Remote Hands
-      - Tech Assist
-      - Technical Support
-      - Service Inquiry
-      - Shipping & Receiving
-    andOrFilter:
-      title: Get All Tickets And and Or Filter
-      type: object
-      additionalProperties: false
-      minProperties: 1
-      maxProperties: 3
-      properties:
-        circuitId:
-          description: Circuit unique identifier related to ticket.
-          $ref: '#/components/schemas/baseFilter'
-        componentId:
-          description: Service component unique identifier.
-          $ref: '#/components/schemas/baseFilter'
-        customerReferenceId:
-          description: Optional customer defined identifier.
-          $ref: '#/components/schemas/baseFilter'
-        dateTimeOpened:
-          description: Datetime the ticket was opened.
-          $ref: '#/components/schemas/dateTimeOpened'
-        legacyCircuitId:
-          description: Legacy circuit unique identifier related to ticket.
-          $ref: '#/components/schemas/baseFilter'
-        serviceId:
-          description: Service unique identifier.
-          $ref: '#/components/schemas/baseFilter'
-        serviceName:
-          description: Service unique identifier, also used in Tranzact portal.
-          $ref: '#/components/schemas/baseFilter'
-        status:
-          description: Status values can vary based on the ticket type.
-          $ref: '#/components/schemas/baseFilter'
-        subject:
-          description: Ticket subject title.
-          $ref: '#/components/schemas/baseFilter'
-        ticketId:
-          description: Ticket unique identifier.
-          $ref: '#/components/schemas/baseFilter'
-        ticketNumber:
-          description: Ticket unique identifier, also used in Tranzact portal.
-          $ref: '#/components/schemas/baseFilter'
-        ticketType:
-          description: Type of the ticket.
-          $ref: '#/components/schemas/ticketTypeFilter'
-    ticketTypeFilter:
-      title: Get All Tickets Ticket Type Filter
+    baseFilter:
+      title: Get All Tickets Base Filter
       type:
       - string
       - object
       anyOf:
-      - $ref: '#/components/schemas/ticketTypes'
+      - type: string
       - type: object
         additionalProperties: false
         properties:
           eq:
-            $ref: '#/components/schemas/ticketTypes'
+            type: string
+            description: Equal to.
           ge:
-            $ref: '#/components/schemas/ticketTypes'
+            type: string
+            description: Greater than or equal to.
           gt:
-            $ref: '#/components/schemas/ticketTypes'
+            type: string
+            description: Greater than.
           le:
-            $ref: '#/components/schemas/ticketTypes'
+            type: string
+            description: Less than or equal to.
           lt:
-            $ref: '#/components/schemas/ticketTypes'
+            type: string
+            description: Less than.
           ne:
-            $ref: '#/components/schemas/ticketTypes'
+            type: string
+            description: Not equal to.
     accessRequestTicketRequest:
       title: Access Request Ticket Request
       type: object
@@ -860,34 +766,128 @@ components:
         serviceId:
           type: string
           example: a0M6000000Mve6iEAB
-    baseFilter:
-      title: Get All Tickets Base Filter
+    dateTimeOpened:
+      title: Get All Tickets Date Time Opened
       type:
       - string
       - object
       anyOf:
       - type: string
+        format: date-time
+      - type: string
+        format: date
       - type: object
         additionalProperties: false
         properties:
           eq:
             type: string
             description: Equal to.
+            oneOf:
+            - format: date-time
+            - format: date
           ge:
             type: string
             description: Greater than or equal to.
+            oneOf:
+            - format: date-time
+            - format: date
           gt:
             type: string
             description: Greater than.
+            oneOf:
+            - format: date-time
+            - format: date
           le:
             type: string
             description: Less than or equal to.
+            oneOf:
+            - format: date-time
+            - format: date
           lt:
             type: string
             description: Less than.
+            oneOf:
+            - format: date-time
+            - format: date
+    ticketTypeFilter:
+      title: Get All Tickets Ticket Type Filter
+      type:
+      - string
+      - object
+      anyOf:
+      - $ref: '#/components/schemas/ticketTypes'
+      - type: object
+        additionalProperties: false
+        properties:
+          eq:
+            $ref: '#/components/schemas/ticketTypes'
+          ge:
+            $ref: '#/components/schemas/ticketTypes'
+          gt:
+            $ref: '#/components/schemas/ticketTypes'
+          le:
+            $ref: '#/components/schemas/ticketTypes'
+          lt:
+            $ref: '#/components/schemas/ticketTypes'
           ne:
-            type: string
-            description: Not equal to.
+            $ref: '#/components/schemas/ticketTypes'
+    ticketTypes:
+      title: Get All Tickets Ticket Types
+      type: string
+      enum:
+      - Access Request
+      - Billing
+      - Customer Service
+      - Disconnect Request
+      - Professional Services
+      - Remote Hands
+      - Tech Assist
+      - Technical Support
+      - Service Inquiry
+      - Shipping & Receiving
+    andOrFilter:
+      title: Get All Tickets And and Or Filter
+      type: object
+      additionalProperties: false
+      minProperties: 1
+      maxProperties: 3
+      properties:
+        circuitId:
+          description: Circuit unique identifier related to ticket.
+          $ref: '#/components/schemas/baseFilter'
+        componentId:
+          description: Service component unique identifier.
+          $ref: '#/components/schemas/baseFilter'
+        customerReferenceId:
+          description: Optional customer defined identifier.
+          $ref: '#/components/schemas/baseFilter'
+        dateTimeOpened:
+          description: Datetime the ticket was opened.
+          $ref: '#/components/schemas/dateTimeOpened'
+        legacyCircuitId:
+          description: Legacy circuit unique identifier related to ticket.
+          $ref: '#/components/schemas/baseFilter'
+        serviceId:
+          description: Service unique identifier.
+          $ref: '#/components/schemas/baseFilter'
+        serviceName:
+          description: Service unique identifier, also used in Tranzact portal.
+          $ref: '#/components/schemas/baseFilter'
+        status:
+          description: Status values can vary based on the ticket type.
+          $ref: '#/components/schemas/baseFilter'
+        subject:
+          description: Ticket subject title.
+          $ref: '#/components/schemas/baseFilter'
+        ticketId:
+          description: Ticket unique identifier.
+          $ref: '#/components/schemas/baseFilter'
+        ticketNumber:
+          description: Ticket unique identifier, also used in Tranzact portal.
+          $ref: '#/components/schemas/baseFilter'
+        ticketType:
+          description: Type of the ticket.
+          $ref: '#/components/schemas/ticketTypeFilter'
     technicalSupportTicketRequest:
       title: Technical Support Ticket Request
       type: object
