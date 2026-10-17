@@ -1010,6 +1010,193 @@ components:
               items:
                 type: string
                 description: Not used yet by Zayo teams, this is typically null.
+    uniCloudLinkQuoteResponse:
+      title: ETH-ELINE-UNI Cloud Response
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          example: v3
+        data:
+          type: object
+          properties:
+            configuration:
+              type: object
+              properties:
+                children:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      productCode:
+                        type: string
+                        example: ETH-ELINE-UNI
+                      version:
+                        type: string
+                        example: 3.3.0
+                      nodeId:
+                        type: string
+                        format: uuid
+                        example: 61DE1859-7A99-4218-B43E-F96CD57303A0
+                      evcEnabled:
+                        type: string
+                        example: 'No'
+                        description: If yes, this quote may be eligible for same-day activation.
+                      portHandoffSpeed:
+                        type: string
+                        example: GigE
+                      handoff:
+                        type: string
+                        example: 2-Fiber (Optical MMF)
+                      networkInterfaceDevice:
+                        type: string
+                        example: 'Yes'
+                      cfaProvidedBy:
+                        type: string
+                        example: Zayo
+                      locationA:
+                        type: string
+                        example: a0b6000000A6IzoAAF
+                      cloudProvider:
+                        type: string
+                        example: Amazon AWS
+                      connectionType:
+                        type: string
+                        example: Dedicated
+                      locationType:
+                        type: string
+                        example: CloudLink
+                        description: Zayo indicator that the quote is for a CloudLink service.
+                      nniId:
+                        type: string
+                        example: a0M0z00000OuUB8EAN
+                      lag:
+                        type: string
+                        example: 'No'
+                nodeId:
+                  type: string
+                  example: AAC758F0-F719-470D-B716-E8EC6804810F
+                  format: uuid
+                productCode:
+                  type: string
+                  example: ETH-ELINE-UNI
+                version:
+                  type: string
+                  example: 3.3.0
+                currencyIsoCode:
+                  type: string
+                  example: USD
+                bandwidth:
+                  type: string
+                  example: 1G
+                burstableService:
+                  type: string
+                  example: 'No'
+                qualityOfService:
+                  type: string
+                  example: 'Off'
+                mefCertified:
+                  type: string
+                  example: 'No'
+                aggregatedBandwidth:
+                  type: string
+                  example: 'No'
+                bandwidthType:
+                  type: string
+                  example: Standard
+                product:
+                  type: string
+                  example: ELine
+                productCategory:
+                  type: string
+                  example: Pt to Multi-Pt (UNI)
+                locations:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      locationId:
+                        type: string
+                        example: a0b6000000A6IzoAAF
+                      address:
+                        type: string
+                        example: 1656 McCarthy Blvd Milpitas, CA 95035
+                      floorSuiteRoom:
+                        type: string
+                        example: Fl-1/Rm-MMR
+                      buildingNetworkStatus:
+                        type: string
+                        example: On Zayo Network
+                      buildingClassification:
+                        type: string
+                        example: On-Net
+                      locationNetworkStatus:
+                        type: string
+                        example: On Zayo Network
+                      preferredDemarc:
+                        type: string
+                        example: 'Yes'
+                      customerAccessRights:
+                        type: string
+                        example: Full Access Tier 0
+                      nniLocation:
+                        type: boolean
+                        example: false
+                      locationType:
+                        type: string
+                        example: CloudLink
+                      cloudProvider:
+                        type: string
+                        example: Amazon AWS
+                      destinationName:
+                        type: string
+                        example: US West (N. California)
+            preferences:
+              type: object
+              properties:
+                requestFollowUp:
+                  type: string
+                  example: 'No'
+                notes:
+                  type: string
+                  example: These are some notes
+                quoteNameIdentifier:
+                  type: string
+                  example: Quote-123
+            quoteId:
+              type: string
+              example: 474fe2db-2cf2-44b9-b9a7-b5e740a9d487
+              format: uuid
+            quoteNumber:
+              type: string
+              example: Quote-9491826
+            estimatedInstallInterval:
+              type: string
+              example: 40 days
+            financialTerms:
+              type: array
+              items:
+                type: object
+                properties:
+                  term:
+                    type: string
+                    example: '1'
+                  totalMrc:
+                    anyOf:
+                    - type: integer
+                      example: 806
+                    - type: number
+                      example: 957.2
+                    - type: string
+                      example: ICB
+                  totalNrc:
+                    anyOf:
+                    - type: integer
+                      example: 500
+                    - type: number
+                      example: 500.5
+                    - type: string
+                      example: ICB
     uniQuoteResponse:
       title: ETH-ELINE-UNI Response
       type: object
@@ -1277,193 +1464,6 @@ components:
             quoteNameIdentifier:
               type: string
               example: Quote-123
-    uniCloudLinkQuoteResponse:
-      title: ETH-ELINE-UNI Cloud Response
-      type: object
-      properties:
-        apiVersion:
-          type: string
-          example: v3
-        data:
-          type: object
-          properties:
-            configuration:
-              type: object
-              properties:
-                children:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      productCode:
-                        type: string
-                        example: ETH-ELINE-UNI
-                      version:
-                        type: string
-                        example: 3.3.0
-                      nodeId:
-                        type: string
-                        format: uuid
-                        example: 61DE1859-7A99-4218-B43E-F96CD57303A0
-                      evcEnabled:
-                        type: string
-                        example: 'No'
-                        description: If yes, this quote may be eligible for same-day activation.
-                      portHandoffSpeed:
-                        type: string
-                        example: GigE
-                      handoff:
-                        type: string
-                        example: 2-Fiber (Optical MMF)
-                      networkInterfaceDevice:
-                        type: string
-                        example: 'Yes'
-                      cfaProvidedBy:
-                        type: string
-                        example: Zayo
-                      locationA:
-                        type: string
-                        example: a0b6000000A6IzoAAF
-                      cloudProvider:
-                        type: string
-                        example: Amazon AWS
-                      connectionType:
-                        type: string
-                        example: Dedicated
-                      locationType:
-                        type: string
-                        example: CloudLink
-                        description: Zayo indicator that the quote is for a CloudLink service.
-                      nniId:
-                        type: string
-                        example: a0M0z00000OuUB8EAN
-                      lag:
-                        type: string
-                        example: 'No'
-                nodeId:
-                  type: string
-                  example: AAC758F0-F719-470D-B716-E8EC6804810F
-                  format: uuid
-                productCode:
-                  type: string
-                  example: ETH-ELINE-UNI
-                version:
-                  type: string
-                  example: 3.3.0
-                currencyIsoCode:
-                  type: string
-                  example: USD
-                bandwidth:
-                  type: string
-                  example: 1G
-                burstableService:
-                  type: string
-                  example: 'No'
-                qualityOfService:
-                  type: string
-                  example: 'Off'
-                mefCertified:
-                  type: string
-                  example: 'No'
-                aggregatedBandwidth:
-                  type: string
-                  example: 'No'
-                bandwidthType:
-                  type: string
-                  example: Standard
-                product:
-                  type: string
-                  example: ELine
-                productCategory:
-                  type: string
-                  example: Pt to Multi-Pt (UNI)
-                locations:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      locationId:
-                        type: string
-                        example: a0b6000000A6IzoAAF
-                      address:
-                        type: string
-                        example: 1656 McCarthy Blvd Milpitas, CA 95035
-                      floorSuiteRoom:
-                        type: string
-                        example: Fl-1/Rm-MMR
-                      buildingNetworkStatus:
-                        type: string
-                        example: On Zayo Network
-                      buildingClassification:
-                        type: string
-                        example: On-Net
-                      locationNetworkStatus:
-                        type: string
-                        example: On Zayo Network
-                      preferredDemarc:
-                        type: string
-                        example: 'Yes'
-                      customerAccessRights:
-                        type: string
-                        example: Full Access Tier 0
-                      nniLocation:
-                        type: boolean
-                        example: false
-                      locationType:
-                        type: string
-                        example: CloudLink
-                      cloudProvider:
-                        type: string
-                        example: Amazon AWS
-                      destinationName:
-                        type: string
-                        example: US West (N. California)
-            preferences:
-              type: object
-              properties:
-                requestFollowUp:
-                  type: string
-                  example: 'No'
-                notes:
-                  type: string
-                  example: These are some notes
-                quoteNameIdentifier:
-                  type: string
-                  example: Quote-123
-            quoteId:
-              type: string
-              example: 474fe2db-2cf2-44b9-b9a7-b5e740a9d487
-              format: uuid
-            quoteNumber:
-              type: string
-              example: Quote-9491826
-            estimatedInstallInterval:
-              type: string
-              example: 40 days
-            financialTerms:
-              type: array
-              items:
-                type: object
-                properties:
-                  term:
-                    type: string
-                    example: '1'
-                  totalMrc:
-                    anyOf:
-                    - type: integer
-                      example: 806
-                    - type: number
-                      example: 957.2
-                    - type: string
-                      example: ICB
-                  totalNrc:
-                    anyOf:
-                    - type: integer
-                      example: 500
-                    - type: number
-                      example: 500.5
-                    - type: string
-                      example: ICB
   securitySchemes:
     BearerToken:
       type: http

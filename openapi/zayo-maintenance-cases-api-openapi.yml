@@ -1018,110 +1018,35 @@ paths:
                 $ref: '#/components/schemas/400Response'
 components:
   schemas:
-    toTime:
-      title: Maintenance Cases To Time
-      description: Maintenance event start time.
-      format: ^[0-9][0-9]:[0-9][0-9]$
+    x3rdPrimaryDate:
+      title: Maintenance Cases 3rd Primary Date
+      description: Tertiary date of maintenance event.
       anyOf:
       - type: string
       - type: object
+      format: date
       additionalProperties: false
       properties:
         eq:
           type: string
-          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          format: date
           description: Equal to.
         ge:
           type: string
-          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          format: date
           description: Greater than or equal to.
         gt:
           type: string
-          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          format: date
           description: Greater than.
         le:
           type: string
-          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          format: date
           description: Less than or equal to.
         lt:
           type: string
-          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          format: date
           description: Less than.
-    400Response:
-      title: 400 Response
-      description: Bad Request
-      type: object
-      properties:
-        apiVersion:
-          type: string
-          description: API version of the request.
-        error:
-          type: object
-          description: Error information from the request.
-          properties:
-            errorId:
-              type: string
-              format: uuid
-              example: 851e419f-93df-46b3-a718-819e923c88f4
-              description: UUID for Zayo troubleshooting.
-            code:
-              type: integer
-              example: 400
-              description: 400 - the request contains bad syntax or cannot be fulfilled.
-            message:
-              type: string
-              description: More detailed explanation of the error.
-            errors:
-              type: array
-              description: Additional error information, if necessary.
-              items:
-                type: string
-                description: Not used yet by Zayo teams, this is typically null.
-    fromTime:
-      title: Maintenance Cases From Time
-      description: Maintenance event start time.
-      format: ^[0-9][0-9]:[0-9][0-9]$
-      anyOf:
-      - type: string
-      - type: object
-      additionalProperties: false
-      properties:
-        eq:
-          type: string
-          pattern: ^[0-9][0-9]:[0-9][0-9]$
-          description: Equal to.
-        ge:
-          type: string
-          pattern: ^[0-9][0-9]:[0-9][0-9]$
-          description: Greater than or equal to.
-        gt:
-          type: string
-          pattern: ^[0-9][0-9]:[0-9][0-9]$
-          description: Greater than.
-        le:
-          type: string
-          pattern: ^[0-9][0-9]:[0-9][0-9]$
-          description: Less than or equal to.
-        lt:
-          type: string
-          pattern: ^[0-9][0-9]:[0-9][0-9]$
-          description: Less than.
-    timeZone:
-      title: Maintenance Cases Time Zone
-      description: Time zone of from and to times.
-      type: string
-    status:
-      title: Maintenance Cases Status
-      description: Current status of maintenance event.
-      type: string
-      enum:
-      - Scheduled
-      - Maintenance Started
-      - Maintenance Extended
-      - Maintenance Stopped
-      - Maintenance Completed
-      - Closed
-      - Cancelled
     longitude:
       title: Maintenance Cases Longitude
       description: Longitude of maintenance event.
@@ -1168,6 +1093,146 @@ components:
         lt:
           type: string
           description: Less than.
+    levelOfImpact:
+      title: Maintenance Cases Level of Impact
+      description: Impact level of the maintenance event.
+      type: string
+      enum:
+      - Service Affecting
+      - Potential Service Affecting
+      - Non-Service Affecting
+      - LRE-Fiber Splicing
+      - HRE-Fiber Splicing
+    primaryDate:
+      title: Maintenance Cases Primary Date
+      description: Primary date of maintenance event.
+      anyOf:
+      - type: string
+      - type: object
+      format: date
+      additionalProperties: false
+      properties:
+        eq:
+          type: string
+          format: date
+          description: Equal to.
+          example: '2022-12-31'
+        ge:
+          type: string
+          format: date
+          description: Greater than or equal to.
+          example: '2022-12-31'
+        gt:
+          type: string
+          format: date
+          description: Greater than.
+          example: '2022-12-31'
+        le:
+          type: string
+          format: date
+          description: Less than or equal to.
+          example: '2022-01-01'
+        lt:
+          type: string
+          format: date
+          description: Less than.
+          example: '2022-01-01'
+    caseId:
+      title: Maintenance Cases Case Id
+      description: Case unique identifier related the maintenance event.
+      type: string
+    400Response:
+      title: 400 Response
+      description: Bad Request
+      type: object
+      properties:
+        apiVersion:
+          type: string
+          description: API version of the request.
+        error:
+          type: object
+          description: Error information from the request.
+          properties:
+            errorId:
+              type: string
+              format: uuid
+              example: 851e419f-93df-46b3-a718-819e923c88f4
+              description: UUID for Zayo troubleshooting.
+            code:
+              type: integer
+              example: 400
+              description: 400 - the request contains bad syntax or cannot be fulfilled.
+            message:
+              type: string
+              description: More detailed explanation of the error.
+            errors:
+              type: array
+              description: Additional error information, if necessary.
+              items:
+                type: string
+                description: Not used yet by Zayo teams, this is typically null.
+    x2ndPrimaryDate:
+      title: Maintenance Cases 2nd Primary Date
+      description: Secondary date of maintenance event.
+      anyOf:
+      - type: string
+      - type: object
+      format: date
+      additionalProperties: false
+      properties:
+        eq:
+          type: string
+          format: date
+          description: Equal to.
+        ge:
+          type: string
+          format: date
+          description: Greater than or equal to.
+        gt:
+          type: string
+          format: date
+          description: Greater than.
+        le:
+          type: string
+          format: date
+          description: Less than or equal to.
+        lt:
+          type: string
+          format: date
+          description: Less than.
+    caseNumber:
+      title: Maintenance Cases Case Number
+      description: Case unique identifier related the maintenance event.
+      type: string
+    fromTime:
+      title: Maintenance Cases From Time
+      description: Maintenance event start time.
+      format: ^[0-9][0-9]:[0-9][0-9]$
+      anyOf:
+      - type: string
+      - type: object
+      additionalProperties: false
+      properties:
+        eq:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Equal to.
+        ge:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Greater than or equal to.
+        gt:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Greater than.
+        le:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Less than or equal to.
+        lt:
+          type: string
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
+          description: Less than.
     orFilter:
       title: Maintenance Cases Or Filter
       type: object
@@ -1213,119 +1278,54 @@ components:
       - Emergency
       - Off Schedule
       - Planned
-    x2ndPrimaryDate:
-      title: Maintenance Cases 2nd Primary Date
-      description: Secondary date of maintenance event.
-      anyOf:
-      - type: string
-      - type: object
-      format: date
-      additionalProperties: false
-      properties:
-        eq:
-          type: string
-          format: date
-          description: Equal to.
-        ge:
-          type: string
-          format: date
-          description: Greater than or equal to.
-        gt:
-          type: string
-          format: date
-          description: Greater than.
-        le:
-          type: string
-          format: date
-          description: Less than or equal to.
-        lt:
-          type: string
-          format: date
-          description: Less than.
-    primaryDate:
-      title: Maintenance Cases Primary Date
-      description: Primary date of maintenance event.
-      anyOf:
-      - type: string
-      - type: object
-      format: date
-      additionalProperties: false
-      properties:
-        eq:
-          type: string
-          format: date
-          description: Equal to.
-          example: '2022-12-31'
-        ge:
-          type: string
-          format: date
-          description: Greater than or equal to.
-          example: '2022-12-31'
-        gt:
-          type: string
-          format: date
-          description: Greater than.
-          example: '2022-12-31'
-        le:
-          type: string
-          format: date
-          description: Less than or equal to.
-          example: '2022-01-01'
-        lt:
-          type: string
-          format: date
-          description: Less than.
-          example: '2022-01-01'
-    caseId:
-      title: Maintenance Cases Case Id
-      description: Case unique identifier related the maintenance event.
-      type: string
-    caseNumber:
-      title: Maintenance Cases Case Number
-      description: Case unique identifier related the maintenance event.
-      type: string
-    levelOfImpact:
-      title: Maintenance Cases Level of Impact
-      description: Impact level of the maintenance event.
-      type: string
-      enum:
-      - Service Affecting
-      - Potential Service Affecting
-      - Non-Service Affecting
-      - LRE-Fiber Splicing
-      - HRE-Fiber Splicing
     location:
       title: Maintenance Cases Location
       description: Maintenance event location.
       type: string
-    x3rdPrimaryDate:
-      title: Maintenance Cases 3rd Primary Date
-      description: Tertiary date of maintenance event.
+    status:
+      title: Maintenance Cases Status
+      description: Current status of maintenance event.
+      type: string
+      enum:
+      - Scheduled
+      - Maintenance Started
+      - Maintenance Extended
+      - Maintenance Stopped
+      - Maintenance Completed
+      - Closed
+      - Cancelled
+    timeZone:
+      title: Maintenance Cases Time Zone
+      description: Time zone of from and to times.
+      type: string
+    toTime:
+      title: Maintenance Cases To Time
+      description: Maintenance event start time.
+      format: ^[0-9][0-9]:[0-9][0-9]$
       anyOf:
       - type: string
       - type: object
-      format: date
       additionalProperties: false
       properties:
         eq:
           type: string
-          format: date
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
           description: Equal to.
         ge:
           type: string
-          format: date
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
           description: Greater than or equal to.
         gt:
           type: string
-          format: date
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
           description: Greater than.
         le:
           type: string
-          format: date
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
           description: Less than or equal to.
         lt:
           type: string
-          format: date
+          pattern: ^[0-9][0-9]:[0-9][0-9]$
           description: Less than.
   securitySchemes:
     BearerToken:
